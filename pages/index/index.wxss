@@ -1,0 +1,103 @@
+@import '../../utils/utils.wxss';
+
+Page {
+  background-color: #f5f5f5;
+}
+
+/* 轮播图 */
+
+.banner {
+  box-sizing: border-box;
+  margin: 24rpx;
+}
+
+.slide-image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 位置 */
+
+.location {
+  margin: 24rpx;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  height: 72rpx;
+  border-radius: 12rpx;
+  font-size: 24rpx;
+}
+
+.location_icon {
+  width: 20rpx;
+  height: 30rpx;
+  margin-right: 14rpx;
+}
+
+/* 导航 */
+
+.nav {
+  margin: 24rpx;
+  padding: 18rpx 12rpx;
+  height: 205rpx;
+  box-sizing: border-box;
+  border-radius: 12rpx;
+}
+
+.nav_item {
+  background: url(https://cdn.s.bld365.com/getli_index_nav_bg.png) no-repeat center center/100% 100%;
+  margin: 8rpx;
+  flex: 1 0 0;
+  color: #fff;
+}
+
+.nav_img {
+  width: 34rpx;
+  height: 34rpx;
+  margin-right: 12rpx;
+}
+
+.nav_title {
+}
+
+/* 列表 */
+
+.list {
+  margin: 24rpx;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  padding-top: 12rpx;
+  padding-bottom: 12rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  margin-bottom: 160rpx;
+}
+
+.list_item {
+  height: 121rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6rpx;
+  width: calc(50% - 12rpx);
+  margin-top: 12rpx;
+  margin-bottom: 12rpx;
+}
+
+.list_item_img {
+  width: 72rpx;
+  height: 72rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.list_item_content {
+  flex: 1 0 0;
+  font-size: 22rpx;
+}
+.list_item_count{
+  font-size: 34rpx;
+  font-weight: bold;
+}
+

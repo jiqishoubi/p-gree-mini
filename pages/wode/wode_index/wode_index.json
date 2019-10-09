@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "我的",
+  "navigationBarBackgroundColor":"#00A7FF",
+  "navigationBarTextStyle":"white",
+  "usingComponents": {
+    "van-tabbar": "vant-weapp/tabbar",
+    "van-tabbar-item": "vant-weapp/tabbar-item"
+  }
+}

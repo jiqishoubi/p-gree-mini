@@ -1,0 +1,112 @@
+<!-- 我的 -->
+<view class="wode_page">
+  <!-- top -->
+  <view class="top flexCenter flexBetween">
+    <view class="head_box">
+      <image class="head" src='https://cdn.s.bld365.com/getli_wode_index_head.png' alt=''></image>
+    </view>
+    <view class="head_content">
+      <view class="nickname">姓名</view>
+      <view class="phone">13051832424</view>
+    </view>
+  </view>
+
+  <!-- 导航 -->
+  <view class="nav bg_white flexCenter flexAround">
+    <view class="nav_item flexColumn"
+      bindtap="goPage"
+      data-item='/pages/wode/orderlist/orderlist'
+    >
+      <image class="nav_item_img" 
+        src='https://cdn.s.bld365.com/getli_wode_index_nav_img_01.png' 
+        alt=''
+        style="width:48rpx;height:51rpx;"
+      ></image>
+      <view class="nav_text">我的订单</view>
+    </view>
+    <view class="nav_item flexColumn"
+      bindtap="goPage"
+      data-item='/pages/wode/'
+    >
+      <image class="nav_item_img" 
+        src='https://cdn.s.bld365.com/getli_wode_index_nav_img_02.png' 
+        alt=''
+        style="width:33rpx;height:51rpx;"
+      ></image>
+      <view class="nav_text">所属门店</view>
+    </view>
+    <view class="nav_item flexColumn"
+      bindtap="goPage"
+      data-item='/pages/wode/'
+    >
+      <image class="nav_item_img" 
+        src='https://cdn.s.bld365.com/getli_wode_index_nav_img_03.png' 
+        alt=''
+        style="width:45rpx;height:51rpx;"
+      ></image>
+      <view class="nav_text">我的收益</view>
+    </view>
+  </view>
+
+
+  <!-- tabbar -->
+  <van-tabbar 
+    active="{{3}}"
+    active-color="#00A6FF"
+    inactive-color="#fff"
+    bind:change="onChange_tabbar"
+  >
+    <van-tabbar-item>
+      <image
+        slot="icon"
+        src="https://cdn.s.bld365.com/getli_tab_icon_01.png"
+        mode="aspectFit"
+      />
+      <image
+        slot="icon-active"
+        src="https://cdn.s.bld365.com/getli_tab_icon_01_active.png"
+        mode="aspectFit"
+      />
+      首页
+    </van-tabbar-item>
+    <van-tabbar-item>
+      <image
+        slot="icon"
+        src="https://cdn.s.bld365.com/getli_tab_icon_02.png"
+        mode="aspectFit"
+      />
+      <image
+        slot="icon-active"
+        src="https://cdn.s.bld365.com/getli_tab_icon_02_active.png"
+        mode="aspectFit"
+      />
+      统计
+    </van-tabbar-item>
+    <van-tabbar-item>
+      <image
+        slot="icon"
+        src="https://cdn.s.bld365.com/getli_tab_icon_03.png"
+        mode="aspectFit"
+      />
+      <image
+        slot="icon-active"
+        src="https://cdn.s.bld365.com/getli_tab_icon_03_active.png"
+        mode="aspectFit"
+      />
+      下单
+    </van-tabbar-item>
+    <van-tabbar-item>
+      <image
+        slot="icon"
+        src="https://cdn.s.bld365.com/getli_tab_icon_04.png"
+        mode="aspectFit"
+      />
+      <image
+        slot="icon-active"
+        src="https://cdn.s.bld365.com/getli_tab_icon_04_active.png"
+        mode="aspectFit"
+      />
+      我的
+    </van-tabbar-item>
+  </van-tabbar>
+</view>

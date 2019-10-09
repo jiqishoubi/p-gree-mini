@@ -1,0 +1,110 @@
+@import '../../../utils/utils.wxss';
+
+Page {
+  background-color: #f5f5f5;
+  /* height: 100%;
+  overflow: hidden; */
+}
+
+.statistics_page {
+  /* height: 100%;
+  overflow: hidden; */
+}
+
+/* 上面tab */
+
+.tabs_top {
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999 !important; */
+}
+
+/* .van-tabs.van-tabs.van-tabs--line.van-tabs--line {
+  z-index: 999 !important;
+}
+
+.van-tabs__wrap.van-tabs__wrap.van-hairline--top-bottom.van-hairline--top-bottom {
+  z-index: 999 !important;
+}
+.van-tabs__nav.van-tabs__nav.van-tabs__nav--line.van-tabs__nav--line{
+z-index: 999 !important;
+} */
+
+/* content */
+
+.content {
+  /* margin-top: 44px; */
+  padding-top: 24rpx;
+  margin-bottom: 190rpx;
+  overflow-y: auto;
+  height: calc(100% - 180rpx);
+  position: relative;
+  z-index: 1;
+}
+
+/* 统计图 */
+
+.chart {
+  background-color: #fff;
+  margin: 0 24rpx;
+  padding: 0 24rpx;
+  border-radius: 5rpx;
+}
+
+.chart_month {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom: 1px solid #e6e6e6;
+  height: 88rpx;
+}
+
+.chart_month .month_active {
+  color: #00a6ff;
+}
+
+/* 环形进度条 */
+
+.chart_circle_wrap {
+  margin-top: 80rpx;
+}
+
+.static_img_01 {
+  width: 172rpx;
+  height: 44rpx;
+}
+
+/* 环形进度条下面的统计 */
+
+.chart_circle_text_wrap {
+  padding: 20rpx 30rpx 40rpx;
+}
+
+/* 列表 */
+
+.list {
+  margin-bottom: 160rpx;
+}
+
+.list_item {
+  margin: 24rpx;
+  border-radius: 5rpx;
+  padding: 0 24rpx;
+}
+
+.list_item_title {
+  height: 75rpx;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.list_item_title_text {
+  color: #000;
+  font-size: 28rpx;
+}
+
+.list_item_content {
+  color: #9b9b9b;
+  padding: 20rpx 0;
+}

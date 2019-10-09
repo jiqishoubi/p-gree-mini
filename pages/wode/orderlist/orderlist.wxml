@@ -1,0 +1,55 @@
+<!-- 我的订单 -->
+<view class="orderlist_page">
+  <view class="top">
+    <!-- 搜索框 -->
+    <view class="search_wrap">
+      
+    </view>
+    <!-- 切换tab -->
+    <view>
+    </view>
+  </view>
+  
+
+  <!-- 列表 -->
+  <view class="list">
+    <view wx:for="{{list}}" 
+      wx:key="index"
+      class="item bg_white"
+    >
+      <view class="item_title flexCenter flexBetween">
+        <view style="font-size:28rpx;color:#000;">姓名{{item.name}}</view>
+        <view>{{item.status}}</view>
+      </view>
+
+      <view class="item_content flexCenter flexBetween">
+        <view class="item_img_box">
+          <image class="item_img" src="{{item.img}}" alt=''></image>
+        </view>
+        <view class="item_content_content">
+          <view class="item_content_content_top">
+            <view style="color:#000;font-size:25rpx;">{{item.mname}}</view>
+            <view style="color:#9B9B9B;font-size:22rpx;margin:10rpx 0;">{{item.desc}}</view>
+            <view class="flex">
+              <view wx:for="{{item.tag}}"
+                wx:for-index="tagIndex" 
+                wx:for-item="tagName"
+                wx:key="tagIndex"
+                class="item_tag"
+              >{{tagName}}</view>
+            </view>
+          </view>
+          
+          <view>{{item.price}}元</view>
+        </view>
+      </view>
+
+      <view class="item_ctrl_wrap flexCenter">
+        <view class="btn1">退单</view>
+        <view wx:if="{{item.status!=='已付款'}}"
+          class="btn2"
+        >预约安装时间</view>
+      </view>
+    </view>
+  </view>
+</view>

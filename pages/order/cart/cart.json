@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "购物车",
+  "usingComponents": {
+    "van-dialog": "vant-weapp/dialog/index"
+  }
+}

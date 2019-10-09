@@ -1,0 +1,118 @@
+@import '../../../utils/utils.wxss';
+
+Page {
+  background-color: #f5f5f5;
+  color: #000;
+  height: 100%;
+  overflow: hidden;
+}
+
+.order_page {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 类型 */
+
+.type {
+  margin-bottom: 24rpx;
+  padding-bottom: 27rpx;
+}
+
+.type_title {
+  font-size: 28rpx;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  height: 100rpx;
+}
+
+.type_title_icon {
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 14rpx;
+}
+
+.type_item_wrap {
+  padding-left: 37rpx;
+  padding-right: 37rpx;
+}
+
+.type_item {
+  background: url(https://cdn.s.bld365.com/getli_index_nav_bg.png) no-repeat center center/100% 100%;
+  width: calc(50% - 25rpx);
+  height: 217rpx;
+  color: #fff;
+  font-size: 25rpx;
+}
+
+.type_item_icon {
+  width: 58rpx;
+  height: 58rpx;
+  margin-bottom: 18rpx;
+}
+
+/* 列表 */
+
+.list_title {
+  height: 82rpx;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+}
+
+.list_title_more {
+  color: #d7d6d6;
+  font-size: 22rpx;
+}
+
+.list_title_right_arrow {
+  width: 22rpx;
+  height: 22rpx;
+  margin-left: 13rpx;
+}
+
+/* list tab样式修正 */
+
+.order_page .van-ellipsis.van-ellipsis.van-tab.van-tab.van-tab--active.van-tab--active .van-ellipsis.van-ellipsis.van-tab__title.van-tab__title {
+  color: #00a6ff !important;
+}
+
+.order_page .van-ellipsis.van-ellipsis.van-tab__title.van-tab__title {
+  font-size: 22rpx !important;
+  color: #4a4a4a !important;
+}
+
+/* list tab样式修正 end */
+
+.list_content_wrap {
+  overflow-y: auto;
+  height: calc(100vh - 625rpx);
+}
+
+.list_content {
+  margin-bottom: 120rpx;
+}
+
+.list_item {
+  margin: 24rpx;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+}
+
+.list_item_title {
+  height: 80rpx;
+}
+
+.list_item_name {
+  color: #000;
+  font-size: 28rpx;
+}
+
+.list_item_status {
+  font-size: 24rpx;
+}
+
+.list_item_address {
+  color: #4a4a4a;
+  font-size: 22rpx;
+  height: 80rpx;
+}

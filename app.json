@@ -1,0 +1,21 @@
+{
+  "pages": [
+        "pages/index/index",
+    "pages/statistics/statistics_index/statistics_index",
+
+    "pages/wode/orderlist/orderlist",
+   
+    "pages/wode/wode_index/wode_index",
+    "pages/order/site_order/site_order",
+    "pages/order/cart/cart",
+    "pages/order/doing_search/doing_search",
+    "pages/order/order_index/order_index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}

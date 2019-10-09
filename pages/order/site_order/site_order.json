@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "现场下单",
+  "usingComponents": {
+    "van-dialog": "vant-weapp/dialog/index"
+  }
+}

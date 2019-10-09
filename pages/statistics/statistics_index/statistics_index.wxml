@@ -1,0 +1,216 @@
+<!-- 统计 -->
+<view class="statistics_page">
+  <!-- 上面tab -->
+  <view class="tabs_top">
+    <van-tabs 
+      active="{{ active }}" 
+      bind:change="onChangeTabTop"
+      swipe-threshold="{{5}}"
+      color="#00A6FF"
+    >
+      <van-tab title="本人">
+      </van-tab>
+      <van-tab title="本店">
+      </van-tab>
+    </van-tabs>
+  </view>
+
+  <!-- content -->
+  <view class="content" style="display:{{activeTop==0?'block':'none'}}">
+    <view class="chart">
+      <view class="chart_month">
+        <view wx:for="{{monthList}}" wx:key="index"
+          class="{{item==curMonth?'month_active':''}}"
+          bindtap="cutMonth"
+          data-param="{{item}}"
+        >
+          {{item}}月
+        </view>
+      </view>
+      
+      <view class='chart_circle_wrap'>
+        <view class="flexJCenter">
+          <view>
+            <view>已下单21笔</view>
+            <image class="static_img_01" src='https://cdn.s.bld365.com/getli_statistics_img_01.png' alt=''></image>
+          </view>
+          <view style="position:relative;">
+            <!-- 环形进度条 -->
+            <van-circle 
+              value="{{50}}" 
+              text="{{42}}笔" 
+              color="#93d1fa"
+              layer-color="#48a5f8"
+              stroke-width="{{8}}"
+            />
+          </view>
+          <view>
+            <view style="text-align:right;">待转销售21笔</view>
+            <image class="static_img_01" src='https://cdn.s.bld365.com/getli_statistics_img_02.png' alt=''></image>
+          </view>
+        </view>
+
+        <view class="flexCenter flexBetween chart_circle_text_wrap">
+          <view>
+            <view>本日订单：6笔</view>
+            <view>本月订单：60笔</view>
+          </view>
+          <view>
+            <view>预计收入：120.00</view>
+            <view>预计收入：1200.00</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 列表 -->
+    <view class="list">
+      <view wx:for="{{list_month}}" wx:key="index"
+        class="list_item bg_white"
+      >
+        <view class="flexCenter flexBetween list_item_title">
+          <view class="list_item_title_text">{{item.title}}</view>
+          <view>{{item.status}}</view>
+        </view>
+        <view class="list_item_content">
+          <view>商品型号：{{item.code}}</view>
+          <view>应得奖金：{{item.fee}}元</view>
+          <view>提交时间：{{item.time}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  
+
+  <!-- content -->
+  <view class="content" style="display:{{activeTop==0?'none':'block'}}">
+    <view class="chart">
+      <view class="chart_month">
+        <view wx:for="{{monthList}}" wx:key="index"
+          class="{{item==curMonth?'month_active':''}}"
+          bindtap="cutMonth"
+          data-param="{{item}}"
+        >
+          {{item}}月
+        </view>
+      </view>
+      
+      <view class='chart_circle_wrap'>
+        <view class="flexJCenter">
+          <view>
+            <view>已下单40笔</view>
+            <image class="static_img_01" src='https://cdn.s.bld365.com/getli_statistics_img_01.png' alt=''></image>
+          </view>
+          <view>
+            <!-- 环形进度条 -->
+            <van-circle 
+              value="{{50}}" 
+              text="{{80}}笔" 
+              color="#93d1fa"
+              layer-color="#48a5f8"
+              stroke-width="{{8}}"
+            />
+          </view>
+          <view>
+            <view style="text-align:right;">待转销售40笔</view>
+            <image class="static_img_01" src='https://cdn.s.bld365.com/getli_statistics_img_02.png' alt=''></image>
+          </view>
+        </view>
+
+        <view class="flexCenter flexBetween chart_circle_text_wrap">
+          <view>
+            <view>本日订单：6笔</view>
+            <view>本月订单：60笔</view>
+          </view>
+          <view>
+            <view>预计收入：120.00</view>
+            <view>预计收入：1200.00</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 列表 -->
+    <view class="list">
+      <view wx:for="{{list}}" wx:key="index"
+        class="list_item bg_white"
+      >
+        <view class="flexCenter flexBetween list_item_title">
+          <view class="list_item_title_text">{{item.title}}</view>
+          <view>{{item.status}}</view>
+        </view>
+        <view class="list_item_content">
+          <view>商品型号：{{item.code}}</view>
+          <view>应得奖金：{{item.fee}}元</view>
+          <view>提交时间：{{item.time}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+
+
+  <!-- tabbar -->
+  <van-tabbar 
+    active="{{1}}"
+    active-color="#00A6FF"
+    inactive-color="#fff"
+    bind:change="onChange_tabbar"
+  >
+    <van-tabbar-item>
+      <image
+        slot="icon"
+        src="https://cdn.s.bld365.com/getli_tab_icon_01.png"
+        mode="aspectFit"
+      />
+      <image
+        slot="icon-active"
+        src="https://cdn.s.bld365.com/getli_tab_icon_01_active.png"
+        mode="aspectFit"
+      />
+      首页
+    </van-tabbar-item>
+    <van-tabbar-item>
+      <image
+        slot="icon"
+        src="https://cdn.s.bld365.com/getli_tab_icon_02.png"
+        mode="aspectFit"
+      />
+      <image
+        slot="icon-active"
+        src="https://cdn.s.bld365.com/getli_tab_icon_02_active.png"
+        mode="aspectFit"
+      />
+      统计
+    </van-tabbar-item>
+    <van-tabbar-item>
+      <image
+        slot="icon"
+        src="https://cdn.s.bld365.com/getli_tab_icon_03.png"
+        mode="aspectFit"
+      />
+      <image
+        slot="icon-active"
+        src="https://cdn.s.bld365.com/getli_tab_icon_03_active.png"
+        mode="aspectFit"
+      />
+      下单
+    </van-tabbar-item>
+    <van-tabbar-item>
+      <image
+        slot="icon"
+        src="https://cdn.s.bld365.com/getli_tab_icon_04.png"
+        mode="aspectFit"
+      />
+      <image
+        slot="icon-active"
+        src="https://cdn.s.bld365.com/getli_tab_icon_04_active.png"
+        mode="aspectFit"
+      />
+      我的
+    </van-tabbar-item>
+  </van-tabbar>
+</view>

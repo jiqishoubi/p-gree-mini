@@ -1,0 +1,122 @@
+<!-- 购物车 -->
+<view class="cart_page">
+  <!-- 商品 -->
+  <view class="good bg_white">
+    <view class="good_info">
+      <view>{{result.mtype}}</view>
+      <view>KFR-72GW(35594)(含管)</view>
+    </view>
+    <view class="flexCenter flexBetween">
+      <view>{{totalPrice}}元</view>
+      <view class="flexCenter flexBetween">
+        <image class="good_count_ctrl" src='https://cdn.s.bld365.com/getli_shopping_cart_minus_icon.png' 
+          alt=''
+          bindtap="minusHandle"
+        ></image>
+        <view class="good_count">{{count}}</view>
+        <image class="good_count_ctrl" src='https://cdn.s.bld365.com/getli_shopping_cart_plus_icon.png' 
+          alt=''
+          bindtap="plusHandle"
+        ></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- form -->
+  <!-- 附加信息 -->
+  <view class="form">
+    <view class="form_title">附加信息</view>
+    <view class="form_item">
+      <view class="form_label">送货时间</view>
+      <view class='form_input'>
+        <input class="form_input_input" placeholder="请选择送货时间"
+          placeholder-class="form_input_placeholder"
+          value="{{time}}"
+          bindinput="inputChange"
+          data-key="time"
+        ></input>
+      </view>
+    </view>
+    <view class="form_item">
+      <view class="form_label">提单号</view>
+      <view class='form_input'>
+        <input class="form_input_input" placeholder="请填写提单号"
+          placeholder-class="form_input_placeholder"
+          value="{{code}}"
+          bindinput="inputChange"
+          data-key="code"
+        ></input>
+      </view>
+    </view>
+    <view class="form_item">
+      <view class="form_label">备注</view>
+      <view class='form_input'>
+        <input class="form_input_input" placeholder="请填写其他信息"
+          placeholder-class="form_input_placeholder"
+          value="{{remark}}"
+          bindinput="inputChange"
+          data-key="remark"
+        ></input>
+      </view>
+    </view>
+  </view>
+
+  <!-- 顾客信息 -->
+  <view class="form" style="margin-bottom:160rpx;">
+    <view class="form_title">顾客信息</view>
+    <view class="form_item">
+      <view class="form_label">认筹券号</view>
+      <view class="form_input">{{result.code}}</view>
+    </view>
+    <view class="form_item">
+      <view class="form_label">客户</view>
+      <view class="form_input">{{result.name}}</view>
+    </view>
+    <view class="form_item">
+      <view class="form_label">认筹手机</view>
+      <view class="form_input">{{result.phone}}</view>
+    </view>
+    <view class="form_item">
+      <view class="form_label">收货手机</view>
+      <view class="form_input">{{result.phone}}</view>
+    </view>
+    <view class="form_item">
+      <view class="form_label">认筹地址</view>
+      <view class="form_input">{{result.address}}</view>
+    </view>
+    <view class="form_item">
+      <view class="form_label">详细地址</view>
+      <view class="form_input">{{result.address_detail}}</view>
+    </view>
+  </view>
+
+
+  <!-- 按钮 -->
+  <view class="btn_submit{{isX?' isX':''}}" 
+    hover-class="btn_submit_active"
+    hover-stay-time="{{200}}"
+    bindtap="clickSubmitOrder"
+  >提交订单</view>
+
+
+  <!-- ************************************模态框************************************ -->
+  <van-dialog
+    use-slot
+    show="{{ showResultModal }}"
+    show-cancel-button="{{false}}"
+    show-confirm-button="{{false}}"
+  >
+    <view class="flexColumn result_modal">
+      <view class="flexColumn">
+        <view style="font-size:33rpx;margin-bottom:15rpx;">下单成功</view>
+        <view style="font-size:24rpx;margin-bottom:60rpx;">请通知顾客微信进行预约安装</view>
+      </view>
+      <view>
+        <button class="btn_result"
+          hover-class="btn_result_active"
+          bindtap="clickModalBtn"
+        >知道了</button>
+      </view>
+    </view>
+  </van-dialog>
+</view>

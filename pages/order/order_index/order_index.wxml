@@ -1,0 +1,187 @@
+<!-- 下单主页 -->
+<view class="order_page">
+  <!-- 类型 -->
+  <view class="type bg_white">
+    <view class="type_title flexCenter">
+      <image class="type_title_icon" src='https://cdn.s.bld365.com/getli_order_index_title_icon.png' alt=''></image>请选择下单方式：         </view>
+    <view class="type_item_wrap flexBetween">
+      <view class="type_item flexColumn"
+        bindtap="goPage"
+        data-item='/pages/order/doing_search/doing_search'
+      >
+        <image class="type_item_icon" src='https://cdn.s.bld365.com/getli_index_nav_icon_01.png' alt=''></image>
+        <view>活动下单</view>
+      </view>
+      <view class="type_item flexColumn"
+        bindtap="goPage"
+        data-item='/pages/order/site_order/site_order'
+      >
+        <image class="type_item_icon" src='https://cdn.s.bld365.com/getli_index_nav_icon_02.png' alt=''></image>
+        <view>现场下单</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 列表 -->
+  <view class="list">
+    <view class="list_title bg_white flexCenter flexBetween">
+      <view>订单列表</view>
+      <view class="list_title_more flexCenter">
+        查看全部<image class="list_title_right_arrow" src='https://cdn.s.bld365.com/getli_order_index_list_right_arrow.png' alt=''></image>
+      </view>
+    </view>
+    <!-- tab -->
+    <van-tabs 
+      active="{{ active }}" 
+      bind:change="onChange"
+      swipe-threshold="{{5}}"
+      color="#00A6FF"
+    >
+      <van-tab title="全部">
+        <view class="list_content_wrap">
+          <view class="list_content">
+            <view wx:for="{{list_1}}" wx:key="index"
+              class="list_item bg_white"
+            >
+              <view class="list_item_title flexCenter flexBetween van-hairline--bottom">
+                <view class="list_item_name">姓名 {{item.name}}</view>
+                <view class="list_item_status">{{item.status}}</view>
+              </view>
+              <view class="list_item_address flexCenter">{{item.address}}</view>
+            </view>
+          </view>
+        </view>
+      </van-tab>
+      <van-tab title="未付款">
+        <view class="list_content">
+          <view class="list_content_wrap">
+            <view class="list_content">
+              <view wx:for="{{list_2}}" wx:key="index"
+                class="list_item bg_white"
+              >
+                <view class="list_item_title flexCenter flexBetween van-hairline--bottom">
+                  <view class="list_item_name">姓名 {{item.name}}</view>
+                  <view class="list_item_status">{{item.status}}</view>
+                </view>
+                <view class="list_item_address flexCenter">{{item.address}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </van-tab>
+      <van-tab title="已付款">
+        <view class="list_content">
+          <view class="list_content_wrap">
+            <view class="list_content">
+              <view wx:for="{{list_3}}" wx:key="index"
+                class="list_item bg_white"
+              >
+                <view class="list_item_title flexCenter flexBetween van-hairline--bottom">
+                  <view class="list_item_name">姓名 {{item.name}}</view>
+                  <view class="list_item_status">{{item.status}}</view>
+                </view>
+                <view class="list_item_address flexCenter">{{item.address}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </van-tab>
+      <van-tab title="已退单">
+        <view class=" ">
+          <view class="list_content_wrap">
+            <view class="list_content">
+              <view wx:for="{{list_4}}" wx:key="index"
+                class="list_item bg_white"
+              >
+                <view class="list_item_title flexCenter flexBetween van-hairline--bottom">
+                  <view class="list_item_name">姓名 {{item.name}}</view>
+                  <view class="list_item_status">{{item.status}}</view>
+                </view>
+                <view class="list_item_address flexCenter">{{item.address}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </van-tab>
+      <van-tab title="已退款">
+        <view class="list_content">
+          <view class="list_content_wrap">
+            <view class="list_content">
+              <view wx:for="{{list_5}}" wx:key="index"
+                class="list_item bg_white"
+              >
+                <view class="list_item_title flexCenter flexBetween van-hairline--bottom">
+                  <view class="list_item_name">姓名 {{item.name}}</view>
+                  <view class="list_item_status">{{item.status}}</view>
+                </view>
+                <view class="list_item_address flexCenter">{{item.address}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </van-tab>
+    </van-tabs>
+  </view>
+
+
+  <!-- tabbar -->
+  <van-tabbar 
+    active="{{2}}"
+    active-color="#00A6FF"
+    inactive-color="#fff"
+    bind:change="onChange_tabbar"
+  >
+    <van-tabbar-item>
+      <image
+        slot="icon"
+        src="https://cdn.s.bld365.com/getli_tab_icon_01.png"
+        mode="aspectFit"
+      />
+      <image
+        slot="icon-active"
+        src="https://cdn.s.bld365.com/getli_tab_icon_01_active.png"
+        mode="aspectFit"
+      />
+      首页
+    </van-tabbar-item>
+    <van-tabbar-item>
+      <image
+        slot="icon"
+        src="https://cdn.s.bld365.com/getli_tab_icon_02.png"
+        mode="aspectFit"
+      />
+      <image
+        slot="icon-active"
+        src="https://cdn.s.bld365.com/getli_tab_icon_02_active.png"
+        mode="aspectFit"
+      />
+      统计
+    </van-tabbar-item>
+    <van-tabbar-item>
+      <image
+        slot="icon"
+        src="https://cdn.s.bld365.com/getli_tab_icon_03.png"
+        mode="aspectFit"
+      />
+      <image
+        slot="icon-active"
+        src="https://cdn.s.bld365.com/getli_tab_icon_03_active.png"
+        mode="aspectFit"
+      />
+      下单
+    </van-tabbar-item>
+    <van-tabbar-item>
+      <image
+        slot="icon"
+        src="https://cdn.s.bld365.com/getli_tab_icon_04.png"
+        mode="aspectFit"
+      />
+      <image
+        slot="icon-active"
+        src="https://cdn.s.bld365.com/getli_tab_icon_04_active.png"
+        mode="aspectFit"
+      />
+      我的
+    </van-tabbar-item>
+  </van-tabbar>
+</view>

@@ -1,10 +1,8 @@
 {
   "pages": [
-        "pages/index/index",
+    "pages/index/index",
     "pages/statistics/statistics_index/statistics_index",
-
     "pages/wode/orderlist/orderlist",
-   
     "pages/wode/wode_index/wode_index",
     "pages/order/site_order/site_order",
     "pages/order/cart/cart",

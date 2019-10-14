@@ -1,4 +1,24 @@
 
+const isTest = true
+
+const hostObj = {
+  dev: {
+    host: 'http://139.129.217.83:8288'
+  },
+  prod: {
+    host: ''
+  },
+}
+
+//获取host
+export const globalHost = () => {
+  if (isTest) {
+    return hostObj.dev.host
+  } else {
+    return hostObj.prod.host
+  }
+}
+
 /**
  * 格式化日期
  */

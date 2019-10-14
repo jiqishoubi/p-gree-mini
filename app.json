@@ -1,13 +1,18 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/statistics/statistics_index/statistics_index",
-    "pages/wode/orderlist/orderlist",
+        "pages/wode/shopcode/shopcode",
+    "pages/wode/mycode/mycode",
     "pages/wode/wode_index/wode_index",
-    "pages/order/site_order/site_order",
+    "pages/index/index",
+    "pages/login/login",
+    "pages/wode/orderlist/orderlist",
     "pages/order/cart/cart",
-    "pages/order/doing_search/doing_search",
-    "pages/order/order_index/order_index"
+    "pages/order/choose/choose",
+    "pages/order/order_index/order_index",
+    "pages/statistics/statistics_index/statistics_index",
+    "pages/order/site_order/site_order",
+    "pages/order/doing_search/doing_search"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

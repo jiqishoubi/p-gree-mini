@@ -6,7 +6,7 @@ Page({
   data: {
     //banner
     imgList:[
-      'https://cdn.s.bld365.com/getli_index_banner_01.png'
+      'https://cdn.s.bld365.com/getli_index_banner_02.png'
     ]
   },
   onLoad: function () {

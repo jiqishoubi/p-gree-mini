@@ -12,39 +12,58 @@
   </view>
 
   <!-- 导航 -->
-  <view class="nav bg_white flexCenter flexAround">
-    <view class="nav_item flexColumn"
-      bindtap="goPage"
-      data-item='/pages/wode/orderlist/orderlist'
-    >
-      <image class="nav_item_img" 
-        src='https://cdn.s.bld365.com/getli_wode_index_nav_img_01.png' 
-        alt=''
-        style="width:48rpx;height:51rpx;"
-      ></image>
-      <view class="nav_text">我的订单</view>
-    </view>
-    <view class="nav_item flexColumn"
-      bindtap="goPage"
-      data-item='/pages/wode/'
-    >
-      <image class="nav_item_img" 
-        src='https://cdn.s.bld365.com/getli_wode_index_nav_img_02.png' 
-        alt=''
-        style="width:33rpx;height:51rpx;"
-      ></image>
-      <view class="nav_text">所属门店</view>
-    </view>
-    <view class="nav_item flexColumn"
-      bindtap="goPage"
-      data-item='/pages/wode/'
-    >
-      <image class="nav_item_img" 
-        src='https://cdn.s.bld365.com/getli_wode_index_nav_img_03.png' 
-        alt=''
-        style="width:45rpx;height:51rpx;"
-      ></image>
-      <view class="nav_text">我的收益</view>
+  <view class="nav bg_white">
+    <view class="nav_content">
+      <view class="nav_item"
+        bindtap="goPage"
+        data-item='/pages/wode/orderlist/orderlist'
+      >
+        <image class="nav_item_img" 
+          src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_01.png' alt=''
+        ></image>
+        <view class="nav_text">我的订单</view>
+        <view class="nav_item_arrow"></view>
+      </view>
+      <view class="nav_item"
+        bindtap="goPage"
+        data-item='/pages/wode/'
+      >
+        <image class="nav_item_img" 
+          src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_02.png' alt=''
+        ></image>
+        <view class="nav_text">补录下单</view>
+        <view class="nav_item_arrow"></view>
+      </view>
+      <view class="nav_item"
+        bindtap="goPage"
+        data-item='/pages/wode/'
+      >
+        <image class="nav_item_img" 
+          src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_03.png' alt=''
+        ></image>
+        <view class="nav_text">我的收益</view>
+        <view class="nav_item_arrow"></view>
+      </view>
+      <view class="nav_item"
+        bindtap="goPage"
+        data-item='/pages/wode/mycode/mycode'
+      >
+        <image class="nav_item_img" 
+          src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_04.png' alt=''
+        ></image>
+        <view class="nav_text">我的二维码</view>
+        <view class="nav_item_arrow"></view>
+      </view>
+      <view class="nav_item"
+        bindtap="goPage"
+        data-item='/pages/wode/shopcode/shopcode'
+      >
+        <image class="nav_item_img" 
+          src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_05.png' alt=''
+        ></image>
+        <view class="nav_text">店铺二维码</view>
+        <view class="nav_item_arrow"></view>
+      </view>
     </view>
   </view>
 

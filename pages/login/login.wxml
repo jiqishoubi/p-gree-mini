@@ -1,0 +1,41 @@
+<!-- 登录页 -->
+<view class="login_page">
+  <!-- 背景 -->
+  <view class="bg flexColumn">
+    <image class="bg_text" src='https://cdn.s.bld365.com/getli_login_logo_text.png' alt=''></image>
+    <view class="bg_text_text">- 格力新零售平台 -</view>
+  </view>
+  <!-- logo -->
+  <view class="logo"></view>
+
+  <!-- form -->
+  <view class="form">
+    <view class="item flexCenter">
+      <image class='item_icon' src='https://cdn.s.bld365.com/getli_login_form_icon_01.png' alt=''></image>
+      <input class="item_input"
+        placeholder="请输入账号"
+        placeholder-style="item_input_place"
+        value="{{loginName}}"
+        bindinput="onInputChange"
+        data-key='loginName'
+      ></input>
+    </view>
+    <view class="item flexCenter">
+      <image class='item_icon' src='https://cdn.s.bld365.com/getli_login_form_icon_02.png' alt=''></image>
+      <input class="item_input"
+        password="{{true}}"
+        placeholder="请输入密码"
+        placeholder-style="item_input_place"
+        value="{{loginPassword}}"
+        bindinput="onInputChange"
+        data-key='loginPassword'
+      ></input>
+    </view>
+
+    <!-- 按钮 -->
+    <button class='btn'
+      hover-class="btn_hover"
+      bindtap="submit"
+    >登录</button>
+  </view>
+</view>

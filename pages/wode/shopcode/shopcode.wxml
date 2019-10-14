@@ -1,0 +1,19 @@
+<!-- 店铺二维码 -->
+<view class="shopcode_page">
+  <view class="container positionCenter">
+    <!-- 上面 -->
+    <view class="top flexCenter">
+      <view class="head_box">
+        <image class="head" src='https://cdn.s.bld365.com/getli_wode_index_head.png' alt=''></image>
+      </view>
+      <view class="top_content">
+        <view class="top_name">姓名</view>
+        <view class="top_phone">13051832424</view>
+      </view>
+    </view>
+    <!-- 中间 -->
+    <view class="img_box">
+      <image class="code" src='' alt=''></image>
+    </view>
+  </view>
+</view>

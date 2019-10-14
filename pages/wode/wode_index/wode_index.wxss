@@ -27,14 +27,40 @@ Page {
 .head_content {
   flex: 1 0 0;
   width: 0;
-  color:#fff;
+  color: #fff;
 }
 
 .nickname {
   font-size: 33rpx;
 }
+
 /* 导航 */
-.nav_item{
-  flex: 1 0 0;
-  padding: 31rpx 19rpx;
+
+.nav_content {
+  margin: 0 24rpx;
+}
+
+.nav_item {
+  height: 85rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #d7d6d6;
+}
+
+.nav_item:last-child {
+  border-bottom: none;
+}
+
+.nav_item_img {
+  width: 34rpx;
+  height: 34rpx;
+  margin-right: 24rpx;
+}
+
+.nav_item_arrow {
+  width: 16rpx;
+  height: 24rpx;
+  background: url(https://cdn.s.bld365.com/getli_wode_index_nav_item_right_arrow.png) no-repeat center center/100% 100%;
+  margin-right: 0;
+  margin-left: auto;
 }

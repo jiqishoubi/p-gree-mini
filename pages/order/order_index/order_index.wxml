@@ -1,35 +1,21 @@
 <!-- 下单主页 -->
 <view class="order_page">
-  <!-- 类型 -->
-  <view class="type bg_white">
-    <view class="type_title flexCenter">
-      <image class="type_title_icon" src='https://cdn.s.bld365.com/getli_order_index_title_icon.png' alt=''></image>请选择下单方式：         </view>
-    <view class="type_item_wrap flexBetween">
-      <view class="type_item flexColumn"
-        bindtap="goPage"
-        data-item='/pages/order/doing_search/doing_search'
-      >
-        <image class="type_item_icon" src='https://cdn.s.bld365.com/getli_index_nav_icon_01.png' alt=''></image>
-        <view>活动下单</view>
-      </view>
-      <view class="type_item flexColumn"
-        bindtap="goPage"
-        data-item='/pages/order/site_order/site_order'
-      >
-        <image class="type_item_icon" src='https://cdn.s.bld365.com/getli_index_nav_icon_02.png' alt=''></image>
-        <view>现场下单</view>
-      </view>
+  <!-- 搜索 -->
+  <view class="search_wrap bg_white">
+    <view class="search_content flexCenter">
+      <van-icon name="search" 
+        size="1.5em" 
+        color="#9B9B9B"
+      />
+      <input class="search_input"
+        placeholder="输入型号"
+        confirm-type='搜索'
+      ></input>
     </view>
   </view>
 
   <!-- 列表 -->
   <view class="list">
-    <view class="list_title bg_white flexCenter flexBetween">
-      <view>订单列表</view>
-      <view class="list_title_more flexCenter">
-        查看全部<image class="list_title_right_arrow" src='https://cdn.s.bld365.com/getli_order_index_list_right_arrow.png' alt=''></image>
-      </view>
-    </view>
     <!-- tab -->
     <van-tabs 
       active="{{ active }}" 

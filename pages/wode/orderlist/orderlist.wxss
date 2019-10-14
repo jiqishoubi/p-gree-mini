@@ -83,3 +83,11 @@ Page {
   background-color: #00a6ff;
   color: #fff;
 }
+
+/* 模态框 */
+.datepicker{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}

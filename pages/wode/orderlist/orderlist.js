@@ -45,62 +45,92 @@ Page({
         '变频', '3匹', '1级能效'
       ],
       price: '5380',
-    }]
+    }],
+
+    // datepicker组件
+    showDatepicker: false,
+    bindDateVal: new Date().getTime(), //绑定的value
+    confirmDateVal: '', //最后确定的date
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
+  },
+  //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
+  //datepicker组件
+  onInputDate: function(e) {
+    this.setData({
+      bindDateVal: e.detail,
+    })
+  },
+  onConfirmDate: function(e) {
+    this.setData({
+      showDatepicker: false,
+      confirmDateVal: e.detail,
+    })
+  },
+  onCancelDate: function() {
+    this.setData({
+      showDatepicker: false,
+    })
+  },
+  //datepicker组件 end
+  //点击预约安装时间
+  openDatepicker: function() {
+    this.setData({
+      showDatepicker: true,
+    })
   }
 })

@@ -22,20 +22,32 @@
   </view>
 
   <!-- 导航 -->
-  <view class="nav bg_white flexBetween">
+  <view class="nav flexBetween bg_white">
+    <view class="nav_item flexCenter flexJCenter"
+      bindtap="goPage"
+      data-item='/pages/order/site_order/site_order'
+      style="margin-bottom:18rpx"
+    >
+      <view class="nav_title">认筹下单</view>
+    </view>
     <view class="nav_item flexCenter flexJCenter"
       bindtap="goPage"
       data-item='/pages/order/doing_search/doing_search'
+      style="margin-bottom:18rpx"
     >
-      <image class="nav_img" src='https://cdn.s.bld365.com/getli_index_nav_icon_01.png' alt=''></image>
-      <view class="nav_title">活动下单</view>
+      <view class="nav_title">转销售</view>
     </view>
     <view class="nav_item flexCenter flexJCenter"
       bindtap="goPage"
       data-item='/pages/order/site_order/site_order'
     >
-      <image class="nav_img" src='https://cdn.s.bld365.com/getli_index_nav_icon_02.png' alt=''></image>
-      <view class="nav_title">现场下单</view>
+      <view class="nav_title">家用下单</view>
+    </view>
+    <view class="nav_item flexCenter flexJCenter"
+      bindtap="goPage"
+      data-item='/pages/order/site_order/site_order'
+    >
+      <view class="nav_title">商用下单</view>
     </view>
   </view>
 

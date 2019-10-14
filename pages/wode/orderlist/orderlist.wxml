@@ -48,8 +48,23 @@
         <view class="btn1">退单</view>
         <view wx:if="{{item.status!=='已付款'}}"
           class="btn2"
+          bindtap="openDatepicker"
         >预约安装时间</view>
       </view>
     </view>
+  </view>
+
+  <!-- **************************模态框************************** -->
+  <view wx:if="{{showDatepicker}}"
+    class="mask" 
+    catchtouchmove="nomove"
+  >
+    <van-datetime-picker class="datepicker"
+      type="date"
+      value="{{bindDateVal}}"
+      bind:input="onInputDate"
+      bind:confirm="onConfirmDate"
+      bind:cancel="onCancelDate"
+    />
   </view>
 </view>

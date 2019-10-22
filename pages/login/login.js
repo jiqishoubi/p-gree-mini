@@ -121,6 +121,12 @@ Page({
       })
       return false
     }
+
+    let userInfo={
+      token:res.data.data.token,
+      ...res.data.data.userInfo,
+    }
+    wx.setStorageSync('gree_userInfo', userInfo)
     
     wx.redirectTo({
       url: '/pages/index/index',

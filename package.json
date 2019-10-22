@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
-    "vant-weapp": "^1.0.0-beta.0"
+    "vant-weapp": "^1.0.0-beta.0",
+    "weapp-qrcode": "^1.0.0"
   },
   "devDependencies": {},
   "scripts": {

@@ -3,7 +3,8 @@ const isTest = true
 
 const hostObj = {
   dev: {
-    host: 'http://139.129.217.83:8288'
+    // host: 'http://139.129.217.83:8288',
+    host: 'https://greet.bld365.com',
   },
   prod: {
     host: ''

@@ -1,18 +1,23 @@
 {
   "pages": [
-        "pages/wode/shopcode/shopcode",
+    "pages/order/choose2/choose2",
+    "pages/order/doing_search/doing_search",
+   
+    "pages/order/choose2_search/choose2_search",
+    "pages/renchou/renchou",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/order/site_order_new/site_order_new",
+    "pages/order/site_order/site_order",
+    "pages/order/submitOrder/submitOrder",
+    "pages/order/order_index/order_index",
+    "pages/wode/shopcode/shopcode",
     "pages/wode/mycode/mycode",
     "pages/wode/wode_index/wode_index",
-    "pages/index/index",
-    "pages/login/login",
     "pages/wode/orderlist/orderlist",
     "pages/order/cart/cart",
-    "pages/order/choose/choose",
-    "pages/order/order_index/order_index",
     "pages/statistics/statistics_index/statistics_index",
-    "pages/order/site_order/site_order",
-    "pages/order/doing_search/doing_search"
-
+    "pages/order/doing_search_detail/doing_search_detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

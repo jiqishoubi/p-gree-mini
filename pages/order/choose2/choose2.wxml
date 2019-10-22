@@ -1,0 +1,78 @@
+<!-- 选择商品 -->
+<view class="choose_page">
+  <!-- 搜索 -->
+  <view class="search_wrap bg_white">
+    <view class="search_content flexCenter" bindtap="goSearch">
+      <van-icon name="search" 
+        size="1.5em" 
+        color="#9B9B9B"
+      />
+      <input class="search_input"
+        placeholder="请搜索产品名称或助记码"
+        confirm-type='搜索'
+        disabled="{{true}}"
+      ></input>
+    </view>
+  </view>
+
+  <!-- content -->
+  <view class="content{{isX?' isX':''}}">
+    <!-- 左侧 -->
+    <view class="left">
+      <view wx:for="{{leftlist}}" wx:key="index"
+        class="left_item textOmit{{active_left==index?' active':''}}"
+        bindtap="chooseleft"
+        data-param="{{index}}"
+      >
+        {{item.goodsGroupName}}
+      </view>
+    </view>
+    <!-- 右侧 -->
+    <view class="right">
+      <block wx:if="{{leftlist[active_left].children&&leftlist[active_left].children.length>0}}">
+        <view wx:for="{{leftlist[active_left].children}}" wx:key="index"
+          class="right_item"
+        >
+          <view class="item_content flexCenter flexBetween">
+            <view class="item_img_box">
+              <image class="item_img" src="{{item.img}}" alt=''></image>
+            </view>
+            <view class="item_content_content">
+              <view class="item_content_content_top">
+                <view class="textOmit" style="color:#000;font-size:25rpx;">{{item.goodsName}}</view>
+                <view style="color:#9B9B9B;font-size:22rpx;margin:10rpx 0;">{{item.goodsDesc}}</view>
+                <!-- <view class="flex">
+                  <view wx:for="{{item.tag}}"
+                    wx:for-index="tagIndex" 
+                    wx:for-item="tagName"
+                    wx:key="tagIndex"
+                    class="item_tag"
+                  >{{tagName}}</view>
+                </view> -->
+              </view>
+              
+              <view class="yuan_wrap flexCenter flexBetween">
+                <view>{{item.priceFeeYuan}}元</view>
+                <van-stepper value="{{item.count}}" 
+                  min="{{0}}"
+                  bind:change="onChangeStep" 
+                  data-param="{{index}}"
+                  plus-class="stepplusicon"
+                  minus-class="stepminusicon"
+                />
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <view wx:else class="noresult">暂无数据</view>
+    </view>
+  </view>
+
+  <!-- 下一步 -->
+  <view class="nextStep{{isX?' isX':''}}" 
+    hover-class="nextStep_active"
+    hover-stay-time="{{200}}"
+    bindtap="clickBtn"
+  >下一步</view>
+</view>

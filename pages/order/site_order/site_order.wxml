@@ -10,6 +10,53 @@
     </view>
   </view>
 
+  <!-- 安装信息 -->
+  <view class="form">
+    <view class="form_item form_title">
+      <view class="form_title_icon"></view>
+      <view>安装信息</view>
+    </view>
+    <view class="form_item">
+      <view class="form_item_label">收货人</view>
+      <view class="form_input">
+        <input class="form_input_input" 
+          placeholder="请输入手机号码"
+          value="{{receiver}}"
+          bindinput="bindInpuChange"
+          data-key='receiver'
+        ></input>
+      </view>
+    </view>
+    <view class="form_item">
+      <view class="form_item_label">收货电话</view>
+      <view class="form_input">
+        <input class="form_input_input" 
+          placeholder="请输入收货电话"
+          value="{{receivePhone}}"
+          bindinput="bindInpuChange"
+          data-key='receivePhone'
+        ></input>
+      </view>
+    </view>
+    <view class="form_item">
+      <view class="form_item_label">所在地区</view>
+      <view class="form_input">
+      
+      </view>
+    </view>
+    <view class="form_item">
+      <view class="form_item_label">详细地址</view>
+      <view class="form_input">
+        <input class="form_input_input" 
+          placeholder="请输入详细地址"
+          value="{{address}}"
+          bindinput="bindInpuChange"
+          data-key='address'
+        ></input>
+      </view>
+    </view>
+  </view>
+
   <!-- 顾客信息 -->
   <view class="form">
     <view class="form_item form_title">

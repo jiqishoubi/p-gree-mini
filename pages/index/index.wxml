@@ -25,7 +25,7 @@
   <view class="nav flexBetween bg_white">
     <view class="nav_item flexCenter flexJCenter"
       bindtap="goPage"
-      data-item='/pages/order/site_order/site_order'
+      data-item='/pages/renchou/renchou'
       style="margin-bottom:18rpx"
     >
       <view class="nav_title">认筹下单</view>
@@ -85,7 +85,7 @@
       </view>
     </view>
 
-    <view class="list_item van-hairline--surround">
+    <!-- <view class="list_item van-hairline--surround">
       <image class="list_item_img" src='https://cdn.s.bld365.com/getli_index_list_item_img_05.png' alt=''></image>
       <view class="list_item_content">
         <view>本日提成：元</view>
@@ -99,7 +99,7 @@
         <view>本月提成：元</view>
         <view class="list_item_count">{{2}}</view>
       </view>
-    </view>
+    </view> -->
   </view>
 
   <!-- tabbar -->

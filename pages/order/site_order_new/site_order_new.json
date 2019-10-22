@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "现场下单",
+  "usingComponents": {
+    "van-dialog": "vant-weapp/dialog/index",
+    "citypicker": "../../components/citypicker/citypicker",
+    "van-popup": "vant-weapp/popup/index",
+    "van-picker": "vant-weapp/picker/index"
+  }
+}

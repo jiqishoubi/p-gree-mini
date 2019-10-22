@@ -1,0 +1,150 @@
+import regeneratorRuntime from '../../../utils/runtime.js' //让小程序支持asyc await
+import requestw from '../../../utils/requestw.js'
+import allApiStr from '../../../utils/allApiStr.js'
+
+const app = getApp()
+
+
+/**
+ * options：
+ * activityCode //活动code
+ */
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    isX: app.globalData.isX,
+
+    activityCode: null, //活动code
+
+    searchVal: '',
+    list: [],
+    selectedList: [{a:'2'}],
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    this.setData({
+      activityCode: options.activityCode ? options.activityCode : null,
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+    console.log('离开')
+    wx.setStorageSync('from_choose2_search_selectedList', this.data.selectedList)
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  },
+  //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
+  //返回上一页
+  goBack: function() {
+    wx.navigateBack()
+  },
+  //绑定input
+  onInputChange: function(e) {
+    let key = e.currentTarget.dataset.key
+    let value = e.detail.value
+    this.setData({
+      [key]: value
+    })
+  },
+  //input完成
+  clickSearch: function() {
+    this.getData()
+  },
+  //获取商品列表
+  getData: async function() {
+    const {
+      searchVal
+    } = this.data
+    //验证
+    if (searchVal == '') {
+      wx.showToast({
+        title: '请输入搜索条件',
+        icon: 'none',
+        // mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    //验证 end
+
+    //发送参数
+    let postData = {
+      goodsNameOrModelLike: searchVal,
+      activityCode: this.data.activityCode ? this.data.activityCode : null,
+    }
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    let res = await requestw({
+      url: allApiStr.getGoodsByQueryApi,
+      data: postData,
+    })
+    wx.hideLoading()
+    console.log(res)
+
+    if (res.data.code !== '0' || !res.data.data) {
+      wx.showToast({
+        title: '暂无数据',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+
+    this.setData({
+      list: res.data.data
+    })
+  },
+})

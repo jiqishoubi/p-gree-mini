@@ -1,0 +1,194 @@
+<!-- 认筹 -->
+<view class="renchou_page" id='wrapper'>
+  <view class="container">
+    <view class='item'>
+      <view class="label">活动</view>
+      <picker class="salerpicker_wrap"
+        mode='selector'
+        range="{{activityList}}" 
+        range-key="activityName"
+        value="{{selectedActivityIndex}}" 
+        bindchange="onChangeActivitypicker"
+      >
+        <view class="salerpicker">
+          <text wx:if="{{selectedActivityIndex!==null}}">{{activityList[selectedActivityIndex].activityName}}</text>
+          <text wx:else>请选择</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- *********************block********************* -->
+  <block wx:for="{{list}}" 
+    wx:for-index="indexwrap" wx:for-item="itemwrap"
+    wx:key="indexwrap"
+  >
+    <view class="container">
+      <view class="item title flexBetween">
+        <view class="flexCenter">
+          <view class="rect"></view>商品
+        </view>
+        <view class="flexCenter">
+          <button wx:if="{{list.length>1&&indexwrap!==list.length-1}}"
+            class="deleteBtn"
+            bindtap="deleteItemWrap"
+            data-indexwrap="{{indexwrap}}"
+          >删除</button>
+        </view>
+      </view>
+      <view class='item'>
+        <view class="label">商品机型</view>
+        <view class="input flexCenter"
+          bindtap="toggleGoodsList"
+          data-param='{{indexwrap}}'
+        >
+          <text wx:if="{{itemwrap.selectedGoods}}">{{itemwrap.selectedGoods.goodsName}}</text>
+          <text wx:else>请选择机型</text>
+        </view>
+      </view>
+      <!-- 商品列表 -->
+      <scroll-view wx:if="{{itemwrap.showGoodsList}}"
+        class="goodsList"
+        scroll-y="{{true}}"
+      >
+        <view class="goodsListSearch">
+          <van-icon name="search" 
+            size="1.2em" 
+            color="#9B9B9B"
+          />
+          <input class="goodsListSearch_input"
+            placeholder="请输入名称或型号"
+            value="{{itemwrap.searchGoodsVal}}"
+            bindinput="inputSeachGoodsVal"
+            data-indexwrap="{{indexwrap}}"
+          ></input>
+        </view>
+        <view class="item_wrap">
+          <view wx:for="{{itemwrap.goodsList}}" wx:key="index"
+            class="item"
+            bindtap="selectGoods"
+            data-item="{{item}}"
+            data-indexwrap="{{indexwrap}}"
+          >
+            <view class="label goodsLabel">{{item.goodsName}}</view>
+          </view>
+        </view>
+      </scroll-view>
+      <!-- 商品列表 end -->
+      <block wx:if="{{indexwrap==0||itemwrap.selectedGoods}}">
+        <view class='item'>
+          <view class="label">收货人</view>
+          <input class="input"
+            placeholder="请输入收货人"
+            value="{{itemwrap.receiver}}"
+            bindinput="onInputChange"
+            data-key="receiver"
+            data-indexwrap="{{indexwrap}}"
+          ></input>
+          <button wx:if="{{indexwrap!==0}}"
+            class="addressBtn"
+            bindtap="useUpAddress"
+            data-indexwrap="{{indexwrap}}"
+          >使用上方地址</button>
+        </view>
+        <view class='item'>
+          <view class="label">收货电话</view>
+          <input class="input"
+            placeholder="请输入收货电话"
+            value="{{itemwrap.receiverPhone}}"
+            bindinput="onInputChange"
+            data-key="receiverPhone"
+            data-indexwrap="{{indexwrap}}"
+          ></input>
+        </view>
+        <view class='item'>
+          <view class="label">所在地区</view>
+          <view class="input flexCenter" 
+            bindtap="openCitypicker"
+            data-indexwrap="{{indexwrap}}"
+          >
+            <text wx:if="{{itemwrap.pickerCityVal[0]}}">{{itemwrap.pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text>
+            <text wx:if="{{itemwrap.pickerCityVal[1]}}">{{itemwrap.pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text> 
+            <text wx:if="{{itemwrap.pickerCityVal[2]}}">{{itemwrap.pickerCityVal[2].areaName}}</text>
+            <text wx:else>请选择</text>
+          </view>
+        </view>
+        <!-- 选择城市组件 -->
+        <!-- 选择城市组件 -->
+        <citypicker show="{{itemwrap.showCitypicker}}" 
+          activeColor="#00A6FF"
+          bind:onClose="closeCitypicker"
+          data-indexwrap="{{indexwrap}}"
+        />
+        <view class='item'>
+          <view class="label">详细地址</view>
+          <input class="input"
+            placeholder="请输入详细地址"
+            value="{{itemwrap.address}}"
+            bindinput="onInputChange"
+            data-key="address"
+            data-indexwrap="{{indexwrap}}"
+          ></input>
+        </view>
+      </block>
+    </view>
+  </block>
+  <!-- *********************block end********************* -->
+
+
+  <!-- 导购员 -->
+  <view class="container">
+    <view wx:if="{{type=='d'}}" class='item'>
+      <view class="label">导购员</view>
+      <picker class="salerpicker_wrap"
+        mode='selector'
+        range="{{salerList}}" 
+        range-key="userName"
+        value="{{selectedSalerIndex}}" 
+        bindchange="onChangeSalerpicker"
+      >
+        <view class="salerpicker">
+          <text wx:if="{{selectedSalerIndex!==null}}">{{salerList[selectedSalerIndex].userName}}</text>
+          <text wx:else>请选择</text>
+        </view>
+      </picker>
+    </view>
+    <view wx:if="{{type=='s'}}" class='item'>
+      <view class="label">导购员</view>
+      <view wx:if="{{saler}}" class="input flexCenter">{{saler.userName}}</view>
+    </view>
+  </view>
+  <view style="height:360rpx;"></view>
+
+  <!-- 按钮 -->
+  <view class="btn{{isX?' isX':''}}" 
+    hover-class="btn_active"
+    hover-stay-time="{{200}}"
+    bindtap="submitRc"
+  >提交</view>
+
+  <!-- **********************模态框********************** -->
+  <canvas canvas-id="canvas-map" class="share-canvas"></canvas>
+  <van-dialog id="van-dialog" />
+  <!-- 二维码modal -->
+  <view class='mask draw' wx:if="{{showCodeModal}}">
+    <view class="code_modal positionCenter draw">
+      <view class="code_title draw">
+        <image class="code_title_logo draw" src='https://cdn.s.bld365.com/gelirc_renchou_logo.png' alt=''></image>
+      </view>
+      <view class="code_content draw">
+        <view class="code draw">
+          <canvas class="code_img draw" canvas-id="myQrcode" style="width:200PX;height:200PX;"/>
+        </view>
+        <view class="code_info flexColumn draw">
+          <view class="code_info_count draw">{{orderNo}}</view>
+          <view class="code_info_title draw">认筹编号</view>
+        </view>
+        <button class="code_btn"
+          hover-class="code_btn_hover"
+          bindtap="saveToLocal"
+        >保存二维码到本地</button>
+      </view>
+    </view>
+  </view>
+</view>

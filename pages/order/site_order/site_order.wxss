@@ -73,6 +73,7 @@ Page{
   justify-content: center;
   color: #fff;
   font-size: 28rpx;
+  z-index: 666;
 }
 
 .btn_submit_active {

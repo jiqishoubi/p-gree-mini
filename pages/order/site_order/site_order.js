@@ -8,6 +8,11 @@ Page({
   data: {
     isX: app.globalData.isX,
 
+    // 安装信息
+    receiver:'',
+    receivePhone:'',
+    address:'',
+
     //结果modal
     showResultModal: false,
   },
@@ -68,6 +73,14 @@ Page({
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
+  //绑定input
+  bindInputChange:function(e){
+    let key = e.currentTarget.dataset.key
+    let value = e.detail.value
+    this.setData({
+      [key]: value
+    })
+  },
   //点击下单
   clickOrder: function () {
     const self = this

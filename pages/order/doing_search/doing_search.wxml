@@ -3,6 +3,7 @@
   <!-- 搜索 -->
   <view class="search_wrap van-hairline--surround flexCenter flexBetween">
     <input class="search_input"
+      placeholder="请输入券号/手机号"
       value="{{searchVal}}"
       bindinput="inputChange"
       data-key="searchVal"
@@ -21,43 +22,39 @@
   </view>
 
   <!-- 搜索结果 -->
-  <view wx:if="{{result}}" class="result">
-    <view class="result_title">搜索结果</view>
-    <view class="result_content">
-      <view class="result_item">
-        <view class="result_label">认筹券号</view>
-        <view>{{result.code}}</view>
-      </view>
-      <view class="result_item">
-        <view class="result_label">认筹类型</view>
-        <view>{{result.type}}</view>
-      </view>
-      <view class="result_item">
-        <view class="result_label">商品机型</view>
-        <view>{{result.mtype}}</view>
-      </view>
-      <view class="result_item">
-        <view class="result_label">商品价格</view>
-        <view>{{result.price}}</view>
-      </view>
-      <view class="result_item">
-        <view class="result_label">客户姓名</view>
-        <view>{{result.name}}</view>
-      </view>
-      <view class="result_item">
-        <view class="result_label">认筹手机</view>
-        <view>{{result.phone}}</view>
-      </view>
-      <view class="result_item">
-        <view class="result_label">安装地址</view>
-        <view>{{result.address}}</view>
-      </view>
-      <view class="result_item">
-        <view class="result_label">详细地址</view>
-        <view>{{result.address_detail}}</view>
+  <block wx:if="{{resultList&&resultList.length>0}}">
+    <view wx:for="{{resultList}}" wx:key="index"
+      class="result"
+      bindtap="goChooseGoods"
+      data-item="{{item}}"
+    >
+      <view class="result_title">{{item.orderNo}}</view>
+      <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"
+        wx:key="idx"
+        class="result_content"
+      >
+        <view class="result_item">
+          <view class="result_label">客户姓名</view>
+          <view>{{itm.custName}}</view>
+        </view>
+        <view class="result_item">
+          <view class="result_label">客户电话</view>
+          <view>{{itm.phoneNumber}}</view>
+        </view>
+        <view class="result_item">
+          <view class="result_label">商品名称</view>
+          <view>{{itm.goodsName}}</view>
+        </view>
+        <view class="result_item">
+          <view class="result_label">安装地址</view>
+          <view>{{itm.provinceName}}{{itm.eparchyName}}{{itm.cityName}}{{itm.address}}</view>
+        </view>
       </view>
     </view>
-  </view>
+  </block>
+
+  <view style="height:360rpx;"></view>
+  
 
   <!-- 按钮 -->
   <view class="btn_submit{{isX?' isX':''}}" 

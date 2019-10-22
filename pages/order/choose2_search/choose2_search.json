@@ -1,0 +1,7 @@
+{
+"navigationBarTitleText": "搜索商品",
+"navigationBarBackgroundColor":"#f4f4f4",
+"usingComponents": {
+  "van-icon": "vant-weapp/icon/index"
+}
+}

@@ -43,10 +43,7 @@
   border: 1px solid #e6e6e6;
   border-radius: 5rpx;
   overflow: hidden;
-  margin-top: 74rpx;
-  margin-left: 48rpx;
-  margin-right: 48rpx;
-  margin-bottom: 160rpx;
+  margin: 24rpx 48rpx;
 }
 
 .result_title, .result_item {

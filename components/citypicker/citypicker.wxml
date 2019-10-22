@@ -1,0 +1,50 @@
+<view>
+  <van-popup
+    show="{{show}}"
+    closeable
+    position="bottom"
+    bind:close="_onClose"
+  >
+    <van-tabs active="{{active}}" 
+      color="{{activeColor}}"
+      bind:change="onChangeTab"
+    >
+      <van-tab title="{{title1}}">
+        <view class="citypicker_content">
+          <view wx:for="{{provinceList}}" wx:key='index'
+            class="citypicker_item{{(selectedProvince&&item.areaCode==selectedProvince.areaCode)?' active':''}}"
+            bindtap="clickProvince"
+            data-param="{{item}}"
+            style="color:{{(selectedProvince&&item.areaCode==selectedProvince.areaCode)?activeColor:'inherit'}}"
+          >
+            {{item.areaName}}
+          </view>
+        </view>
+      </van-tab>
+      <van-tab title="{{title2}}">
+        <view class="citypicker_content">
+          <view wx:for="{{cityList}}" wx:key='index'
+            class="citypicker_item{{(selectedCity&&item.areaCode==selectedCity.areaCode)?' active':''}}"
+            bindtap="clickCity"
+            data-param="{{item}}"
+            style="color:{{(selectedCity&&item.areaCode==selectedCity.areaCode)?activeColor:'inherit'}}"
+          >
+            {{item.areaName}}
+          </view>
+        </view>
+      </van-tab>
+      <van-tab title="{{title3}}">
+        <view class="citypicker_content">
+          <view wx:for="{{areaList}}" wx:key='index'
+            class="citypicker_item{{(selectedArea&&item.areaCode==selectedArea.areaCode)?' active':''}}"
+            bindtap="clickArea"
+            data-param="{{item}}"
+            style="color:{{(selectedArea&&item.areaCode==selectedArea.areaCode)?activeColor:'inherit'}}"
+          >
+            {{item.areaName}}
+          </view> 
+        </view>
+      </van-tab>
+    </van-tabs>
+  </van-popup>
+</view>

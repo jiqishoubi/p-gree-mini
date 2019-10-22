@@ -23,8 +23,8 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.8.3",
-	"appid": "wxe491304f6da98e0d",
+	"libVersion": "2.9.0",
+	"appid": "wx3762f49a327e50dd",
 	"projectname": "geli_mini",
 	"debugOptions": {
 		"hidedInDevtools": []

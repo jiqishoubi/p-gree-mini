@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "认筹",
+  "usingComponents": {
+    "van-popup": "vant-weapp/popup/index",
+    "van-area": "vant-weapp/area/index",
+    "van-stepper": "vant-weapp/stepper/index",
+    "citypicker": "../../components/citypicker/citypicker",
+    "van-icon": "vant-weapp/icon/index",
+    "van-dialog": "vant-weapp/dialog/index"
+  }
+}

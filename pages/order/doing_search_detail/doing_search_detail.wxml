@@ -1,0 +1,38 @@
+<!-- 转销售 -->
+<view class="doing_search_page">
+
+  <!-- 搜索结果 -->
+  <view class="result">
+    <view class="result_title">{{item.orderNo}}</view>
+    <view 
+      class="result_content"
+    >
+      <view class="result_item">
+        <view class="result_label">客户姓名</view>
+        <view>{{itm.custName}}</view>
+      </view>
+      <view class="result_item">
+        <view class="result_label">客户电话</view>
+        <view>{{itm.phoneNumber}}</view>
+      </view>
+      <view class="result_item">
+        <view class="result_label">商品名称</view>
+        <view>{{itm.goodsName}}</view>
+      </view>
+      <view class="result_item">
+        <view class="result_label">安装地址</view>
+        <view>{{itm.provinceName}}{{itm.eparchyName}}{{itm.cityName}}{{itm.address}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view style="height:360rpx;"></view>
+  
+
+  <!-- 按钮 -->
+  <view class="btn_submit{{isX?' isX':''}}" 
+    hover-class="btn_submit_active"
+    hover-stay-time="{{200}}"
+    bindtap="clickOrder"
+  >下单</view>
+</view>

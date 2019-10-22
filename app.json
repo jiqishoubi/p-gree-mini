@@ -1,12 +1,13 @@
 {
   "pages": [
+      "pages/index/index",
     "pages/order/choose2/choose2",
     "pages/order/doing_search/doing_search",
    
     "pages/order/choose2_search/choose2_search",
     "pages/renchou/renchou",
     "pages/login/login",
-    "pages/index/index",
+  
     "pages/order/site_order_new/site_order_new",
     "pages/order/site_order/site_order",
     "pages/order/submitOrder/submitOrder",

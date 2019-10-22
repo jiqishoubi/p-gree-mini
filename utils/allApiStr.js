@@ -20,7 +20,6 @@ const allApiStr = {
   getSalerUserListApi: '/mp/cust/depart/getSalerUserByDepartCode', //获取门店下的导购员列表
 
   getActivityListApi: '/mp/preorder/getActivityList', //查活动 
-  getGoodsListByActivityApi: '/mp/cust/goods/queryByActivityCode', //查商品 根据活动
 
   submitPreOrderApi: '/mp/preorder/submitPreOrder', //提交认筹单
   getPreOrderListApi: '/mp/cust/preorder/getPreOrderList', //获取认筹订单列表

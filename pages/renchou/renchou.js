@@ -417,7 +417,7 @@ Page({
   getGoodsList: function(activityCode) {
     return new Promise(async(resolve, reject) => {
       let res = await requestw({
-        url: allApiStr.getGoodsListByActivityApi,
+        url: allApiStr.getGoodsByQueryApi,
         data: {
           activityCode
         },

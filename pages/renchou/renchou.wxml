@@ -217,7 +217,6 @@
 
   <!-- **********************模态框********************** -->
   <canvas canvas-id="canvas-map" class="share-canvas"></canvas>
-  <van-dialog id="van-dialog" />
   <!-- 二维码modal -->
   <view class='mask draw' wx:if="{{showCodeModal}}">
     <view class="code_modal positionCenter draw">

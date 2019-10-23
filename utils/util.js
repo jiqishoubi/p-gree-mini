@@ -47,3 +47,11 @@ export const formatDate = (date, fmt) => {
   return fmt;
 }
 
+//格式化金钱
+export const toMoney = (val) => { //数字
+  var str = (val / 100 * 100).toFixed(2) + '';
+  var intSum = str.substring(0, str.indexOf(".")).replace(/\B(?=(?:\d{3})+$)/g, ',');//取到整数部分
+  var dot = str.substring(str.length, str.indexOf("."))//取到小数部分搜索
+  var ret = intSum + dot;
+  return ret;
+}

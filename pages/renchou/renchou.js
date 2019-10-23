@@ -2,8 +2,7 @@ import regeneratorRuntime from '../../utils/runtime.js' //让小程序支持asyc
 import requestw from '../../utils/requestw.js'
 import allApiStr from '../../utils/allApiStr.js'
 import drawQrcode from 'weapp-qrcode' //生成二维码
-import wxml2canvas from '../../utils/wxml2canvas.js'
-import Dialog from 'vant-weapp/dialog/dialog';
+// import wxml2canvas from '../../utils/wxml2canvas.js'
 
 const app = getApp()
 
@@ -45,7 +44,6 @@ Page({
    */
   onLoad: async function(options) {
     let userInfo = wx.getStorageSync('gree_userInfo')
-    console.log(userInfo)
 
     wx.showLoading({
       title: '请稍候...',
@@ -207,121 +205,6 @@ Page({
       }, 20)
     })
   },
-  //提交
-  submitRc: async function() {
-    const {
-      type,
-      saler,
-      list,
-      selectedActivityIndex,
-      selectedSalerIndex,
-      activityList,
-      salerList,
-    } = this.data
-
-    //验证
-    let flag = true //可以的
-    list.forEach((obj) => {
-      console.log(obj)
-      if (list.length > 1) { //list大于1个
-        if (obj.selectedGoods) {
-          if (
-            obj.receiver == '' ||
-            obj.receiverPhone == '' ||
-            obj.address == '' ||
-            !obj.pickerCityVal[0]
-          ) {
-            flag = false
-          }
-        }
-      } else { //list只有1个
-        if (
-          obj.receiver == '' ||
-          obj.receiverPhone == '' ||
-          obj.address == '' ||
-          !obj.pickerCityVal[0]
-        ) {
-          flag = false
-        }
-      }
-    })
-    if (
-      (selectedActivityIndex == null) ||
-      (!flag)
-    ) {
-      wx.showToast({
-        title: '信息请填写完整',
-        icon: 'none',
-        mask: true,
-        duration: 1500,
-      })
-      return false
-    }
-    if (type == 'd') {
-      if (selectedSalerIndex == null) {
-        wx.showToast({
-          title: '信息请填写完整',
-          icon: 'none',
-          mask: true,
-          duration: 1500,
-        })
-        return false
-      }
-    }
-    //验证 end
-
-    //发送参数
-    //arr
-    let goodsListJson = list.filter((obj) => {
-      return obj.selectedGoods
-    }).map((obj) => {
-      return {
-        goodsCode: obj.selectedGoods.goodsCode,
-        custName: obj.receiver,
-        phoneNumber: obj.receiverPhone,
-        provinceCode: obj.pickerCityVal[0].areaCode,
-        eparchyCode: obj.pickerCityVal[1].areaCode,
-        cityCode: obj.pickerCityVal[2].areaCode,
-        address: obj.address,
-      }
-    })
-    console.log(goodsListJson)
-    let postData = {
-      activityCode: activityList[selectedActivityIndex].activityCode, //         活动编码(非空)
-      // salerUserCode: type == 'd' ? salerList[selectedSalerIndex].userCode : saler.userCode, //       导购员编码(非空)
-      goodsListJsonStr: JSON.stringify(goodsListJson)
-    }
-    console.log(postData)
-
-    wx.showLoading({
-      title: '请稍候...',
-      mask: true,
-    })
-    let res = await requestw({
-      url: allApiStr.submitPreOrderApi,
-      data: postData,
-    })
-    wx.hideLoading()
-    console.log(res)
-
-    if (res.data.code !== '0') {
-      wx.showToast({
-        title: res.data.message,
-        icon: 'none',
-        mask: true,
-        duration: 1500,
-      })
-      return false
-    }
-
-    //认筹成功
-    this.setData({
-      showCodeModal: true,
-      orderNo: res.data.data.orderNo,
-    }, () => {
-      this.initCode(res.data.data.orderNo)
-    })
-  },
   //生成二维码
   initCode: function(orderNo) {
     setTimeout(() => {
@@ -411,9 +294,15 @@ Page({
   onChangeActivitypicker: function(e) {
     console.log(e)
     const {
-      activityList
+      activityList,
+      selectedActivityIndex,
     } = this.data
     let index = Number(e.detail.value)
+
+    if (selectedActivityIndex == index) {
+      return false
+    }
+
     this.setData({
       selectedActivityIndex: index
     })
@@ -450,6 +339,9 @@ Page({
     return new Promise(async(resolve, reject) => {
       let res = await requestw({
         url: allApiStr.getActivityListApi,
+        data: {
+          activityType: 'PRE_SALE'
+        },
       })
       console.log(res)
       if (res.data.code !== '0') {
@@ -513,21 +405,23 @@ Page({
   },
   //点击删除
   deleteItemWrap: function(e) {
-    Dialog.confirm({
+    const self = this
+    wx.showModal({
       title: '提示',
-      message: '是否确认删除该认筹商品？'
-    }).then(() => {
-      // on confirm
-      let indexwrap = e.currentTarget.dataset.indexwrap
-      let {
-        list
-      } = this.data
-      list.splice(indexwrap, 1)
-      this.setData({
-        list
-      })
-    }).catch(() => {
-      // on cancel
+      content: '是否确认删除该认筹商品？',
+      success: function(res) {
+        if (res.confirm) {
+          // on confirm
+          let indexwrap = e.currentTarget.dataset.indexwrap
+          let {
+            list
+          } = self.data
+          list.splice(indexwrap, 1)
+          self.setData({
+            list
+          })
+        }
+      },
     })
   },
   //保存在本地
@@ -598,22 +492,24 @@ Page({
   },
   //使用上方地址
   useUpAddress: function(e) {
-    Dialog.confirm({
+    const self = this
+    wx.showModal({
       title: '提示',
-      message: '是否确认使用上方地址信息？'
-    }).then(() => {
-      // on confirm
-      let indexwrap = e.currentTarget.dataset.indexwrap
-      let {
-        list
-      } = this.data
-      let upObj = list[indexwrap - 1]
-      list[indexwrap] = JSON.parse(JSON.stringify(upObj))
-      this.setData({
-        list
-      })
-    }).catch(() => {
-      // on cancel
+      content: '是否确认使用上方地址信息？',
+      success: function(res) {
+        if (res.confirm) {
+          // on confirm
+          let indexwrap = e.currentTarget.dataset.indexwrap
+          let {
+            list
+          } = self.data
+          let upObj = list[indexwrap - 1]
+          list[indexwrap] = JSON.parse(JSON.stringify(upObj))
+          self.setData({
+            list
+          })
+        }
+      },
     })
   },
   //搜索商品列表
@@ -641,6 +537,134 @@ Page({
     list[indexwrap].searchGoodsVal = value
     this.setData({
       list
+    })
+  },
+  //提交
+  submitRc: async function() {
+    const {
+      type,
+      saler,
+      list,
+      selectedActivityIndex,
+      selectedSalerIndex,
+      activityList,
+      salerList,
+      couponNo,
+      couponPhoneNo,
+    } = this.data
+
+    //验证
+    let flag = true //可以的
+    list.forEach((obj) => {
+      console.log(obj)
+      if (list.length > 1) { //list大于1个
+        if (obj.selectedGoods) {
+          if (
+            obj.receiver == '' ||
+            obj.receiverPhone == '' ||
+            obj.address == '' ||
+            !obj.pickerCityVal[0]
+          ) {
+            flag = false
+          }
+        }
+      } else { //list只有1个
+        if (
+          obj.receiver == '' ||
+          obj.receiverPhone == '' ||
+          obj.address == '' ||
+          !obj.pickerCityVal[0]
+        ) {
+          flag = false
+        }
+      }
+    })
+    if (
+      couponNo == '' ||
+      couponPhoneNo == '' ||
+      (selectedActivityIndex == null) ||
+      (!flag)
+    ) {
+      wx.showToast({
+        title: '信息请填写完整',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    if (type == 'd') {
+      if (selectedSalerIndex == null) {
+        wx.showToast({
+          title: '信息请填写完整',
+          icon: 'none',
+          mask: true,
+          duration: 1500,
+        })
+        return false
+      }
+    }
+    //验证 end
+
+    //发送参数
+    //arr
+    let goodsListJson = list.filter((obj) => {
+      return obj.selectedGoods
+    }).map((obj) => {
+      return {
+        goodsCode: obj.selectedGoods.goodsCode,
+        custName: obj.receiver,
+        phoneNumber: obj.receiverPhone,
+        provinceCode: obj.pickerCityVal[0].areaCode,
+        eparchyCode: obj.pickerCityVal[1].areaCode,
+        cityCode: obj.pickerCityVal[2].areaCode,
+        address: obj.address,
+      }
+    })
+    console.log(goodsListJson)
+    let postData = {
+      activityCode: activityList[selectedActivityIndex].activityCode, //         活动编码(非空)
+      // salerUserCode: type == 'd' ? salerList[selectedSalerIndex].userCode : saler.userCode, //       导购员编码(非空)
+      orderType: 'HOME_USE',
+      ticketCode: couponNo, //认筹券号
+      phoneNumber: couponPhoneNo, //认筹手机号
+      goodsListJsonStr: JSON.stringify(goodsListJson)
+    }
+    console.log(postData)
+
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    let res = await requestw({
+      url: allApiStr.submitPreOrderApi,
+      data: postData,
+    })
+    wx.hideLoading()
+    console.log(res)
+
+    if (res.data.code !== '0') {
+      wx.showToast({
+        title: res.data.message,
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+
+    //认筹成功
+    wx.showToast({
+      title: '操作成功',
+      icon: 'none',
+      // mask: true,
+      duration: 1500,
+    })
+    this.setData({
+      showCodeModal: true,
+      orderNo: res.data.data.orderNo,
+    }, () => {
+      this.initCode(res.data.data.orderNo)
     })
   },
   // //短信验证码

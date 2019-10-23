@@ -7,30 +7,30 @@ const allApiStr = {
 
   //登录页
   loginApi: '/mp/doLogin', //登录
-  
-  getAllGoodsGroupApi:'/mp/cust/goodsGroup/queryAll', //获取所有商品分类
-  getGoodsListByGroupApi:'/mp/cust/goods/queryByGroup', //根据商品分类获取商品列表
-  getActivityTypeApi:'', //获取活动类型
 
-  submitOrderApi:'', //提交订单
+  getAllGoodsGroupApi: '/mp/cust/goodsGroup/queryAll', //获取所有商品分类
+  getGoodsListByGroupApi: '/mp/cust/goods/queryByGroup', //根据商品分类获取商品列表
+  getActivityTypeApi: '', //获取活动类型
 
-  //认筹
   getSalerInfoApi: '/mp/cust/user/getSaleUserInfo', //获取导购员详情
   getSaleDepartInfoApi: '/mp/cust/depart/getSaleDepartInfo', //获取门店信息
   getSalerUserListApi: '/mp/cust/depart/getSalerUserByDepartCode', //获取门店下的导购员列表
 
-  getActivityListApi: '/mp/preorder/getActivityList', //查活动 
-
+  //认筹下单
+  getActivityListApi: '/mp/preorder/getActivityList', //查活动 token activityType
   submitPreOrderApi: '/mp/preorder/submitPreOrder', //提交认筹单
   getPreOrderListApi: '/mp/cust/preorder/getPreOrderList', //获取认筹订单列表
 
   //转销售
-  getRenchouListApi:'/mp/preorder/getPreOrderList', //搜索认筹单列表
-  getTradeListApi:'/mp/trade/getTradeList', //查询销售单列表
+  getRenchouListApi: '/mp/preorder/getPreOrderList', //搜索认筹单列表
+  getTradeListApi: '/mp/trade/getTradeList', //查询销售单列表
 
   //选择商品choose2
-  getGoodsGroupByQueryApi:'/mp/cust/goodsGroup/queryByGoods', //根据条件获取商品分类
-  getGoodsByQueryApi:'/mp/cust/goods/query', //根据条件获取商品
+  getGoodsGroupByQueryApi: '/mp/cust/goodsGroup/queryByGoods', //根据条件获取商品分类
+  getGoodsByQueryApi: '/mp/cust/goods/query', //根据条件获取商品
+
+  //销售单
+  sumbitSaleOrderApi: '/mp/trade/submitTrade', //提交销售单
 }
 
 export default allApiStr

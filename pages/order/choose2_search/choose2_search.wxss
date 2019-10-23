@@ -39,12 +39,20 @@
 }
 
 /* list */
+
+.list {
+  margin-top: 94rpx;
+}
+
 /* 右侧item */
 
 .item_content {
   padding: 24rpx 0;
   border-bottom: 1px solid #e6e6e6;
   height: 184rpx;
+
+  flex: 1 0 0;
+  margin: 0 24rpx;
 }
 
 .item_img_box {
@@ -78,7 +86,6 @@
   padding: 0 12rpx;
   margin-right: 12rpx;
 }
-
 
 /* 下面按钮 下一步 */
 

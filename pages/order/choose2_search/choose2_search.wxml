@@ -22,33 +22,41 @@
   <view class="list">
     <view wx:for="{{list}}" wx:key="index"
       class="item_content flexCenter flexBetween"
-    >
-      <view class="item_img_box">
-        <image class="item_img" src="{{item.img}}" alt=''></image>
-      </view>
-      <view class="item_content_content">
-        <view class="item_content_content_top">
-          <view class="textOmit" style="color:#000;font-size:25rpx;">{{item.goodsName}}</view>
-          <view style="color:#9B9B9B;font-size:22rpx;margin:10rpx 0;">{{item.goodsDesc}}</view>
-          <!-- <view class="flex">
-            <view wx:for="{{item.tag}}"
-              wx:for-index="tagIndex" 
-              wx:for-item="tagName"
-              wx:key="tagIndex"
-              class="item_tag"
-            >{{tagName}}</view>
-          </view> -->
+      bindtap="clickresultItem"
+      data-index="{{index}}"
+    > 
+      <van-icon name="checked" 
+        size="35rpx"
+        color="{{list[index].selected?'#00a6ff':'#e0e0e0'}}" 
+      />
+      <view class="item_content flexCenter flexBetween">
+        <view class="item_img_box">
+          <image class="item_img" src="{{item.img}}" alt=''></image>
         </view>
-        
-        <view class="yuan_wrap flexCenter flexBetween">
-          <view>{{item.priceFeeYuan}}元</view>
-          <van-stepper value="{{item.count}}" 
-            min="{{0}}"
-            bind:change="onChangeStep" 
-            data-param="{{index}}"
-            plus-class="stepplusicon"
-            minus-class="stepminusicon"
-          />
+        <view class="item_content_content">
+          <view class="item_content_content_top">
+            <view class="textOmit" style="color:#000;font-size:25rpx;">{{item.goodsName}}</view>
+            <view style="color:#9B9B9B;font-size:22rpx;margin:10rpx 0;">{{item.goodsDesc}}</view>
+            <!-- <view class="flex">
+              <view wx:for="{{item.tag}}"
+                wx:for-index="tagIndex" 
+                wx:for-item="tagName"
+                wx:key="tagIndex"
+                class="item_tag"
+              >{{tagName}}</view>
+            </view> -->
+          </view>
+          
+          <view class="yuan_wrap flexCenter flexBetween">
+            <view>{{item.priceFeeYuan}}元</view>
+            <van-stepper value="{{item.count}}" 
+              min="{{0}}"
+              bind:change="onChangeStep" 
+              data-param="{{index}}"
+              plus-class="stepplusicon"
+              minus-class="stepminusicon"
+            />
+          </view>
         </view>
       </view>
     </view>
@@ -59,5 +67,5 @@
     hover-class="nextStep_active"
     hover-stay-time="{{200}}"
     bindtap="clickBtn"
-  >提交</view>
+  >确定</view>
 </view>

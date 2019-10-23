@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "选择商品",
-  "usingComponents": {
-      "van-icon": "vant-weapp/icon/index"
-  }
-}

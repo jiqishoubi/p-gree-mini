@@ -1,4 +1,18 @@
+import regeneratorRuntime from '../../../utils/runtime.js' //让小程序支持asyc await
+import requestw from '../../../utils/requestw.js'
+import allApiStr from '../../../utils/allApiStr.js'
+import {
+  toMoney
+} from '../../../utils/util.js'
+
 const app = getApp()
+
+/**
+ * options:
+ * type  //home busi 家用 商用
+ * activityCode
+ * selectedGoodsList
+ */
 
 Page({
 
@@ -8,154 +22,367 @@ Page({
   data: {
     isX: app.globalData.isX,
 
-    result:null, 
-    count:1,
-    totalPrice:0,
+    type: '',
+    activityCode: '',
+    oldSelectedGoodsList: [],
 
-    //form
-    time:'',
-    code:'',
-    remark:'',
+    selectedList: [], //处理过的selectedList
 
-    //结果modal
-    showResultModal:false,
-  }, 
+    sumPrice: '', //合计钱数
+
+    //modal
+    //修改价格modal
+    showEditPriceModal: false,
+    lookingIndex: null, //当前操作的index
+    oldPrice: '',
+    price1: '',
+    price2: '',
+    //成功modal
+    showResultModal: false,
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    let res = {
-      code: 'GL4958103843',
-      type: '家用认筹',
-      mtype: '72辽之缘',
-      price: '5380',
-      name: '姓名',
-      phone: '13051832424',
-      address: '辽宁省 沈阳市 浑南区',
-      address_detail: '金辉街德宝大厦',
+  onLoad: function(options) {
+    // options = wx.getStorageSync('test_cart') //测试用
+    if (!options.type) {
+      wx.showToast({
+        title: '订单参数缺失，请重新下单',
+        icon: 'none',
+        mask: true,
+        duration: 2000,
+      })
+      return false
     }
+
+    //处理selectedGoodsList
+    let oldSelectedGoodsList = JSON.parse(options.selectedGoodsList)
+    let selectedList = []
+    oldSelectedGoodsList.forEach((obj) => {
+      for (let i = 0; i < obj.count; i++) {
+        selectedList.push(JSON.parse(JSON.stringify(obj)))
+      }
+    })
+    //处理selectedList
+    selectedList.forEach((obj) => {
+      obj.receiver = '' //收货人
+      obj.receivePhone = '' //收货电话
+      obj.address = '' //详细地址
+      obj.billNumber = '' //提单号
+      obj.remarkinput = '' //备注
+      //选择城市组件
+      obj.showCitypicker = false
+      obj.pickerCityVal = [null, null, null] //数组
+    })
+    console.log(selectedList)
+
     this.setData({
-      result:res
-    },()=>{
-      this.computeTotalPrice()
+      type: options.type,
+      activityCode: options.activityCode,
+      oldSelectedGoodsList,
+      selectedList,
+    }, () => {
+      this.calcSumPrice()
     })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
-  //改变总金额
-  computeTotalPrice:function(){
-    console.log('计算')
-    const {result,count}=this.data
-    if(!result){
-      return false
-    }
-    let price=Number(result.price)
-    let totalPrice = price*count
-    this.setData({
-      totalPrice
-    })
-  },
-  //加减数量
-  minusHandle:function(){
-    const {count}=this.data
-    if(count<=1){
-      return false
-    }
-    this.setData({
-      count:count-1
-    },()=>{
-      this.computeTotalPrice()
-    })
-  },
-  plusHandle:function(){
-    const { count } = this.data
-    this.setData({
-      count: count +1
-    },()=>{
-      this.computeTotalPrice()
-    })
-  },
   //绑定input
-  inputChange: function (e) {
+  onInputChange: function(e) {
     let key = e.currentTarget.dataset.key
     let value = e.detail.value
+
     this.setData({
       [key]: value
     })
   },
+  onInputChange_index: function(e) {
+    let key = e.currentTarget.dataset.key
+    let index = e.currentTarget.dataset.index
+    let value = e.detail.value
+    let {
+      selectedList
+    } = this.data
+
+    selectedList[index][key] = value
+    this.setData({
+      selectedList
+    })
+  },
+  //选择城市组件
+  openCitypicker: function(e) {
+    let index = e.currentTarget.dataset.index
+    let {
+      selectedList
+    } = this.data
+    selectedList[index].showCitypicker = true
+    this.setData({
+      selectedList
+    })
+  },
+  closeCitypicker: function(e) {
+    let index = e.currentTarget.dataset.index
+    let arr = e.detail
+    let {
+      selectedList
+    } = this.data
+    selectedList[index].showCitypicker = false
+    selectedList[index].pickerCityVal = arr
+    this.setData({
+      selectedList
+    })
+  },
+  //使用上方地址
+  useUpAddress: function(e) {
+    const self = this
+    wx.showModal({
+      title: '提示',
+      content: '是否确认使用上方地址信息？',
+      success: function(res) {
+        if (res.confirm) {
+          // on confirm
+          let index = e.currentTarget.dataset.index
+          let {
+            selectedList
+          } = self.data
+          let upObj = selectedList[index - 1]
+
+          selectedList[index].receiver = upObj.receiver
+          selectedList[index].receivePhone = upObj.receivePhone
+          selectedList[index].address = upObj.address
+          selectedList[index].billNumber = upObj.billNumber
+          selectedList[index].remarkinput = upObj.remarkinput
+          selectedList[index].pickerCityVal = JSON.parse(JSON.stringify(upObj.pickerCityVal))
+
+          self.setData({
+            selectedList
+          })
+        }
+      },
+    })
+  },
+  //计算合计钱数
+  calcSumPrice: function() {
+    const {
+      selectedList
+    } = this.data
+    let sum = 0
+    selectedList.forEach((obj) => {
+      sum = sum + Number(obj.priceFeeYuan)
+    })
+    this.setData({
+      sumPrice: toMoney(sum)
+    })
+  },
   //点击提交订单
-  clickSubmitOrder:function(){
-    const self=this
+  submit: async function() {
+    const {
+      type,
+      activityCode,
+      selectedList
+    } = this.data
+
+    //验证
+    if (type == '' || activityCode == '') {
+      wx.showToast({
+        title: '参数缺失，请重新下单',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    let flag = true
+    for (let i = 0; i < selectedList.length; i++) {
+      if (
+        selectedList[i].receiver == '' ||
+        selectedList[i].receivePhone == '' ||
+        selectedList[i].address == '' ||
+        !selectedList[i].pickerCityVal[0]
+      ) {
+        flag = false
+        break
+      }
+    }
+    if (!flag) {
+      wx.showToast({
+        title: '信息请输入完整',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    //验证 end
+
+    //家用销售单 下单
+    //发送参数
+    let goodsListJson = []
+    selectedList.forEach((obj) => {
+      console.log(obj)
+      let objTemp = {
+        goodsCode: obj.goodsCode,
+        shoppingCode: obj.billNumber,
+        custName: obj.receiver,
+        phoneNumber: obj.receivePhone,
+        provinceCode: obj.pickerCityVal[0].areaCode,
+        eparchyCode: obj.pickerCityVal[1].areaCode,
+        cityCode: obj.pickerCityVal[2].areaCode,
+        address: obj.address,
+      }
+      goodsListJson.push(objTemp)
+    })
+    let postData = {
+      tradeType: type == 'home' ? 'HOME_USE' : 'BUSI_USE',
+      // preOrderNo:'', 
+      activityCode,
+      // ifRepaire:1 0,
+      goodsListJsonStr: JSON.stringify(goodsListJson)
+    }
     wx.showLoading({
-      title: '请稍候',
+      title: '请稍候...',
       mask: true,
     })
-    setTimeout(function(){
-      wx.hideLoading()
-      //提交成功
-      self.setData({
-        showResultModal:true
-      })
-    },800)  
-  },
-  //点击modal btn
-  clickModalBtn:function(){
-    this.setData({
-      showResultModal:false,
+    let res = await requestw({
+      url: allApiStr.sumbitSaleOrderApi,
+      data: postData,
     })
-    setTimeout(function(){
-      wx.navigateBack({
-        delta:1
+    wx.hideLoading()
+    console.log(res)
+
+    if (res.data.code !== '0') {
+      wx.showToast({
+        title: res.data.message,
+        icon: 'none',
+        mask: true,
+        duration: 1500,
       })
-    },200)
-  }
+      return false
+    }
+
+    this.openResultModal()
+  },
+  //成功modal组件
+  openResultModal: function() {
+    this.setData({
+      showResultModal: true,
+    })
+  },
+  clickModalBtn: function() {
+    this.setData({
+      showResultModal: false,
+    })
+    wx.redirectTo({
+      url: '/pages/index/index',
+    })
+  },
+  //修改价格modal
+  openEditPriceModal: function(e) {
+    console.log(e)
+    let index = e.currentTarget.dataset.index
+    this.setData({
+      showEditPriceModal: true,
+      lookingIndex: index,
+    })
+  },
+  onEditPriceCancel: function() {
+    this.setData({
+      showEditPriceModal: false,
+      lookingIndex: null,
+      price1: '',
+      price2: '',
+    })
+  },
+  onEditPriceConfirm: function() {
+    const {
+      selectedList,
+      price1,
+      price2,
+      lookingIndex,
+    } = this.data
+
+    //验证
+    if (price1 == '' || price2 == '') {
+      wx.showToast({
+        title: '价格请输入完整',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      this.setData({
+        showEditPriceModal: true
+      })
+      return false
+    }
+    if (price1 !== price2) {
+      wx.showToast({
+        title: '两次输入价格不一致',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      this.setData({
+        showEditPriceModal: true
+      })
+      return false
+    }
+    //验证 end
+
+    selectedList[lookingIndex].priceFeeYuan = price1
+    this.setData({
+      selectedList,
+    })
+
+    this.onEditPriceCancel()
+  },
+  //修改价格modal end
 })

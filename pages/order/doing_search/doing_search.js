@@ -1,3 +1,6 @@
+/**
+ * 转销售
+ */
 import regeneratorRuntime from '../../../utils/runtime.js' //让小程序支持asyc await
 import requestw from '../../../utils/requestw.js'
 import allApiStr from '../../../utils/allApiStr.js'

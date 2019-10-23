@@ -5,6 +5,7 @@ import allApiStr from '../../../utils/allApiStr.js'
 const app = getApp()
 
 /**
+ * 选择商品界面  都是操作selectedGoodsList然后renderPage
  * options：
  * activityCode //活动code
  * selectedGoodsList //已选中的goods
@@ -25,6 +26,7 @@ Page({
     //搜索
     searchVal: '',
 
+    //state
     active_left: 0,
     leftlist: [{
       goodsGroupCode: 'xuanzhongshangpin',
@@ -32,54 +34,60 @@ Page({
       goodsGroupDesc: '',
       children: [],
     }],
+    //state end
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: async function(options) {
-    console.log(options)
     //1、设置options
-    //(1)已选中的商品
+    //(1)已选中的商品 把单个的goodsList处理成带count的
     if (options.selectedGoodsList) {
-      let goodsList = JSON.parse(options.selectedGoodsList)
-      console.log(goodsList)
-      let selectedGoodsList = []
-      goodsList.forEach((obj) => {
-        //处理一下goodsList加上count
-        obj.count = 1
-        //selectedGoodsList里是否存在
-        let index = -1 //不存在
-        for (let i = 0; i < selectedGoodsList.length; i++) {
-          if (selectedGoodsList[i].goodsCode == obj.goodsCode) {
-            index = i
-            break
-          }
-        }
-        if (index > -1) { //存在
-          selectedGoodsList[index].count = selectedGoodsList[index].count + 1
-        } else { //不存在
-          selectedGoodsList.push(obj)
-        }
-      })
+      // let goodsList = JSON.parse(options.selectedGoodsList)
+      // let selectedGoodsList = []
+      // goodsList.forEach((obj) => {
+      //   //处理一下goodsList加上count
+      //   obj.count = 1
+      //   //selectedGoodsList里是否存在
+      //   let index = -1 //不存在
+      //   for (let i = 0; i < selectedGoodsList.length; i++) {
+      //     if (selectedGoodsList[i].goodsCode == obj.goodsCode) {
+      //       index = i
+      //       break
+      //     }
+      //   }
+      //   if (index > -1) { //存在
+      //     selectedGoodsList[index].count = selectedGoodsList[index].count + 1
+      //   } else { //不存在
+      //     selectedGoodsList.push(obj)
+      //   }
+      // })
 
-      let {
-        leftlist
-      } = this.data
-      leftlist[0].children = selectedGoodsList
+      // let {
+      //   leftlist
+      // } = this.data
+      // leftlist[0].children = JSON.parse(JSON.stringify(selectedGoodsList))
+      // console.log(selectedGoodsList)
+      // this.setData({
+      //   selectedGoodsList,
+      //   leftlist,
+      // })
+      
+      let selectedGoodsList = JSON.parse(options.selectedGoodsList)
       this.setData({
-        selectedGoodsList,
-        leftlist,
+        selectedGoodsList
+      }, () => {
+        this.renderPage()
       })
     }
     //(2)活动code
     this.setData({
       activityCode: options.activityCode ? options.activityCode : null,
-    }, async() => {
-
-      //2、获取数据 商品分类
-      await this.getGoodsGroup()
     })
+
+    //2、获取数据 商品分类
+    this.getGoodsGroup(options.activityCode)
   },
 
   /**
@@ -98,10 +106,34 @@ Page({
       let selectedList = wx.getStorageSync('from_choose2_search_selectedList')
       console.log(selectedList)
       wx.removeStorage({
-        key:'from_choose2_search_selectedList'
+        key: 'from_choose2_search_selectedList'
       })
-      
+      let {
+        selectedGoodsList
+      } = this.data
+      selectedList.forEach((obj) => {
+        //判断obj是否存在于selectedGoodsList
+        let index = -1
+        for (let i = 0; i < selectedGoodsList.length; i++) {
+          if (obj.goodsCode == selectedGoodsList[i].goodsCode) {
+            index = i
+            break
+          }
+        }
+
+        if (index == -1) {
+          obj.count = 1
+          selectedGoodsList.push(obj)
+        }
+      })
+
+      this.setData({
+        selectedGoodsList
+      }, () => {
+        this.renderPage()
+      })
     }
+    //从搜索页回来 end
   },
 
   /**
@@ -145,31 +177,20 @@ Page({
       url: `/pages/order/choose2_search/choose2_search?activityCode=${this.data.activityCode}`,
     })
   },
-  // 选择左侧
+  // 点击左侧
   chooseleft: function(e) {
-    const {
-      leftlist
-    } = this.data
-    let index = e.currentTarget.dataset.param
+    let indexleft = e.currentTarget.dataset.param
+
     this.setData({
-      active_left: index
-    }, () => {
-      this.getGoodsList()
+      active_left: indexleft
     })
 
-    //点回选中商品
-    if (index == 0) {
-      this.calcuSelectedGoodsList()
-    } else { //点其他
-      if (leftlist[index].children) {
-        this.calcuOtherGoodsList(index)
-      }
-    }
+    this.getGoodsList(indexleft)
   },
   //获取商品分类
-  getGoodsGroup: async function() {
+  getGoodsGroup: async function(activityCode) {
     let postData = {
-      activityCode: this.data.activityCode ? this.data.activityCode : null, //根据活动
+      activityCode: activityCode ? activityCode : null, //根据活动
     }
     let res = await requestw({
       url: allApiStr.getGoodsGroupByQueryApi,
@@ -190,17 +211,17 @@ Page({
     })
   },
   //根据商品分类获取商品列表
-  getGoodsList: async function() {
+  getGoodsList: async function(indexleft) {
     let {
-      active_left,
       leftlist
     } = this.data
-    if (leftlist[active_left].children) { //查过了 //选中商品是第一个，有children了 也不查了
+
+    if (leftlist[indexleft].children) {
       return false
     }
 
     let postData = {
-      goodsGroupCode: leftlist[active_left].goodsGroupCode, //根据商品分类
+      goodsGroupCode: leftlist[indexleft].goodsGroupCode, //根据商品分类
       activityCode: this.data.activityCode ? this.data.activityCode : null, //根据活动
     }
     wx.showLoading({
@@ -213,38 +234,22 @@ Page({
     })
     wx.hideLoading()
     console.log(res)
+
     if (
       res.data.code &&
       res.data.data &&
       res.data.data.length > 0
     ) { //查到了
-      //处理一个数据
+      //处理一下数据
       res.data.data.forEach((obj) => {
         obj.count = 0
       })
 
-      //查完商品列表 要看selectedGoodsList里是否包含
-      res.data.data.forEach((obj) => {
-        let index = -1
-        const {
-          leftlist
-        } = this.data
-        let selectedGoodsList = leftlist[0].children
-        for (let i = 0; i < selectedGoodsList.length; i++) {
-          if (obj.goodsCode == selectedGoodsList[i].goodsCode) {
-            index = i
-            break
-          }
-        }
-        if (index > -1) { //selectedGoodsList里有
-          obj.count = selectedGoodsList[index].count
-        }
-      })
-
-
-      leftlist[active_left].children = res.data.data
+      leftlist[indexleft].children = res.data.data
       this.setData({
         leftlist
+      }, () => {
+        this.renderPage()
       })
     } else { //没有
       wx.showToast({
@@ -257,64 +262,78 @@ Page({
   },
   //步进器组件
   onChangeStep: function(e) {
-    let index = e.currentTarget.dataset.param
-    let value = e.detail
+    let indexright = e.currentTarget.dataset.param //indexright
+    let value = e.detail //步进器数量
+    console.log(value)
     let {
+      selectedGoodsList,
       active_left,
       leftlist,
     } = this.data
-    leftlist[active_left].children[index].count = value
 
-    this.setData({
-      leftlist,
-    })
-  },
-  //计算选中商品
-  calcuSelectedGoodsList: function() {
-    const {
-      leftlist
-    } = this.data
+    console.log(selectedGoodsList)
 
-    let selectedGoodsList = []
-    for (let i = 1; i < leftlist.length; i++) {
-      if (leftlist[i].children) {
-        leftlist[i].children.forEach((obj) => {
-          if (obj.count > 0) {
-            selectedGoodsList.push(JSON.parse(JSON.stringify(obj)))
-          }
-        })
+    let goodsCode = leftlist[active_left].children[indexright].goodsCode //当前操作的goodsCode
+
+    //看selectedGoodsList里有没有
+    let indexInSelected = -1
+    for (let i = 0; i < selectedGoodsList.length; i++) {
+      if (selectedGoodsList[i].goodsCode == goodsCode) {
+        indexInSelected = i
       }
     }
 
-    leftlist[0].children = selectedGoodsList
+    //处理selectedGoodsList
+    if (indexInSelected == -1) { //selected里本来没有
+      let goods = JSON.parse(JSON.stringify(leftlist[active_left].children[indexright]))
+      if (value > 0) {
+        console.log('没有，增加')
+        goods.count = value
+        selectedGoodsList.push(goods)
+      }
+    } else {
+      if (value == 0) {
+        console.log('有，0')
+        selectedGoodsList.splice(indexInSelected, 1)
+      } else {
+        console.log('有，增加')
+        selectedGoodsList[indexInSelected].count = value
+      }
+    }
+
+    console.log(selectedGoodsList)
     this.setData({
-      leftlist
+      selectedGoodsList
+    }, () => {
+      this.renderPage()
     })
   },
-  //计算其他分类的商品列表 根据selectedGoodsList
-  calcuOtherGoodsList: function(indexleft) {
+  //绘制界面
+  renderPage: function() {
     let {
+      selectedGoodsList,
       leftlist
     } = this.data
 
-    let selectedGoodsList = leftlist[0].children
-    let goodsList = leftlist[indexleft].children
-
-    console.log('计算')
-    goodsList.forEach((obj) => {
-      let index = -1
-      for (let i = 0; i < selectedGoodsList.length; i++) {
-        if (obj.goodsCode == selectedGoodsList[i].goodsCode) {
-          index = i
-        }
-      }
-      console.log(index)
-      if (index > -1) {
-        obj.count = selectedGoodsList[index].count
+    leftlist.forEach((left) => {
+      if (left.children) {
+        left.children.forEach((obj) => {
+          let index = -1
+          for (let i = 0; i < selectedGoodsList.length; i++) {
+            if (obj.goodsCode == selectedGoodsList[i].goodsCode) {
+              index = i
+            }
+          }
+          if (index > -1) {
+            obj.count = selectedGoodsList[index].count
+          } else {
+            obj.count = 0
+          }
+        })
       }
     })
 
-    leftlist[indexleft].children = goodsList
+    leftlist[0].children = JSON.parse(JSON.stringify(selectedGoodsList))
     this.setData({
       leftlist
     })
@@ -322,21 +341,11 @@ Page({
   //点击下一步
   clickBtn: function() {
     const {
-      leftlist
+      selectedGoodsList
     } = this.data
-    let arr = []
-    leftlist.forEach((left) => {
-      if (left.children) {
-        left.children.forEach((right) => {
-          if (right.count > 0) {
-            arr.push(right)
-          }
-        })
-      }
-    })
-    console.log(arr)
+
     //验证
-    if (arr.length == 0) {
+    if (selectedGoodsList.length == 0) {
       wx.showToast({
         title: '请选择商品',
         icon: 'none',
@@ -345,8 +354,9 @@ Page({
       })
       return false
     }
-    wx.navigateTo({
-      url: `/pages/order/submitOrder/submitOrder?selectedArr=${JSON.stringify(arr)}`,
-    })
+    //验证 end
+
+    wx.setStorageSync('from_choose2_selectedList', selectedGoodsList)
+    wx.navigateBack()
   },
 })

@@ -239,6 +239,25 @@ Page {
   padding-left: 15rpx;
 }
 
+/* 已选择的商品列表 */
+
+.selectedItem {
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  margin: 0 24rpx;
+  justify-content: space-between !important;
+}
+
+.selectedItem .label1 {
+}
+
+.selectedItem .label2 {
+  max-width: 50%;
+}
+
+.selectedItem .label3 {
+}
+
 /* 获取验证码 */
 
 .getSmsBtn {

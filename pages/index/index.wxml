@@ -39,13 +39,13 @@
     </view>
     <view class="nav_item flexCenter flexJCenter"
       bindtap="goPage"
-      data-item='/pages/order/site_order/site_order'
+      data-item='/pages/order/site_order_new/site_order_new?type=home'
     >
       <view class="nav_title">家用下单</view>
     </view>
     <view class="nav_item flexCenter flexJCenter"
       bindtap="goPage"
-      data-item='/pages/order/site_order/site_order'
+      data-item='/pages/order/site_order_new/site_order_new?type=busi'
     >
       <view class="nav_title">商用下单</view>
     </view>

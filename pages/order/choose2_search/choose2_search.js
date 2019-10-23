@@ -22,7 +22,6 @@ Page({
 
     searchVal: '',
     list: [],
-    selectedList: [{a:'2'}],
   },
 
   /**
@@ -59,8 +58,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    console.log('离开')
-    wx.setStorageSync('from_choose2_search_selectedList', this.data.selectedList)
+
   },
 
   /**
@@ -83,7 +81,7 @@ Page({
   onShareAppMessage: function() {
 
   },
-  //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
+  //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
   //返回上一页
   goBack: function() {
     wx.navigateBack()
@@ -137,7 +135,7 @@ Page({
       wx.showToast({
         title: '暂无数据',
         icon: 'none',
-        mask: true,
+        // mask: true,
         duration: 1500,
       })
       return false
@@ -146,5 +144,33 @@ Page({
     this.setData({
       list: res.data.data
     })
+  },
+  //点选结果
+  clickresultItem: function(e) {
+    let index = e.currentTarget.dataset.index
+    let {
+      list
+    } = this.data
+    list[index].selected = list[index].selected ? false : true
+    this.setData({
+      list
+    })
+  },
+  //点击确定
+  clickBtn: function() {
+    let {
+      list
+    } = this.data
+    let selectedList = list.filter((obj) => {
+      return obj.selected
+    })
+
+    if (selectedList.length == 0) {
+      this.goBack()
+      return false
+    }
+
+    wx.setStorageSync('from_choose2_search_selectedList', selectedList)
+    this.goBack()
   },
 })

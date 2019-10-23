@@ -1,4 +1,4 @@
-<!-- 现场下单 -->
+<!-- 现场下单 家用下单 都跳到这 -->
 <view class="renchou_page">
   <view class="container">
     <view class="item title flexBetween">
@@ -20,20 +20,40 @@
           {{activityList[selectedActivityIndex].activityName}}
         </view>
         <view wx:else class="salerpicker flexJEnd">
-          请选择<van-icon name="arrow" custom-style="margin-top:4rpx;" />
+          请选择<van-icon name="arrow" custom-style="margin-top:6rpx;" />
         </view>
       </picker>
     </view>
     <view class='item'>
       <view class="label">商品机型</view>
-      <input class="input"></input>
+      <view wx:if="{{selectedList.length>0}}" 
+        class="input flexCenter flexJEnd"
+        bindtap="goChooseGoods"
+      >
+        去修改<van-icon name="arrow" custom-style="margin-top:6rpx;" />
+      </view>
+      <view wx:else 
+        class="input flexCenter flexJEnd"
+        bindtap="goChooseGoods"
+      >
+        请选择<van-icon name="arrow" custom-style="margin-top:6rpx;" />
+      </view>
     </view>
+    <!-- 选择的商品列表 -->
+    <view wx:for="{{selectedList}}" wx:key="index" 
+      class='item selectedItem'
+    >
+      <view class="label1">{{item.goodsName}}</view>
+      <view class="label2">{{item.goodsModel}}</view>
+      <view class="label3"><van-icon name="cross" custom-style="position:relative;top:4rpx;" />{{item.count}}</view>
+    </view>
+    <!-- 选择的商品列表 end -->
   </view>
 
   <view class="container">
     <view class='item'>
       <view class="label">导 购 员</view>
-      <view class="input"></view>
+      <view class="input flexCenter">{{saler.userName}}</view>
     </view>
   </view>
 
@@ -43,6 +63,6 @@
   <view class="btn{{isX?' isX':''}}" 
     hover-class="btn_active"
     hover-stay-time="{{200}}"
-    bindtap="submitRc"
+    bindtap="clickBtn"
   >现场激活</view>
 </view>

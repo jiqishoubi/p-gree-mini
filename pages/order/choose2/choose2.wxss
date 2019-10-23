@@ -58,6 +58,8 @@ Page {
   display: flex;
   align-items: center;
   justify-content: center;
+  white-space: normal !important;
+  padding: 5rpx 5rpx;
 }
 
 .left_item.active {

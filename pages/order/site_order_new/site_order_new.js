@@ -12,42 +12,25 @@ Page({
   data: {
     isX: app.globalData.isX,
 
-    //商品信息
-    orderNo: '', //销售单号
-    // 安装信息
-    receiver: '', //收货人
-    receivePhone: '', //收货电话
-    address: '',
-    //附加信息
-    billNo: '', //提单号
-    remark: '', //备注
+    departCode: '', //店铺编码
+    type: '', //d店铺 s导购员
+    saler: null, //导购员的时候
 
-    //组件
-    //活动类型select
-    showActivityTypeSelect: false,
-    activityTypeList: [
-      {
-        text:'1'
-      },
-      {
-        text:'2'
-      }
-    ],
-
-    //选择城市组件
-    showCitypicker: false,
-    pickerCityVal: [null, null, null], //数组
-
-    //modal
-    //结果modal
-    showResultModal: false,
+    goodsList: [], //全部商品列表
+    //活动
+    activityList: [], //全部活动列表
+    selectedActivityIndex: null,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getActivityType()
+    let userInfo = wx.getStorageSync('gree_userInfo')
+    console.log(userInfo)
+
+    this.getActivityList()
+
   },
 
   /**
@@ -99,76 +82,36 @@ Page({
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
-  //绑定input
-  bindInputChange: function(e) {
-    let key = e.currentTarget.dataset.key
-    let value = e.detail.value
+  //绑定活动picker
+  onChangeActivitypicker: function (e) {
+    const {
+      activityList
+    } = this.data
+    let index = Number(e.detail.value)
     this.setData({
-      [key]: value
+      selectedActivityIndex: index
     })
   },
-  //获取活动类型
-  getActivityType: async function() {
-    let res = await requestw({
-      url: allApiStr.getActivityTypeApi,
-    })
-    console.log(res)
-  },
-  //活动类型select组件
-  onOpenActivityTypeSelect: function() {
-    this.setData({
-      showActivityTypeSelect: true
-    })
-  },
-  onCloseActivityTypeSelect: function() {
-    this.setData({
-      showActivityTypeSelect: false
-    })
-  },
-  onChangeActivityTypeSelect: function(e) {
-    console.log(e)
-  },
-  //活动类型select组件 end
-  //选择城市组件
-  openCitypicker: function() {
-    this.setData({
-      showCitypicker: true
-    })
-  },
-  closeCitypicker: function(e) {
-    console.log(e)
-    let arr = e.detail
-    this.setData({
-      showCitypicker: false,
-      pickerCityVal: arr,
-    })
-  },
-  //选择城市组件 end
-  //点击下单
-  clickOrder: function() {
-    const self = this
-    wx.showLoading({
-      title: '请稍候',
-      mask: true,
-    })
-    setTimeout(function() {
-      wx.hideLoading()
-      //提交成功
-      self.setData({
-        showResultModal: true
+  //获取全部活动
+  getActivityList: function () {
+    return new Promise(async (resolve, reject) => {
+      let res = await requestw({
+        url: allApiStr.getActivityListApi,
       })
-    }, 800)
-  },
-  //点击modal btn
-  clickModalBtn: function() {
-    this.setData({
-      showResultModal: false,
-    })
-    setTimeout(function() {
-      wx.navigateBack({
-        delta: 1
+      console.log(res)
+      if (res.data.code !== '0') {
+        wx.showToast({
+          title: '获取活动列表失败，' + res.data.message,
+          icon: 'none',
+          mask: true,
+          duration: 1500,
+        })
+      }
+      this.setData({
+        activityList: res.data.data,
+        selectedActivityIndex: res.data.data.length == 1 ? 0 : null,
       })
-    }, 200)
+      resolve(res)
+    })
   },
-
 })

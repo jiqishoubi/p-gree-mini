@@ -2,20 +2,74 @@
 <view class="renchou_page" id='wrapper'>
   <view class="container">
     <view class='item'>
-      <view class="label">活动</view>
+      <view class="label">门店名称</view>
+      <view class="input flexCenter">{{saler?saler.departName:''}}</view>
+    </view>
+    <view wx:if="{{type=='d'}}" class='item'>
+      <view class="label">导 购 员</view>
+      <picker class="salerpicker_wrap"
+        mode='selector'
+        range="{{salerList}}" 
+        range-key="userName"
+        value="{{selectedSalerIndex}}" 
+        bind:change="onChangeSalerpicker"
+      >
+        <view class="salerpicker">
+          <text wx:if="{{selectedSalerIndex!==null}}">{{salerList[selectedSalerIndex].userName}}</text>
+          <text wx:else>请选择</text>
+        </view>
+      </picker>
+    </view>
+    <view wx:if="{{type=='s'}}" class='item'>
+      <view class="label">导 购 员</view>
+      <view wx:if="{{saler}}" class="input flexCenter">{{saler.userName}}</view>
+    </view>
+    <view class='item'>
+      <view class="label">活动名称</view>
       <picker class="salerpicker_wrap"
         mode='selector'
         range="{{activityList}}" 
         range-key="activityName"
         value="{{selectedActivityIndex}}" 
-        bindchange="onChangeActivitypicker"
+        bind:change="onChangeActivitypicker"
+        show-toolbar="{{true}}"
       >
-        <view class="salerpicker">
-          <text wx:if="{{selectedActivityIndex!==null}}">{{activityList[selectedActivityIndex].activityName}}</text>
-          <text wx:else>请选择</text>
+        <view wx:if="{{selectedActivityIndex!==null}}" class="salerpicker">
+          {{activityList[selectedActivityIndex].activityName}}
+        </view>
+        <view wx:else class="salerpicker flexJEnd">
+          请选择<van-icon name="arrow" custom-style="margin-top:6rpx;" />
         </view>
       </picker>
     </view>
+    <view class='item'>
+      <view class="label">认筹券号</view>
+      <input class="input"
+        placeholder="请输入认筹券号"
+        value="{{couponNo}}"
+        bindinput="onInputChange"
+        data-key="couponNo"
+      ></input>
+    </view>
+    <view class='item'>
+      <view class="label">认筹手机号</view>
+      <input class="input"
+        placeholder="请输入认筹手机号"
+        value="{{couponPhoneNo}}"
+        bindinput="onInputChange"
+        data-key="couponPhoneNo"
+      ></input>
+    </view>
+    <!-- <view class='item'>
+      <view class="label">验证码</view>
+      <input class="input"
+        placeholder="请输入认筹手机号"
+        value="{{couponSms}}"
+        bindinput="onInputChange"
+        data-key="couponSms"
+      ></input>
+      <view class="getSmsBtn" bindtap="getSms">获取验证码</view>
+    </view> -->
   </view>
 
   <!-- *********************block********************* -->
@@ -36,52 +90,63 @@
           >删除</button>
         </view>
       </view>
-      <view class='item'>
+
+      <!-- 商品列表的遮罩 -->
+      <view wx:if="{{itemwrap.showGoodsList}}" class="goodsList_mask"></view>
+      <view class='item positionRe' id="{{'goodsItem'+indexwrap}}" style="z-index:{{itemwrap.goodsItemZindex}}">
         <view class="label">商品机型</view>
-        <view class="input flexCenter"
+        <view wx:if="{{itemwrap.selectedGoods}}"
+          class="input flexCenter"
           bindtap="toggleGoodsList"
           data-param='{{indexwrap}}'
         >
-          <text wx:if="{{itemwrap.selectedGoods}}">{{itemwrap.selectedGoods.goodsName}}</text>
-          <text wx:else>请选择机型</text>
+          {{itemwrap.selectedGoods.goodsName}}
         </view>
-      </view>
-      <!-- 商品列表 -->
-      <scroll-view wx:if="{{itemwrap.showGoodsList}}"
-        class="goodsList"
-        scroll-y="{{true}}"
-      >
-        <view class="goodsListSearch">
-          <van-icon name="search" 
-            size="1.2em" 
-            color="#9B9B9B"
-          />
-          <input class="goodsListSearch_input"
-            placeholder="请输入名称或型号"
-            value="{{itemwrap.searchGoodsVal}}"
-            bindinput="inputSeachGoodsVal"
-            data-indexwrap="{{indexwrap}}"
-          ></input>
+        <view wx:else
+          class="input flexCenter flexJEnd"
+          bindtap="toggleGoodsList"
+          data-param='{{indexwrap}}'
+        >
+          请选择<van-icon name="arrow" custom-style="margin-top:6rpx;" />
         </view>
-        <view class="item_wrap">
-          <view wx:for="{{itemwrap.goodsList}}" wx:key="index"
-            class="item"
-            bindtap="selectGoods"
-            data-item="{{item}}"
-            data-indexwrap="{{indexwrap}}"
-          >
-            <view class="label goodsLabel">{{item.goodsName}}</view>
+        <!-- 商品列表 -->
+        <scroll-view wx:if="{{itemwrap.showGoodsList}}"
+          class="goodsList"
+          scroll-y="{{true}}"
+        >
+          <view class="goodsListSearch">
+            <van-icon name="search" 
+              size="1.2em" 
+              color="#9B9B9B"
+            />
+            <input class="goodsListSearch_input"
+              placeholder="请输入名称或型号"
+              value="{{itemwrap.searchGoodsVal}}"
+              bindinput="inputSeachGoodsVal"
+              data-indexwrap="{{indexwrap}}"
+            ></input>
           </view>
-        </view>
-      </scroll-view>
-      <!-- 商品列表 end -->
+          <view class="item_wrap">
+            <view wx:for="{{itemwrap.goodsList}}" wx:key="index"
+              class="item"
+              bindtap="selectGoods"
+              data-item="{{item}}"
+              data-indexwrap="{{indexwrap}}"
+            >
+              <view class="label goodsLabel">{{item.goodsName}}</view>
+            </view>
+          </view>
+        </scroll-view>
+        <!-- 商品列表 end -->
+      </view>
+
       <block wx:if="{{indexwrap==0||itemwrap.selectedGoods}}">
         <view class='item'>
-          <view class="label">收货人</view>
+          <view class="label">收 货 人</view>
           <input class="input"
             placeholder="请输入收货人"
             value="{{itemwrap.receiver}}"
-            bindinput="onInputChange"
+            bindinput="onInputChange_index"
             data-key="receiver"
             data-indexwrap="{{indexwrap}}"
           ></input>
@@ -96,24 +161,30 @@
           <input class="input"
             placeholder="请输入收货电话"
             value="{{itemwrap.receiverPhone}}"
-            bindinput="onInputChange"
+            bindinput="onInputChange_index"
             data-key="receiverPhone"
             data-indexwrap="{{indexwrap}}"
           ></input>
         </view>
         <view class='item'>
           <view class="label">所在地区</view>
-          <view class="input flexCenter" 
+          <view wx:if="{{itemwrap.pickerCityVal[0]}}"
+            class="input flexCenter" 
             bindtap="openCitypicker"
             data-indexwrap="{{indexwrap}}"
           >
             <text wx:if="{{itemwrap.pickerCityVal[0]}}">{{itemwrap.pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text>
             <text wx:if="{{itemwrap.pickerCityVal[1]}}">{{itemwrap.pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text> 
             <text wx:if="{{itemwrap.pickerCityVal[2]}}">{{itemwrap.pickerCityVal[2].areaName}}</text>
-            <text wx:else>请选择</text>
+          </view>
+          <view  wx:else 
+            class="input flexCenter flexJEnd" 
+            bindtap="openCitypicker"
+            data-indexwrap="{{indexwrap}}"
+          >
+            请选择<van-icon name="arrow" custom-style="margin-top:6rpx;" />
           </view>
         </view>
-        <!-- 选择城市组件 -->
         <!-- 选择城市组件 -->
         <citypicker show="{{itemwrap.showCitypicker}}" 
           activeColor="#00A6FF"
@@ -125,7 +196,7 @@
           <input class="input"
             placeholder="请输入详细地址"
             value="{{itemwrap.address}}"
-            bindinput="onInputChange"
+            bindinput="onInputChange_index"
             data-key="address"
             data-indexwrap="{{indexwrap}}"
           ></input>
@@ -135,29 +206,6 @@
   </block>
   <!-- *********************block end********************* -->
 
-
-  <!-- 导购员 -->
-  <view class="container">
-    <view wx:if="{{type=='d'}}" class='item'>
-      <view class="label">导购员</view>
-      <picker class="salerpicker_wrap"
-        mode='selector'
-        range="{{salerList}}" 
-        range-key="userName"
-        value="{{selectedSalerIndex}}" 
-        bindchange="onChangeSalerpicker"
-      >
-        <view class="salerpicker">
-          <text wx:if="{{selectedSalerIndex!==null}}">{{salerList[selectedSalerIndex].userName}}</text>
-          <text wx:else>请选择</text>
-        </view>
-      </picker>
-    </view>
-    <view wx:if="{{type=='s'}}" class='item'>
-      <view class="label">导购员</view>
-      <view wx:if="{{saler}}" class="input flexCenter">{{saler.userName}}</view>
-    </view>
-  </view>
   <view style="height:360rpx;"></view>
 
   <!-- 按钮 -->

@@ -36,6 +36,20 @@ const requestw = ({
         ...header
       },
       success: function(res) {
+        console.log(res)
+        //登录失效
+        if (res.data.code == 9999 && res.data.message.indexOf('无效') > -1) {
+          wx.showToast({
+            title: '登录失效，请重新登录',
+            icon: 'none',
+            mask: true,
+            duration: 1500,
+          })
+          wx.redirectTo({
+            url: '/pages/login/login',
+          })
+        }
+        //登录失效 end
         resolve(res)
       },
       fail: function(err) {

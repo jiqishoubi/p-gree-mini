@@ -17,6 +17,11 @@
   justify-content: center;
 }
 
+.flexJEnd {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .flexAround {
   display: flex;
   justify-content: space-around;
@@ -38,11 +43,15 @@
   height: 100%;
 }
 
+.positionRe {
+  position: relative;
+}
+
 .positionCenter {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 }
 
 /* 省略三个点 */
@@ -64,5 +73,5 @@
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.4);
-    z-index: 666;
+  z-index: 666;
 }

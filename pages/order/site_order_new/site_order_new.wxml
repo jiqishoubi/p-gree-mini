@@ -1,185 +1,48 @@
-<!-- 现场下单 new -->
-<view class="site_order_page">
-  <!-- 商品信息 -->
-  <view class="form">
-    <view class="form_item form_title">
-      <view class="form_title_icon"></view>
-      <view>商品信息</view>
+<!-- 现场下单 -->
+<view class="renchou_page">
+  <view class="container">
+    <view class="item title flexBetween">
+      <view class="flexCenter">
+        <view class="rect"></view>商品信息
+      </view>
     </view>
-    <view class="form_item">
-      <view class="form_item_label">活动类型</view>
-      <view class="form_input"
-        bindtap="onOpenActivityTypeSelect"
+    <view class='item'>
+      <view class="label">活动名称</view>
+      <picker class="salerpicker_wrap"
+        mode='selector'
+        range="{{activityList}}" 
+        range-key="activityName"
+        value="{{selectedActivityIndex}}" 
+        bindchange="onChangeActivitypicker"
+        show-toolbar="{{true}}"
       >
-        请选择
-      </view>
+        <view wx:if="{{selectedActivityIndex!==null}}" class="salerpicker">
+          {{activityList[selectedActivityIndex].activityName}}
+        </view>
+        <view wx:else class="salerpicker flexJEnd">
+          请选择<van-icon name="arrow" custom-style="margin-top:4rpx;" />
+        </view>
+      </picker>
     </view>
-    <view class="form_item">
-      <view class="form_item_label">活动时间</view>
-      <view class="form_input">
-
-      </view>
-    </view>
-    <view class="form_item">
-      <view class="form_item_label">商品机型</view>
-      <view class="form_input">
-      
-      </view>
-    </view>
-    <view class="form_item">
-      <view class="form_item_label">销售单号</view>
-      <view class="form_input">
-        <input class="form_input_input" 
-          placeholder="请输入"
-          placeholder-class="form_input_placeholder"
-          value="{{orderNo}}"
-          bindinput="bindInpuChange"
-          data-key='orderNo'
-        ></input>
-      </view>
+    <view class='item'>
+      <view class="label">商品机型</view>
+      <input class="input"></input>
     </view>
   </view>
 
-  <!-- 安装信息 -->
-  <view class="form">
-    <view class="form_item form_title">
-      <view class="form_title_icon"></view>
-      <view>安装信息</view>
-    </view>
-    <view class="form_item">
-      <view class="form_item_label">收货人</view>
-      <view class="form_input">
-        <input class="form_input_input" 
-          placeholder="请输入手机号码"
-          placeholder-class="form_input_placeholder"
-          value="{{receiver}}"
-          bindinput="bindInpuChange"
-          data-key='receiver'
-        ></input>
-      </view>
-    </view>
-    <view class="form_item">
-      <view class="form_item_label">收货电话</view>
-      <view class="form_input">
-        <input class="form_input_input" 
-          placeholder="请输入收货电话"
-          placeholder-class="form_input_placeholder"
-          value="{{receivePhone}}"
-          bindinput="bindInpuChange"
-          data-key='receivePhone'
-        ></input>
-      </view>
-    </view>
-    <view class="form_item">
-      <view class="form_item_label">所在地区</view>
-      <view class="form_input flexCenter" 
-        bindtap="openCitypicker"
-      >
-        <text wx:if="{{pickerCityVal[0]}}">{{pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text>
-        <text wx:if="{{pickerCityVal[1]}}">{{pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text> 
-        <text wx:if="{{pickerCityVal[2]}}">{{pickerCityVal[2].areaName}}</text>
-        <text wx:else>请选择</text>
-      </view>
-    </view>
-    <view class="form_item">
-      <view class="form_item_label">详细地址</view>
-      <view class="form_input">
-        <input class="form_input_input" 
-          placeholder="请输入详细地址"
-          placeholder-class="form_input_placeholder"
-          value="{{address}}"
-          bindinput="bindInpuChange"
-          data-key='address'
-        ></input>
-      </view>
+  <view class="container">
+    <view class='item'>
+      <view class="label">导 购 员</view>
+      <view class="input"></view>
     </view>
   </view>
 
-  <!-- 附加信息 -->
-  <view class="form" style="margin-bottom:180rpx;">
-    <view class="form_item form_title">
-      <view class="form_title_icon"></view>
-      <view>附加信息</view>
-    </view>
-    <view class="form_item">
-      <view class="form_item_label">送货时间</view>
-      <view class="form_input">
-        
-      </view>
-    </view>
-    <view class="form_item">
-      <view class="form_item_label">提单号</view>
-      <view class="form_input">
-        <input class="form_input_input" 
-          placeholder="请输入提单号"
-          placeholder-class="form_input_placeholder"
-          value="{{billNo}}"
-          bindinput="bindInpuChange"
-          data-key='billNo'
-        ></input>
-      </view>
-    </view>
-    <view class="form_item">
-      <view class="form_item_label">备注</view>
-      <view class="form_input">
-        <input class="form_input_input" 
-          placeholder="请输入其他信息"
-          placeholder-class="form_input_placeholder"
-          value="{{remark}}"
-          bindinput="bindInpuChange"
-          data-key='remark'
-        ></input>
-      </view>
-    </view>
-    <view class="form_item">
-      <view class="form_item_label">导购员</view>
-      <view class="form_input">
-        <input class="form_input_input" 
-          placeholder="请输入导购员"
-          placeholder-class="form_input_placeholder"
-        ></input>
-      </view>
-    </view>
-  </view>
+  <view style="height:360rpx;"></view>
 
   <!-- 按钮 -->
-  <view class="btn_submit{{isX?' isX':''}}" 
-    hover-class="btn_submit_active"
+  <view class="btn{{isX?' isX':''}}" 
+    hover-class="btn_active"
     hover-stay-time="{{200}}"
-    bindtap="clickOrder"
+    bindtap="submitRc"
   >现场激活</view>
-
-
-  <!-- ************************************模态框************************************ -->
-  <!-- 活动类型select -->
-  <van-popup show="{{ showActivityTypeSelect }}" 
-    bind:close="onCloseActivityTypeSelect"
-  >
-    <van-picker columns="{{ activityTypeList }}" 
-      value-key="text"
-      bind:change="onChangeActivityTypeSelect" 
-    />
-  </van-popup>
-  <!-- 选择城市组件 -->
-  <citypicker show="{{showCitypicker}}" bind:onClose="closeCitypicker"/>
-  <!-- 成功modal -->
-  <van-dialog
-    use-slot
-    show="{{ showResultModal }}"
-    show-cancel-button="{{false}}"
-    show-confirm-button="{{false}}"
-  >
-    <view class="flexColumn result_modal">
-      <view class="flexColumn">
-        <view style="font-size:33rpx;margin-bottom:15rpx;">下单成功</view>
-        <view style="font-size:24rpx;margin-bottom:60rpx;">请通知顾客微信进行预约安装</view>
-      </view>
-      <view>
-        <button class="btn_result"
-          hover-class="btn_result_active"
-          bindtap="clickModalBtn"
-        >知道了</button>
-      </view>
-    </view>
-  </van-dialog>
 </view>

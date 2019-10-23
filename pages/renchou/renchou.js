@@ -7,10 +7,6 @@ import Dialog from 'vant-weapp/dialog/dialog';
 
 const app = getApp()
 
-/**
- * type    d s 
- * code
- */
 Page({
 
   /**
@@ -26,6 +22,12 @@ Page({
     //活动
     activityList: [], //全部活动列表
     selectedActivityIndex: null,
+
+
+    //上面的form
+    couponNo: '', //认筹券号
+    couponPhoneNo: '', //认筹手机号
+    couponSms: '', //验证码
 
     list: [],
 
@@ -104,7 +106,7 @@ Page({
   onShareAppMessage: function() {
 
   },
-  //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
+  //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法法方法方法方法方法方法方法
   //加一个选项
   addOneSelect: function() {
     const {
@@ -122,6 +124,7 @@ Page({
       //商品列表
       showGoodsList: false,
       goodsList: goodsList,
+      goodsItemZindex: 9, //关闭是9  打开是11  //goodsItem的zindex
       selectedGoods: null, //选中的商品
       searchGoodsVal: '',
     }
@@ -132,6 +135,14 @@ Page({
   },
   //绑定input
   onInputChange: function(e) {
+    let key = e.currentTarget.dataset.key
+    let value = e.detail.value
+    this.setData({
+      [key]: value
+    })
+  },
+  //绑定input
+  onInputChange_index: function(e) {
     let key = e.currentTarget.dataset.key
     let indexwrap = e.currentTarget.dataset.indexwrap
     let value = e.detail.value
@@ -148,7 +159,7 @@ Page({
     this.setData({
       type
     })
-    //获取活动 商品 
+    //获取活动、商品 
     let res1 = await this.getActivityList()
     if (res1.data.data && res1.data.data[0]) {
       await this.getGoodsList(res1.data.data[0].activityCode)
@@ -181,6 +192,21 @@ Page({
       callback()
     })
   },
+  //重新初始化
+  initRefresh: async function(activityCode) {
+    await this.getGoodsList(activityCode)
+    let {
+      list
+    } = this.data
+    list = JSON.parse(JSON.stringify([]))
+    this.setData({
+      list
+    }, () => {
+      setTimeout(() => {
+        this.addOneSelect()
+      }, 20)
+    })
+  },
   //提交
   submitRc: async function() {
     const {
@@ -196,7 +222,19 @@ Page({
     //验证
     let flag = true //可以的
     list.forEach((obj) => {
-      if (obj.selectedGoods) {
+      console.log(obj)
+      if (list.length > 1) { //list大于1个
+        if (obj.selectedGoods) {
+          if (
+            obj.receiver == '' ||
+            obj.receiverPhone == '' ||
+            obj.address == '' ||
+            !obj.pickerCityVal[0]
+          ) {
+            flag = false
+          }
+        }
+      } else { //list只有1个
         if (
           obj.receiver == '' ||
           obj.receiverPhone == '' ||
@@ -281,18 +319,18 @@ Page({
       showCodeModal: true,
       orderNo: res.data.data.orderNo,
     }, () => {
-      this.initCode()
+      this.initCode(res.data.data.orderNo)
     })
   },
   //生成二维码
-  initCode: function() {
+  initCode: function(orderNo) {
     setTimeout(() => {
       console.log('生成')
       drawQrcode({
         width: 200,
         height: 200,
         canvasId: 'myQrcode',
-        text: 'https://www.zhihu.com'
+        text: orderNo,
       })
     }, 20)
   },
@@ -371,6 +409,7 @@ Page({
   },
   //绑定活动picker
   onChangeActivitypicker: function(e) {
+    console.log(e)
     const {
       activityList
     } = this.data
@@ -378,15 +417,30 @@ Page({
     this.setData({
       selectedActivityIndex: index
     })
-    this.getActivityList(activityList[index].activityCode)
+
+    // this.getGoodsList(activityList[index].activityCode)
+    this.initRefresh(activityList[index].activityCode)
   },
   //开关商品列表
   toggleGoodsList: function(e) {
     let indexwrap = e.currentTarget.dataset.param
     let {
-      list
+      list,
+      selectedActivityIndex,
     } = this.data
+
+    if (selectedActivityIndex == null) {
+      wx.showToast({
+        title: '请选择活动',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+
     list[indexwrap].showGoodsList = !list[indexwrap].showGoodsList
+    list[indexwrap].goodsItemZindex = list[indexwrap].goodsItemZindex == 11 ? 9 : 11
     this.setData({
       list
     })
@@ -447,6 +501,7 @@ Page({
 
     list[indexwrap].selectedGoods = item
     list[indexwrap].showGoodsList = false
+    list[indexwrap].goodsItemZindex = 9 //关闭
     this.setData({
       list
     }, () => {
@@ -477,13 +532,13 @@ Page({
   },
   //保存在本地
   saveToLocal: function() {
-    // const wrapperId = '#wrapper'
-    // const drawClassName = '.draw'
-    // const canvasId = 'canvas-map'
     wx.showLoading({
       title: '请稍候...',
       mask: true,
     })
+    // const wrapperId = '#wrapper'
+    // const drawClassName = '.draw'
+    // const canvasId = 'canvas-map'
     // wxml2canvas(wrapperId, drawClassName, canvasId).then(() => {
     //   // canvas has been drawn
     //   // can save the image with wx.canvasToTempFilePath and wx.saveImageToPhotosAlbum 
@@ -522,8 +577,14 @@ Page({
         wx.saveImageToPhotosAlbum({
           filePath: e.tempFilePath,
           success: function(e) {
-            wx.hideLoading()
             console.log(e)
+            wx.hideLoading()
+            wx.showToast({
+              title: '操作成功',
+              icon: 'none',
+              mask: true,
+              duration: 1500,
+            })
           },
           fail: function() {
             wx.hideLoading()
@@ -566,13 +627,13 @@ Page({
     } = this.data
 
     if (value !== '') {
-      let showGoodsList = goodsList.filter((obj) => {
+      let showGoodsListTemp = goodsList.filter((obj) => {
         let valueTemp = value.toLowerCase()
         let strTemp1 = obj.goodsName.toLowerCase()
         let strTemp2 = obj.goodsModel.toLowerCase()
         return strTemp1.indexOf(valueTemp) > -1 || strTemp2.indexOf(valueTemp) > -1
       })
-      list[indexwrap].goodsList = showGoodsList
+      list[indexwrap].goodsList = showGoodsListTemp
     } else {
       list[indexwrap].goodsList = goodsList
     }
@@ -582,4 +643,19 @@ Page({
       list
     })
   },
+  // //短信验证码
+  // getSms:async function(){
+  //   let res=await requestw({
+  //     url:allApiStr,
+  //     data:
+  //   })
+  //   this.bgTimer()
+  // },
+  // bgTimer:function(){
+
+  // },
+  // endTimer:function(){
+
+  // },
+  // //短信验证码 end
 })

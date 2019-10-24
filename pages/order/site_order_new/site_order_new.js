@@ -45,6 +45,11 @@ Page({
     })
 
     this.getActivityList()
+
+    //设置导航标题
+    wx.setNavigationBarTitle({
+      title: options.type == 'home' ? '家用下单' : '商用下单'
+    })
   },
 
   /**
@@ -131,9 +136,9 @@ Page({
         type
       } = this.data
       let res = await requestw({
-        url: allApiStr.getActivityListApi,
+        url: allApiStr.getActivityListSaleApi,
         data: {
-          activityType: type == 'home' ? 'PRE_SALE' : 'BUSI_USE'
+          activityType: type == 'home' ? 'HOME_USE' : 'BUSI_USE'
         },
       })
       console.log(res)
@@ -205,12 +210,18 @@ Page({
     }
     //验证 end
 
-
+    //跳转
     let typeCart = (type == 'home' ? 'HOME_USE' : 'BUSI_USE')
     let activityCode = activityList[selectedActivityIndex].activityCode
 
-    wx.navigateTo({
-      url: `/pages/order/cart/cart?type=${typeCart}&activityCode=${activityCode}&selectedGoodsList=${JSON.stringify(selectedList)}`,
-    })
+    if (typeCart == 'HOME_USE') { //家用下单购物车
+      wx.navigateTo({
+        url: `/pages/order/cart/cart?type=${typeCart}&activityCode=${activityCode}&selectedGoodsList=${JSON.stringify(selectedList)}`,
+      })
+    } else { //商用下单购物车
+      wx.navigateTo({
+        url: `/pages/order/cart_busi/cart_busi?type=${typeCart}&activityCode=${activityCode}&selectedGoodsList=${JSON.stringify(selectedList)}`,
+      })
+    }
   },
 })

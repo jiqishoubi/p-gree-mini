@@ -90,9 +90,9 @@
             <view class="label">详细地址</view>
             <input class="input"
               placeholder="请输入"
-              value="{{item.address}}"
+              value="{{item.addressTemp}}"
               bindinput="onInputChange_index"
-              data-key="address"
+              data-key="addressTemp"
               data-index="{{index}}"
             ></input>
           </view>

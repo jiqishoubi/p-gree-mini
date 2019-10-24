@@ -8,7 +8,7 @@ import {
 const app = getApp()
 
 /**
- * 目前用于 认筹转销售和家用下单，商用下单不用这个
+ * 目前用于 商用下单
  */
 /**
  * options:
@@ -29,7 +29,17 @@ Page({
     activityCode: '',
     oldSelectedGoodsList: [],
 
-    selectedList: [], //处理过的selectedList
+    //form
+    receiver: '', //收货人
+    receivePhone: '',
+    receivePhoneBak: '', //备用电话
+    address: '',
+    billNumber: '', //提单号
+    remarkinput: '',
+
+    //选择城市组件
+    showCitypicker: false,
+    pickerCityVal: [null, null, null],
 
     sumPrice: '', //合计钱数
 
@@ -49,7 +59,8 @@ Page({
    */
   onLoad: function(options) {
     console.log(options)
-    // options = wx.getStorageSync('test_cart') //测试用
+    options = wx.getStorageSync('test_cart') //测试用
+    console.log(options)
     if (!options.type) {
       wx.showToast({
         title: '订单参数缺失，请重新访问',
@@ -62,35 +73,12 @@ Page({
 
     //处理selectedGoodsList
     let oldSelectedGoodsList = JSON.parse(options.selectedGoodsList)
-    let selectedList = []
-    oldSelectedGoodsList.forEach((obj) => {
-      if (obj.count) {
-        for (let i = 0; i < obj.count; i++) {
-          selectedList.push(JSON.parse(JSON.stringify(obj)))
-        }
-      } else {
-        selectedList.push(JSON.parse(JSON.stringify(obj)))
-      }
-    })
-    //处理selectedList
-    selectedList.forEach((obj) => {
-      obj.receiver = '' //收货人
-      obj.receivePhone = '' //收货电话
-      obj.addressTemp = '' //详细地址
-      obj.billNumber = '' //提单号
-      obj.remarkinput = '' //备注
-      //选择城市组件
-      obj.showCitypicker = false
-      obj.pickerCityVal = [null, null, null] //数组
-    })
-    console.log(selectedList)
 
     this.setData({
       type: options.type,
       activityCode: options.activityCode,
 
       oldSelectedGoodsList,
-      selectedList,
     }, () => {
       this.calcSumPrice()
     })
@@ -154,79 +142,27 @@ Page({
       [key]: value
     })
   },
-  onInputChange_index: function(e) {
-    let key = e.currentTarget.dataset.key
-    let index = e.currentTarget.dataset.index
-    let value = e.detail.value
-    let {
-      selectedList
-    } = this.data
-
-    selectedList[index][key] = value
-    this.setData({
-      selectedList
-    })
-  },
   //选择城市组件
   openCitypicker: function(e) {
-    let index = e.currentTarget.dataset.index
-    let {
-      selectedList
-    } = this.data
-    selectedList[index].showCitypicker = true
     this.setData({
-      selectedList
+      showCitypicker: true
     })
   },
   closeCitypicker: function(e) {
-    let index = e.currentTarget.dataset.index
     let arr = e.detail
-    let {
-      selectedList
-    } = this.data
-    selectedList[index].showCitypicker = false
-    selectedList[index].pickerCityVal = arr
     this.setData({
-      selectedList
-    })
-  },
-  //使用上方地址
-  useUpAddress: function(e) {
-    const self = this
-    wx.showModal({
-      title: '提示',
-      content: '是否确认使用上方地址信息？',
-      success: function(res) {
-        if (res.confirm) {
-          // on confirm
-          let index = e.currentTarget.dataset.index
-          let {
-            selectedList
-          } = self.data
-          let upObj = selectedList[index - 1]
-
-          selectedList[index].receiver = upObj.receiver
-          selectedList[index].receivePhone = upObj.receivePhone
-          selectedList[index].addressTemp = upObj.addressTemp
-          selectedList[index].billNumber = upObj.billNumber
-          selectedList[index].remarkinput = upObj.remarkinput
-          selectedList[index].pickerCityVal = JSON.parse(JSON.stringify(upObj.pickerCityVal))
-
-          self.setData({
-            selectedList
-          })
-        }
-      },
+      showCitypicker: false,
+      pickerCityVal: arr,
     })
   },
   //计算合计钱数
   calcSumPrice: function() {
     const {
-      selectedList
+      oldSelectedGoodsList
     } = this.data
     let sum = 0
-    selectedList.forEach((obj) => {
-      sum = sum + Number(obj.priceFeeYuan)
+    oldSelectedGoodsList.forEach((obj) => {
+      sum = sum + (Number(obj.priceFeeYuan) * obj.count)
     })
     this.setData({
       sumPrice: toMoney(sum)
@@ -238,7 +174,14 @@ Page({
       type,
       activityCode,
       oldSelectedGoodsList,
-      selectedList,
+      //form
+      receiver,
+      receivePhone,
+      receivePhoneBak,
+      address,
+      billNumber,
+      remarkinput,
+      pickerCityVal,
     } = this.data
 
     //验证
@@ -251,76 +194,55 @@ Page({
       })
       return false
     }
-    if (type == 'HOME_USE') { //不是转销售的，那就是家用下单的，就得校验地址信息
-      let flag = true
-      for (let i = 0; i < selectedList.length; i++) {
-        if (
-          selectedList[i].receiver == '' ||
-          selectedList[i].receivePhone == '' ||
-          selectedList[i].addressTemp == '' ||
-          !selectedList[i].pickerCityVal[0]
-        ) {
-          flag = false
-          break
-        }
-      }
-      if (!flag) {
-        wx.showToast({
-          title: '信息请输入完整',
-          icon: 'none',
-          mask: true,
-          duration: 1500,
-        })
-        return false
-      }
+    //form
+    if (
+      receiver == '' ||
+      receivePhone == '' ||
+      receivePhoneBak == '' ||
+      address == '' ||
+      !pickerCityVal[0]
+    ) {
+      wx.showToast({
+        title: '信息请输入完整',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
     }
     //验证 end
 
-    //家用销售单 下单
+    //商用销售单 下单
     //发送参数
     let goodsListJson = []
-    selectedList.forEach((obj) => {
-      console.log(obj)
-      let addressInfo
-      if (type == 'HOME_USE') { //家用
-        addressInfo = {
-          custName: obj.receiver,
-          phoneNumber: obj.receivePhone,
-          provinceCode: obj.pickerCityVal[0].areaCode,
-          eparchyCode: obj.pickerCityVal[1].areaCode,
-          cityCode: obj.pickerCityVal[2].areaCode,
-          address: obj.addressTemp,
-        }
-      } else { //转销售
-        addressInfo = {
-          custName: obj.custName,
-          phoneNumber: obj.phoneNumber,
-          provinceCode: obj.provinceCode,
-          eparchyCode: obj.eparchyCode,
-          cityCode: obj.cityCode,
-          address: obj.address,
-        }
-      }
+    oldSelectedGoodsList.forEach((obj) => {
       let objTemp = {
         goodsCode: obj.goodsCode,
-        shoppingCode: obj.billNumber,
-        ...addressInfo
+        goodsCount: obj.count,
       }
       goodsListJson.push(objTemp)
     })
     let postData = {
-      tradeType: type,
-      preOrderNo: type == 'PRE_SALE' ? oldSelectedGoodsList[0].orderNo : null, //如果是认筹转销售，要传 认筹单号
+      orderType: 'BUSI_USE',
       activityCode,
-      // ifRepaire:1 0,
-      goodsListJsonStr: JSON.stringify(goodsListJson)
+      //form
+      custName: receiver,
+      phoneNumber: receivePhone,
+      phoneNumberBak: receivePhoneBak,
+      provinceCode: pickerCityVal[0].areaCode,
+      eparchyCode: pickerCityVal[1].areaCode,
+      cityCode: pickerCityVal[2].areaCode,
+      address: address,
+      remark: remarkinput,
+
+      goodsListJsonStr: JSON.stringify(goodsListJson),
     }
     wx.showLoading({
       title: '请稍候...',
       mask: true,
     })
     let res = await requestw({
-      url: allApiStr.sumbitSaleOrderApi,
+      url: allApiStr.submitPreOrderApi, //商用下单 要先认筹一下 要走认筹的口
       data: postData,
     })
     wx.hideLoading()
@@ -371,7 +293,7 @@ Page({
   },
   onEditPriceConfirm: function() {
     const {
-      selectedList,
+      oldSelectedGoodsList,
       price1,
       price2,
       lookingIndex,
@@ -404,9 +326,9 @@ Page({
     }
     //验证 end
 
-    selectedList[lookingIndex].priceFeeYuan = price1
+    oldSelectedGoodsList[lookingIndex].priceFeeYuan = price1
     this.setData({
-      selectedList,
+      oldSelectedGoodsList,
     }, () => {
       this.calcSumPrice()
     })

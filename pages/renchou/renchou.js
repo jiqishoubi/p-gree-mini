@@ -658,7 +658,7 @@ Page({
       title: '操作成功',
       icon: 'none',
       // mask: true,
-      duration: 1500,
+      duration: 1000,
     })
     this.setData({
       showCodeModal: true,

@@ -92,7 +92,10 @@
       </view>
 
       <!-- 商品列表的遮罩 -->
-      <view wx:if="{{itemwrap.showGoodsList}}" class="goodsList_mask"></view>
+      <view wx:if="{{itemwrap.showGoodsList}}" class="goodsList_mask"
+        bindtap="toggleGoodsList"
+        data-param='{{indexwrap}}'
+      ></view>
       <view class='item positionRe' id="{{'goodsItem'+indexwrap}}" style="z-index:{{itemwrap.goodsItemZindex}}">
         <view class="label">商品机型</view>
         <view wx:if="{{itemwrap.selectedGoods}}"

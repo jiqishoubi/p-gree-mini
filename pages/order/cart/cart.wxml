@@ -35,13 +35,13 @@
       <view class="form">
         <!-- 家用下单 可以输入地址 -->
         <block wx:if="{{type=='HOME_USE'}}">
-          <view wx:if="{{index!==0}}" class="item flexJEnd">
+          <view wx:if="{{index!==0}}" class="item flexJEnd van-hairline--bottom">
             <button class="addressBtn"
               bindtap="useUpAddress"
               data-index="{{index}}"
             >使用上方地址</button>
           </view>
-          <view class="item">
+          <view class="item van-hairline--bottom">
             <view class="label">收 货 人</view>
             <input class="input"
               placeholder="请输入"
@@ -51,7 +51,7 @@
               data-index="{{index}}"
             ></input>
           </view>
-          <view class="item">
+          <view class="item van-hairline--bottom">
             <view class="label">收货电话</view>
             <input class="input"
               placeholder="请输入"
@@ -61,7 +61,7 @@
               data-index="{{index}}"
             ></input>
           </view>
-          <view class='item'>
+          <view class='item van-hairline--bottom'>
             <view class="label">所在地区</view>
             <view wx:if="{{item.pickerCityVal[0]}}"
               class="input" 
@@ -86,7 +86,7 @@
             bind:onClose="closeCitypicker"
             data-index="{{index}}"
           />
-          <view class="item">
+          <view class="item van-hairline--bottom">
             <view class="label">详细地址</view>
             <input class="input"
               placeholder="请输入"
@@ -100,15 +100,15 @@
         <!-- 家用下单 可以输入地址 end -->
         <!-- 认筹转销售 地址不能改 -->
         <block wx:if="{{type=='PRE_SALE'}}">
-          <view class="item">
+          <view class="item van-hairline--bottom">
             <view class="label">收 货 人</view>
             <view class="input">{{item.custName}}</view>
           </view>
-          <view class="item">
+          <view class="item van-hairline--bottom">
             <view class="label">收货电话</view>
             <view class="input">{{item.phoneNumber}}</view>
           </view>
-          <view class="item">
+          <view class="item van-hairline--bottom">
             <view class="label">详细地址</view>
             <view class="input">{{item.provinceName}}{{item.eparchyName}}{{item.cityName}}{{item.address}}</view>
           </view>
@@ -116,7 +116,7 @@
         <!-- 认筹转销售 地址不能改 end -->
 
 
-        <view class="item">
+        <view class="item van-hairline--bottom">
           <view class="label">提 单 号</view>
           <input class="input"
             placeholder="请输入"
@@ -126,7 +126,7 @@
             data-index="{{index}}"
           ></input>
         </view>
-        <view class="item">
+        <view class="item van-hairline--bottom">
           <view class="label">备<text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>注</view>
           <input class="input"
             placeholder="请输入"

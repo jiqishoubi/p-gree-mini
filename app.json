@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/order/cart/cart",
     "pages/order/doing_search/doing_search",
     "pages/index/index",
-    "pages/order/cart/cart",
     "pages/order/site_order_new/site_order_new",
     "pages/renchou/renchou",
     "pages/order/choose2/choose2",

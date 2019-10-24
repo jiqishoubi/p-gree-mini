@@ -48,6 +48,8 @@ Page {
   flex: 1 0 0;
   height: 100%;
   padding-left: 45rpx;
+  display: flex;
+  align-items: center;
 }
 .result_input_goods{
   display: flex;

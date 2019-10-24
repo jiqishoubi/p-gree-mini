@@ -91,23 +91,32 @@ Page({
   },
   //开启扫码
   openCode: function() {
+    const self = this
     wx.scanCode({
       onlyFromCamera: true,
       success: function(res) {
         console.log(res)
-      }
+        if (res.errMsg.indexOf(':ok') > -1) {
+          let orderNo = res.result
+          self.getRenchouList(orderNo)
+        }
+      },
+      fail: function() {
+        wx.showToast({
+          title: '扫描失败',
+          icon: 'none',
+          // mask: true,
+          duration: 1500,
+        })
+      },
     })
   },
   //点击搜索
   clickSearch: function() {
-    this.getRenchouList()
+    this.getRenchouList(this.data.searchVal)
   },
   //获取认筹单列表
-  getRenchouList: async function() {
-    const {
-      searchVal
-    } = this.data
-
+  getRenchouList: async function(searchVal) {
     //验证
     if (searchVal == '') {
       wx.showToast({

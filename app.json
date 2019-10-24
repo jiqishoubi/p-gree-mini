@@ -1,9 +1,7 @@
 {
   "pages": [
-      "pages/login/login",
-      "pages/order/cart_busi/cart_busi",
- 
- 
+    "pages/login/login",
+    "pages/order/cart_busi/cart_busi",
     "pages/order/doing_search/doing_search",
     "pages/order/cart/cart",
     "pages/index/index",

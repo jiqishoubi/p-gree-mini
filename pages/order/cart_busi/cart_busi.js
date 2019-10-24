@@ -57,9 +57,9 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     console.log(options)
-    options = wx.getStorageSync('test_cart') //测试用
+    // options = wx.getStorageSync('test_cart') //测试用
     console.log(options)
     if (!options.type) {
       wx.showToast({
@@ -87,54 +87,54 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
   //绑定input
-  onInputChange: function(e) {
+  onInputChange: function (e) {
     let key = e.currentTarget.dataset.key
     let value = e.detail.value
 
@@ -143,12 +143,12 @@ Page({
     })
   },
   //选择城市组件
-  openCitypicker: function(e) {
+  openCitypicker: function (e) {
     this.setData({
       showCitypicker: true
     })
   },
-  closeCitypicker: function(e) {
+  closeCitypicker: function (e) {
     let arr = e.detail
     this.setData({
       showCitypicker: false,
@@ -156,7 +156,7 @@ Page({
     })
   },
   //计算合计钱数
-  calcSumPrice: function() {
+  calcSumPrice: function () {
     const {
       oldSelectedGoodsList
     } = this.data
@@ -169,7 +169,7 @@ Page({
     })
   },
   //点击提交订单
-  submit: async function() {
+  submit: async function () {
     const {
       type,
       activityCode,
@@ -261,12 +261,12 @@ Page({
     this.openResultModal()
   },
   //成功modal组件
-  openResultModal: function() {
+  openResultModal: function () {
     this.setData({
       showResultModal: true,
     })
   },
-  clickModalBtn: function() {
+  clickModalBtn: function () {
     this.setData({
       showResultModal: false,
     })
@@ -275,7 +275,7 @@ Page({
     })
   },
   //修改价格modal
-  openEditPriceModal: function(e) {
+  openEditPriceModal: function (e) {
     console.log(e)
     let index = e.currentTarget.dataset.index
     this.setData({
@@ -283,7 +283,7 @@ Page({
       lookingIndex: index,
     })
   },
-  onEditPriceCancel: function() {
+  onEditPriceCancel: function () {
     this.setData({
       showEditPriceModal: false,
       lookingIndex: null,
@@ -291,7 +291,7 @@ Page({
       price2: '',
     })
   },
-  onEditPriceConfirm: function() {
+  onEditPriceConfirm: function () {
     const {
       oldSelectedGoodsList,
       price1,

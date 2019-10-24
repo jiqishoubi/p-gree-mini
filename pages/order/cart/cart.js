@@ -8,10 +8,13 @@ import {
 const app = getApp()
 
 /**
+ * 目前用于 认筹转销售和家用下单，商用下单不用这个
+ */
+/**
  * options:
- * type  //home busi 家用 商用
+ * type  //PRE_SALE认筹转销售  HOME_USE家用下单  BUSI_USE商用下单
  * activityCode
- * selectedGoodsList
+ * selectedGoodsList //带不带count都可以
  */
 
 Page({
@@ -45,6 +48,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(options)
     // options = wx.getStorageSync('test_cart') //测试用
     if (!options.type) {
       wx.showToast({
@@ -60,7 +64,11 @@ Page({
     let oldSelectedGoodsList = JSON.parse(options.selectedGoodsList)
     let selectedList = []
     oldSelectedGoodsList.forEach((obj) => {
-      for (let i = 0; i < obj.count; i++) {
+      if (obj.count) {
+        for (let i = 0; i < obj.count; i++) {
+          selectedList.push(JSON.parse(JSON.stringify(obj)))
+        }
+      } else {
         selectedList.push(JSON.parse(JSON.stringify(obj)))
       }
     })
@@ -68,7 +76,7 @@ Page({
     selectedList.forEach((obj) => {
       obj.receiver = '' //收货人
       obj.receivePhone = '' //收货电话
-      obj.address = '' //详细地址
+      obj.addressTemp = '' //详细地址
       obj.billNumber = '' //提单号
       obj.remarkinput = '' //备注
       //选择城市组件
@@ -80,6 +88,7 @@ Page({
     this.setData({
       type: options.type,
       activityCode: options.activityCode,
+
       oldSelectedGoodsList,
       selectedList,
     }, () => {
@@ -198,7 +207,7 @@ Page({
 
           selectedList[index].receiver = upObj.receiver
           selectedList[index].receivePhone = upObj.receivePhone
-          selectedList[index].address = upObj.address
+          selectedList[index].addressTemp = upObj.addressTemp
           selectedList[index].billNumber = upObj.billNumber
           selectedList[index].remarkinput = upObj.remarkinput
           selectedList[index].pickerCityVal = JSON.parse(JSON.stringify(upObj.pickerCityVal))
@@ -228,7 +237,8 @@ Page({
     const {
       type,
       activityCode,
-      selectedList
+      oldSelectedGoodsList,
+      selectedList,
     } = this.data
 
     //验证
@@ -241,26 +251,28 @@ Page({
       })
       return false
     }
-    let flag = true
-    for (let i = 0; i < selectedList.length; i++) {
-      if (
-        selectedList[i].receiver == '' ||
-        selectedList[i].receivePhone == '' ||
-        selectedList[i].address == '' ||
-        !selectedList[i].pickerCityVal[0]
-      ) {
-        flag = false
-        break
+    if (type == 'HOME_USE') { //不是转销售的，那就是家用下单的，就得校验地址信息
+      let flag = true
+      for (let i = 0; i < selectedList.length; i++) {
+        if (
+          selectedList[i].receiver == '' ||
+          selectedList[i].receivePhone == '' ||
+          selectedList[i].addressTemp == '' ||
+          !selectedList[i].pickerCityVal[0]
+        ) {
+          flag = false
+          break
+        }
       }
-    }
-    if (!flag) {
-      wx.showToast({
-        title: '信息请输入完整',
-        icon: 'none',
-        mask: true,
-        duration: 1500,
-      })
-      return false
+      if (!flag) {
+        wx.showToast({
+          title: '信息请输入完整',
+          icon: 'none',
+          mask: true,
+          duration: 1500,
+        })
+        return false
+      }
     }
     //验证 end
 
@@ -269,21 +281,36 @@ Page({
     let goodsListJson = []
     selectedList.forEach((obj) => {
       console.log(obj)
+      let addressInfo
+      if (type == 'HOME_USE') { //家用
+        addressInfo = {
+          custName: obj.receiver,
+          phoneNumber: obj.receivePhone,
+          provinceCode: obj.pickerCityVal[0].areaCode,
+          eparchyCode: obj.pickerCityVal[1].areaCode,
+          cityCode: obj.pickerCityVal[2].areaCode,
+          address: obj.addressTemp,
+        }
+      } else { //转销售
+        addressInfo = {
+          custName: obj.custName,
+          phoneNumber: obj.phoneNumber,
+          provinceCode: obj.provinceCode,
+          eparchyCode: obj.eparchyCode,
+          cityCode: obj.cityCode,
+          address: obj.address,
+        }
+      }
       let objTemp = {
         goodsCode: obj.goodsCode,
         shoppingCode: obj.billNumber,
-        custName: obj.receiver,
-        phoneNumber: obj.receivePhone,
-        provinceCode: obj.pickerCityVal[0].areaCode,
-        eparchyCode: obj.pickerCityVal[1].areaCode,
-        cityCode: obj.pickerCityVal[2].areaCode,
-        address: obj.address,
+        ...addressInfo
       }
       goodsListJson.push(objTemp)
     })
     let postData = {
-      tradeType: type == 'home' ? 'HOME_USE' : 'BUSI_USE',
-      // preOrderNo:'', 
+      tradeType: type,
+      preOrderNo: type == 'PRE_SALE' ? oldSelectedGoodsList[0].orderNo : null, //如果是认筹转销售，要传 认筹单号
       activityCode,
       // ifRepaire:1 0,
       goodsListJsonStr: JSON.stringify(goodsListJson)

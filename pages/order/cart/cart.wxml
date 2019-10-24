@@ -7,7 +7,7 @@
     >
       <view class="item_content flexCenter flexBetween">
         <view class="item_img_box">
-          <image class="item_img" src="{{item.img}}" alt=''></image>
+          <image class="item_img" src="{{item.logoImage}}" alt=''></image>
         </view>
         <view class="item_content_content">
           <view class="item_content_content_top">
@@ -33,67 +33,89 @@
       </view>
       <!-- form -->
       <view class="form">
-        <view wx:if="{{index!==0}}" class="item flexJEnd">
-          <button class="addressBtn"
-            bindtap="useUpAddress"
-            data-index="{{index}}"
-          >使用上方地址</button>
-        </view>
-        <view class="item">
-          <view class="label">收 货 人</view>
-          <input class="input"
-            placeholder="请输入"
-            value="{{item.receiver}}"
-            bindinput="onInputChange_index"
-            data-key="receiver"
-            data-index="{{index}}"
-          ></input>
-        </view>
-        <view class="item">
-          <view class="label">收货电话</view>
-          <input class="input"
-            placeholder="请输入"
-            value="{{item.receivePhone}}"
-            bindinput="onInputChange_index"
-            data-key="receivePhone"
-            data-index="{{index}}"
-          ></input>
-        </view>
-        <view class='item'>
-          <view class="label">所在地区</view>
-          <view wx:if="{{item.pickerCityVal[0]}}"
-            class="input" 
-            bindtap="openCitypicker"
-            data-index="{{index}}"
-          >
-            <text wx:if="{{item.pickerCityVal[0]}}">{{item.pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text>
-            <text wx:if="{{item.pickerCityVal[1]}}">{{item.pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text> 
-            <text wx:if="{{item.pickerCityVal[2]}}">{{item.pickerCityVal[2].areaName}}</text>
+        <!-- 家用下单 可以输入地址 -->
+        <block wx:if="{{type=='HOME_USE'}}">
+          <view wx:if="{{index!==0}}" class="item flexJEnd">
+            <button class="addressBtn"
+              bindtap="useUpAddress"
+              data-index="{{index}}"
+            >使用上方地址</button>
           </view>
-          <view  wx:else 
-            class="input flexJEnd" 
-            bindtap="openCitypicker"
-            data-index="{{index}}"
-          >
-            请选择<van-icon name="arrow" custom-style="margin-top:6rpx;" />
+          <view class="item">
+            <view class="label">收 货 人</view>
+            <input class="input"
+              placeholder="请输入"
+              value="{{item.receiver}}"
+              bindinput="onInputChange_index"
+              data-key="receiver"
+              data-index="{{index}}"
+            ></input>
           </view>
-        </view>
-        <!-- 选择城市组件 -->
-        <citypicker show="{{item.showCitypicker}}" 
-          activeColor="#00A6FF"
-          bind:onClose="closeCitypicker"
-          data-index="{{index}}"
-        />
-        <view class="item">
-          <view class="label">详细地址</view>
-          <input class="input"
-            placeholder="请输入"
-            value="{{item.address}}"
-            bindinput="onInputChange_index"
-            data-key="address"
+          <view class="item">
+            <view class="label">收货电话</view>
+            <input class="input"
+              placeholder="请输入"
+              value="{{item.receivePhone}}"
+              bindinput="onInputChange_index"
+              data-key="receivePhone"
+              data-index="{{index}}"
+            ></input>
+          </view>
+          <view class='item'>
+            <view class="label">所在地区</view>
+            <view wx:if="{{item.pickerCityVal[0]}}"
+              class="input" 
+              bindtap="openCitypicker"
+              data-index="{{index}}"
+            >
+              <text wx:if="{{item.pickerCityVal[0]}}">{{item.pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text>
+              <text wx:if="{{item.pickerCityVal[1]}}">{{item.pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text> 
+              <text wx:if="{{item.pickerCityVal[2]}}">{{item.pickerCityVal[2].areaName}}</text>
+            </view>
+            <view  wx:else 
+              class="input flexJEnd" 
+              bindtap="openCitypicker"
+              data-index="{{index}}"
+            >
+              请选择<van-icon name="arrow" custom-style="margin-top:6rpx;" />
+            </view>
+          </view>
+          <!-- 选择城市组件 -->
+          <citypicker show="{{item.showCitypicker}}" 
+            activeColor="#00A6FF"
+            bind:onClose="closeCitypicker"
             data-index="{{index}}"
-          ></input>
-        </view>
+          />
+          <view class="item">
+            <view class="label">详细地址</view>
+            <input class="input"
+              placeholder="请输入"
+              value="{{item.address}}"
+              bindinput="onInputChange_index"
+              data-key="address"
+              data-index="{{index}}"
+            ></input>
+          </view>
+        </block>
+        <!-- 家用下单 可以输入地址 end -->
+        <!-- 认筹转销售 地址不能改 -->
+        <block wx:if="{{type=='PRE_SALE'}}">
+          <view class="item">
+            <view class="label">收 货 人</view>
+            <view class="input">{{item.custName}}</view>
+          </view>
+          <view class="item">
+            <view class="label">收货电话</view>
+            <view class="input">{{item.phoneNumber}}</view>
+          </view>
+          <view class="item">
+            <view class="label">详细地址</view>
+            <view class="input">{{item.provinceName}}{{item.eparchyName}}{{item.cityName}}{{item.address}}</view>
+          </view>
+        </block>
+        <!-- 认筹转销售 地址不能改 end -->
+
+
         <view class="item">
           <view class="label">提 单 号</view>
           <input class="input"

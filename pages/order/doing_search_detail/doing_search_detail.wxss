@@ -1,5 +1,8 @@
 @import '../../../utils/utils.wxss';
 
+Page {
+  background-color: #f5f5f5;
+}
 
 /* 搜索结果 */
 
@@ -10,29 +13,59 @@
   margin: 24rpx 48rpx;
 }
 
-.result_title, .result_item {
+.result_content {
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  padding: 10rpx 24rpx;
+  border: 1px solid #e6e6e6;
+  border-radius: 5rpx;
+  background-color: #fff;
+}
+
+.result_content:last-child {
+  border-bottom: none;
+}
+
+.result_title {
   height: 85rpx;
-  padding-left: 24rpx;
-  padding-right: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.result_item {
+  height: 80rpx;
   display: flex;
   align-items: center;
 }
 
-.result_title {
-  background-color: #eee;
-}
-
-.result_item {
-  justify-content: space-between;
-  border-bottom: 1px solid #e6e6e6;
-}
-
-.result_item:last-child {
-  border-bottom: none;
-}
-
 .result_label {
   color: #9b9b9b;
+}
+.result_input{
+  flex: 1 0 0;
+  height: 100%;
+  padding-left: 45rpx;
+}
+.result_input_goods{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 删除按钮 */
+
+.deleteBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #9b9b9b;
+  margin: 0;
+  width: 107rpx;
+  height: 50rpx;
 }
 
 /* 下面按钮 */

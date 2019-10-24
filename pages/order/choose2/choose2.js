@@ -8,7 +8,7 @@ const app = getApp()
  * 选择商品界面  都是操作selectedGoodsList然后renderPage
  * options：
  * activityCode //活动code
- * selectedGoodsList //已选中的goods
+ * selectedGoodsList //已选中的goods 带count的
  */
 
 Page({

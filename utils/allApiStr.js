@@ -7,6 +7,8 @@ const allApiStr = {
 
   //登录页
   loginApi: '/mp/doLogin', //登录
+  getUserinfoApi:'/mp/getUserInfo', //获取个人信息
+  
 
   getAllGoodsGroupApi: '/mp/cust/goodsGroup/queryAll', //获取所有商品分类
   getGoodsListByGroupApi: '/mp/cust/goods/queryByGroup', //根据商品分类获取商品列表
@@ -20,6 +22,7 @@ const allApiStr = {
   getActivityListApi: '/mp/preorder/getActivityList', //查活动 token activityType
   submitPreOrderApi: '/mp/preorder/submitPreOrder', //提交认筹单
   getPreOrderListApi: '/mp/cust/preorder/getPreOrderList', //获取认筹订单列表
+  getPreOrderInfoApi:'/mp/preorder/getPreOrderInfo', //获取认筹订单详情
 
   //转销售
   getRenchouListApi: '/mp/preorder/getPreOrderList', //搜索认筹单列表

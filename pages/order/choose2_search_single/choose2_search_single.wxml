@@ -24,11 +24,13 @@
       class="item_content flexCenter flexBetween"
       bindtap="clickresultItem"
       data-index="{{index}}"
+      hover-class="item_content_hover"
+      hover-stay-time="{{200}}"
     > 
-      <van-icon name="checked" 
+      <!-- <van-icon name="checked" 
         size="35rpx"
         color="{{list[index].selected?'#00a6ff':'#e0e0e0'}}" 
-      />
+      /> -->
       <view class="item_content flexCenter flexBetween">
         <view class="item_img_box">
           <image class="item_img" src="{{item.logoImage}}" alt=''></image>
@@ -62,10 +64,4 @@
     </view>
   </view>
 
-  <!-- 提交 -->
-  <view class="nextStep{{isX?' isX':''}}" 
-    hover-class="nextStep_active"
-    hover-stay-time="{{200}}"
-    bindtap="clickBtn"
-  >确定</view>
 </view>

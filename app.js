@@ -1,4 +1,7 @@
-
+/**
+ * localStorage:
+ * gree_userInfo
+ */
 App({
   globalData: {
     isX: false,

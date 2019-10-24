@@ -17,7 +17,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.checkLogin()
   },
 
   /**
@@ -131,5 +131,37 @@ Page({
     wx.redirectTo({
       url: '/pages/index/index',
     })
-  }
+  },
+  //检查登录状态token是否失效
+  checkLogin: async function() {
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    if (!wx.getStorageSync('gree_userInfo')) {
+      wx.hideLoading()
+      return false
+    }
+    let userInfo = wx.getStorageSync('gree_userInfo')
+    console.log(userInfo)
+    //尝试获取个人信息
+    let res = await requestw({
+      url: allApiStr.getUserinfoApi,
+      data: {
+        token: userInfo.token
+      },
+    })
+    console.log(res)
+    if (
+      res.data.code !== 0 ||
+      !res.data.data
+    ) {
+      return false
+    }
+    wx.hideLoading()
+
+    wx.redirectTo({
+      url: '/pages/index/index',
+    })
+  },
 })

@@ -33,7 +33,12 @@
         <view wx:for="{{leftlist[active_left].children}}" wx:key="index"
           class="right_item"
         >
-          <view class="item_content flexCenter flexBetween">
+          <view class="item_content flexCenter flexBetween"
+            bindtap="chooseRight"
+            data-index="{{index}}"
+            hover-class="item_content_hover"
+            hover-stay-time="{{200}}"
+          >
             <view class="item_img_box">
               <image class="item_img" src="{{item.logoImage}}" alt=''></image>
             </view>
@@ -53,29 +58,12 @@
               
               <view class="yuan_wrap flexCenter flexBetween">
                 <view>{{item.priceFeeYuan}}元</view>
-                <van-stepper value="{{item.count}}" 
-                  min="{{0}}"
-                  bind:change="onChangeStep" 
-                  data-param="{{index}}"
-                  plus-class="stepplusicon"
-                  minus-class="stepminusicon"
-                />
               </view>
             </view>
           </view>
         </view>
       </block>
-      <view wx:else class="noresult">
-        <text wx:if="{{active_left==0}}">暂无选择</text>
-        <text wx:else>暂无数据</text>
-      </view>
+      <view wx:else class="noresult">暂无数据</view>
     </view>
   </view>
-
-  <!-- 下一步 -->
-  <view class="nextStep{{isX?' isX':''}}" 
-    hover-class="nextStep_active"
-    hover-stay-time="{{200}}"
-    bindtap="clickBtn"
-  >确定</view>
 </view>

@@ -5,7 +5,7 @@ import allApiStr from '../../../utils/allApiStr.js'
 const app = getApp()
 
 /**
- * 现场下单 家用下单 都跳到这
+ * 现场下单： 家用下单 商用下单 都跳到这
  * options:
  * type  //home busi  家用 商用
  */
@@ -205,9 +205,12 @@ Page({
     }
     //验证 end
 
+
+    let typeCart = (type == 'home' ? 'HOME_USE' : 'BUSI_USE')
     let activityCode = activityList[selectedActivityIndex].activityCode
+
     wx.navigateTo({
-      url: `/pages/order/cart/cart?type=${type}&activityCode=${activityCode}&selectedGoodsList=${JSON.stringify(selectedList)}`,
+      url: `/pages/order/cart/cart?type=${typeCart}&activityCode=${activityCode}&selectedGoodsList=${JSON.stringify(selectedList)}`,
     })
   },
 })

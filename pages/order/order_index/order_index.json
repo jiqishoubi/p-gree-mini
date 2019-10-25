@@ -1,10 +1,10 @@
 {
-  "navigationBarTitleText": "下单",
+  "navigationBarTitleText": "订单",
+  "enablePullDownRefresh":true,
+  
   "usingComponents": {
     "van-tabbar": "vant-weapp/tabbar",
     "van-tabbar-item": "vant-weapp/tabbar-item",
-    "van-tab": "vant-weapp/tab/index",
-    "van-tabs": "vant-weapp/tabs/index",
     "van-icon": "vant-weapp/icon/index"
   }
 }

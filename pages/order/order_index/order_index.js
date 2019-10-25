@@ -1,3 +1,6 @@
+import regeneratorRuntime from '../../../utils/runtime.js' //让小程序支持asyc await
+import requestw from '../../../utils/requestw.js'
+import allApiStr from '../../../utils/allApiStr.js'
 
 Page({
 
@@ -5,201 +8,72 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list_1: [
-      {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '未付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退单',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '未付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已付款',
-      }
-    ],
-    list_2: [
-      {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '未付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '未付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '未付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '未付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '未付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '未付款',
-      }
-    ],
-    list_3: [
-      {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已付款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已付款',
-      }
-    ],
-    list_4: [
-      {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退单',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退单',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退单',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退单',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退单',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退单',
-      }
-    ],
-    list_5: [
-      {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退款',
-      }, {
-        name: '13051832424',
-        address: '辽宁省沈阳市浑南区金辉街1号德宝大厦',
-        status: '已退款',
-      }
-    ],
+    navIndex: 0,
+    navList: ['已认筹', '已登录', '已下单', '已退单'],
+    showList: [],
+
+    page: 1, //请求的page
+    pageSize: 10,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    this.getData(false)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-
+  onReachBottom: function() {
+    this.getData(true)
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
-  //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
+  //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法法方法方法方法
   //切换tabbar
-  onChange_tabbar: function (e) {
+  onChange_tabbar: function(e) {
     let index = e.detail
     switch (index) {
       case 0:
@@ -224,11 +98,138 @@ Page({
         break
     }
   },
-  goPage: function (e) {
-    let url = e.currentTarget.dataset.item
-    console.log(url)
-    wx.navigateTo({
-      url,
+  //回到顶部
+  goTop: function(e) { // 一键回到顶部
+    if (wx.pageScrollTo) {
+      wx.pageScrollTo({
+        scrollTop: 0,
+        duration: 0,
+      })
+    }
+  },
+  //点击上面的状态
+  clickNav: function(e) {
+    let index = e.currentTarget.dataset.index
+    const {
+      navIndex
+    } = this.data
+    if (navIndex == index) {
+      return false
+    }
+
+    this.setData({
+      navIndex: index
+    }, () => {
+      this.getData(false)
     })
-  }
+    this.goTop()
+  },
+  //获取列表
+  getData: async function(isScroll) {
+    const {
+      navIndex,
+      page,
+      pageSize,
+      showList,
+    } = this.data
+
+    //page
+    let getPage
+    if (isScroll) {
+      getPage = page
+    } else {
+      getPage = 1
+    }
+
+    //url
+    let url
+    if (navIndex == 0 || navIndex == 1) { //认筹单接口
+      url = allApiStr.getPreOrderListApi
+    } else { //销售单接口
+      url = allApiStr.getTradeListApi
+    }
+    //postData
+    let postData
+    switch (navIndex) {
+      case 0:
+        postData = {
+          orderType: 'HOME_USE',
+          orderStatus: '40',
+        }
+        break
+      case 1:
+        postData = {
+          orderType: 'BUSI_USE',
+          orderStatus: '50',
+        }
+        break
+      case 2:
+        postData = {
+          notTradeStatus: '93',
+        }
+        break
+      case 3:
+        postData = {
+          tradeStatus: '93',
+        }
+        break
+    }
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    let res = await requestw({
+      url,
+      data: {
+        page: getPage,
+        rows: pageSize,
+        ...postData,
+      },
+    })
+    wx.hideLoading()
+    //没查到
+    if (
+      res.data.code !== '0' ||
+      !res.data.data ||
+      !res.data.data.data
+    ) {
+      if (isScroll) {
+
+      } else {
+        this.setData({
+          showList: []
+        })
+      }
+      return false
+    }
+
+    //查到了
+    //list
+    let list
+    if (isScroll) {
+      list = [...showList, ...res.data.data.data]
+    } else {
+      list = res.data.data.data
+    }
+
+    this.setData({
+      page: page + 1,
+      showList: list,
+    })
+  },
+  //去订单详情
+  goDetail: function(e) {
+    let item = e.currentTarget.dataset.item
+    const {
+      navIndex
+    } = this.data
+
+    switch (navIndex) {
+      case 1:
+        wx.navigateTo({
+          url: `/pages/order/order_detail_yidenglu/order_detail_yidenglu?order=${JSON.stringify(item)}`,
+        })
+        break
+    }
+  },
 })

@@ -39,81 +39,105 @@
 
   <!-- form -->
   <view class="form">
-    <view class="item van-hairline--bottom">
-      <view class="label">收 货 人</view>
-      <input class="input"
-        placeholder="请输入"
-        value="{{receiver}}"
-        bindinput="onInputChange"
-        data-key="receiver"
-      ></input>
-    </view>
-    <view class="item van-hairline--bottom">
-      <view class="label">收货电话</view>
-      <input class="input"
-        placeholder="请输入"
-        value="{{receivePhone}}"
-        bindinput="onInputChange"
-        data-key="receivePhone"
-      ></input>
-    </view>
-    <view class="item van-hairline--bottom">
-      <view class="label">备用电话</view>
-      <input class="input"
-        placeholder="请输入"
-        value="{{receivePhoneBak}}"
-        bindinput="onInputChange"
-        data-key="receivePhoneBak"
-      ></input>
-    </view>
-    <view class='item van-hairline--bottom'>
-      <view class="label">所在地区</view>
-      <view wx:if="{{pickerCityVal[0]}}"
-        class="input" 
-        bindtap="openCitypicker"
-      >
-        <text wx:if="{{pickerCityVal[0]}}">{{pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text>
-        <text wx:if="{{pickerCityVal[1]}}">{{pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text> 
-        <text wx:if="{{pickerCityVal[2]}}">{{pickerCityVal[2].areaName}}</text>
+    <!-- 商用第一次下单（认筹（登录）） -->
+    <block wx:if="{{!orderObj}}">
+      <view class="item van-hairline--bottom">
+        <view class="label">收 货 人</view>
+        <input class="input"
+          placeholder="请输入"
+          value="{{receiver}}"
+          bindinput="onInputChange"
+          data-key="receiver"
+        ></input>
       </view>
-      <view  wx:else 
-        class="input flexJEnd" 
-        bindtap="openCitypicker"
-      >
-        请选择<van-icon name="arrow" custom-style="margin-top:6rpx;" />
+      <view class="item van-hairline--bottom">
+        <view class="label">收货电话</view>
+        <input class="input"
+          placeholder="请输入"
+          value="{{receivePhone}}"
+          bindinput="onInputChange"
+          data-key="receivePhone"
+        ></input>
       </view>
-    </view>
-    <!-- 选择城市组件 -->
-    <citypicker show="{{showCitypicker}}" 
-      activeColor="#00A6FF"
-      bind:onClose="closeCitypicker"
-    />
-    <view class="item van-hairline--bottom">
-      <view class="label">详细地址</view>
-      <input class="input"
-        placeholder="请输入"
-        value="{{address}}"
-        bindinput="onInputChange"
-        data-key="address"
-      ></input>
-    </view>
-    <view class="item van-hairline--bottom">
-      <view class="label">提 单 号</view>
-      <input class="input"
-        placeholder="请输入"
-        value="{{billNumber}}"
-        bindinput="onInputChange"
-        data-key="billNumber"
-      ></input>
-    </view>
-    <view class="item van-hairline--bottom">
-      <view class="label">备<text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>注</view>
-      <input class="input"
-        placeholder="请输入"
-        value="{{remarkinput}}"
-        bindinput="onInputChange"
-      ></input>
-    </view>
+      <view class="item van-hairline--bottom">
+        <view class="label">备用电话</view>
+        <input class="input"
+          placeholder="请输入"
+          value="{{receivePhoneBak}}"
+          bindinput="onInputChange"
+          data-key="receivePhoneBak"
+        ></input>
+      </view>
+      <view class='item van-hairline--bottom'>
+        <view class="label">所在地区</view>
+        <view wx:if="{{pickerCityVal[0]}}"
+          class="input" 
+          bindtap="openCitypicker"
+        >
+          <text wx:if="{{pickerCityVal[0]}}">{{pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text>
+          <text wx:if="{{pickerCityVal[1]}}">{{pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text> 
+          <text wx:if="{{pickerCityVal[2]}}">{{pickerCityVal[2].areaName}}</text>
+        </view>
+        <view  wx:else 
+          class="input flexJEnd" 
+          bindtap="openCitypicker"
+        >
+          请选择<van-icon name="arrow" custom-style="margin-top:6rpx;" />
+        </view>
+      </view>
+      <!-- 选择城市组件 -->
+      <citypicker show="{{showCitypicker}}" 
+        activeColor="#00A6FF"
+        bind:onClose="closeCitypicker"
+      />
+      <view class="item van-hairline--bottom">
+        <view class="label">详细地址</view>
+        <input class="input"
+          placeholder="请输入"
+          value="{{address}}"
+          bindinput="onInputChange"
+          data-key="address"
+        ></input>
+      </view>
+      <view class="item van-hairline--bottom">
+        <view class="label">提 单 号</view>
+        <input class="input"
+          placeholder="请输入"
+          value="{{billNumber}}"
+          bindinput="onInputChange"
+          data-key="billNumber"
+        ></input>
+      </view>
+      <view class="item van-hairline--bottom">
+        <view class="label">备<text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>注</view>
+        <input class="input"
+          placeholder="请输入"
+          value="{{remarkinput}}"
+          bindinput="onInputChange"
+        ></input>
+      </view>
+    </block>
+    <!-- 商用第二次下单 （转销售） -->
+    <block wx:if="{{orderObj}}">
+      <view class="item van-hairline--bottom">
+        <view class="label">收 货 人</view>
+        <view class="input">{{orderObj.custName}}</view>
+      </view>
+      <view class="item van-hairline--bottom">
+        <view class="label">收货电话</view>
+        <view class="input">{{orderObj.phoneNumber}}</view>
+      </view>
+      <view wx:if="{{orderObj.phoneNumberBak}}"
+        class="item van-hairline--bottom"
+      >
+        <view class="label">备用电话</view>
+        <view class="input">{{orderObj.phoneNumberBak}}</view>
+      </view>
+      <view class='item van-hairline--bottom'>
+        <view class="label">详细地址</view>
+        <view class="input">{{orderObj.provinceName}}{{orderObj.eparchyName}}{{orderObj.cityName}}{{orderObj.address}}</view>
+      </view>
+    </block>
   </view>
 
   <view style="height:360rpx;"></view>
@@ -124,7 +148,7 @@
     <view>合计：{{sumPrice}}元</view>
     <button class="submit"
       hover-class="submit_hover"
-      bindtap="submit"
+      bindtap="submitBtnClick"
     >提交订单</button>
   </view>
 
@@ -142,11 +166,11 @@
   >
     <view class="flexColumn editprice_modal">
       <view class="price_item">
-        <view class="price_item_label">当前价格：</view>
+        <view class="price_item_label">当前价格(元)：</view>
         <view wx:if="{{lookingIndex!==null}}" class="price_item_input">{{oldSelectedGoodsList[lookingIndex].priceFeeYuan}}</view>
       </view>
       <view class="price_item">
-        <view class="price_item_label">修改价格：</view>
+        <view class="price_item_label">修改价格(元)：</view>
         <input class="price_item_input"
           placeholder="请输入"
           value="{{price1}}"
@@ -155,7 +179,7 @@
         ></input>
       </view>
       <view class="price_item">
-        <view class="price_item_label">确认价格：</view>
+        <view class="price_item_label">确认价格(元)：</view>
         <input class="price_item_input"
           placeholder="请输入"
           value="{{price2}}"

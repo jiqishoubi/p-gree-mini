@@ -1,0 +1,61 @@
+<!-- 订单详情 -->
+<view wx:if="{{oldOrder}}" class="order_detail_page">
+
+  <view class="content">
+    <!-- 订单信息 -->
+    <view class="title"><view class="rect"></view>订单信息</view>
+    <view class="form">
+      <view class="item">
+        <view class="label">订单编号</view>
+        <view class="input">{{order.orderNo}}</view>
+      </view>
+      <view class="item">
+        <view class="label">用户姓名</view>
+        <view class="input">{{order.custName}}</view>
+      </view>
+      <view class="item">
+        <view class="label">用户电话</view>
+        <view class="input">{{order.phoneNumber}}</view>
+      </view>
+      <view class="item">
+        <view class="label">安装地址</view>
+        <view class="input">{{order.provinceName}}{{order.eparchyName}}{{order.cityName}}</view>
+      </view>
+      <view class="item">
+        <view class="label">下单时间</view>
+        <view class="input">{{order.orderDateStr}}</view>
+      </view>
+      <view class="item">
+        <view class="label">备注</view>
+        <view class="input">{{order.remark}}</view>
+      </view>
+    </view>
+    <!-- 商品列表 -->
+    <view class="title flexBetween">
+      <view class="flexCenter">
+        <view class="rect"></view>商品
+      </view>
+      <button class="goodsBtn"
+        bindtap="goChooseGoods"
+      >修改商品</button>
+    </view>
+    <view class="form">
+      <view wx:for="{{order.goodsList}}" wx:for-index="idx" wx:for-item="itm" wx:key="idx"
+        class="item"
+      >
+        <view class="label1">{{itm.goodsName}}</view>
+        <view class="label3"><van-icon name="cross" custom-style="position:relative;top:4rpx;" />{{itm.goodsCount}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view style="height:360rpx;"></view>
+  
+
+  <!-- 按钮 -->
+  <view class="btn_submit{{isX?' isX':''}}" 
+    hover-class="btn_submit_active"
+    hover-stay-time="{{200}}"
+    bindtap="clickOrder"
+  >下单</view>
+</view>

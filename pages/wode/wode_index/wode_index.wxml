@@ -14,7 +14,7 @@
   <!-- 导航 -->
   <view class="nav bg_white">
     <view class="nav_content">
-      <view class="nav_item"
+      <!-- <view class="nav_item"
         bindtap="goPage"
         data-item='/pages/wode/orderlist/orderlist'
       >
@@ -23,7 +23,7 @@
         ></image>
         <view class="nav_text">我的订单</view>
         <view class="nav_item_arrow"></view>
-      </view>
+      </view> -->
       <view class="nav_item"
         bindtap="goPage"
         data-item='/pages/wode/'
@@ -112,7 +112,7 @@
         src="https://cdn.s.bld365.com/getli_tab_icon_03_active.png"
         mode="aspectFit"
       />
-      下单
+      订单
     </van-tabbar-item>
     <van-tabbar-item>
       <image

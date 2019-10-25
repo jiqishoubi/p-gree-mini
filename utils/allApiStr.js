@@ -21,7 +21,7 @@ const allApiStr = {
   //认筹下单
   getActivityListApi: '/mp/preorder/getActivityList', //查认筹的活动 token activityType  PRE_SALE-家用认筹; BUSI_USE-商用认筹
   submitPreOrderApi: '/mp/preorder/submitPreOrder', //提交认筹单
-  getPreOrderListApi: '/mp/cust/preorder/getPreOrderList', //获取认筹订单列表
+  getPreOrderListApi: '/mp/preorder/getPreOrderList', //获取认筹订单列表
   getPreOrderInfoApi: '/mp/preorder/getPreOrderInfo', //获取认筹订单详情
 
   //转销售

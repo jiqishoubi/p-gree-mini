@@ -14,7 +14,9 @@ const app = getApp()
  * options:
  * type  //PRE_SALE认筹转销售  HOME_USE家用下单  BUSI_USE商用下单
  * activityCode
- * selectedGoodsList //带不带count都可以
+ * selectedGoodsList 
+ * 
+ * orderObj  认筹单信息  是否认筹的 用于商用转销售  可以不传
  */
 
 Page({
@@ -27,6 +29,7 @@ Page({
 
     type: '',
     activityCode: '',
+    orderObj: null,
     oldSelectedGoodsList: [],
 
     //form
@@ -59,6 +62,7 @@ Page({
    */
   onLoad: function (options) {
     console.log(options)
+    // wx.setStorageSync('test_cart', options) //测试用
     // options = wx.getStorageSync('test_cart') //测试用
     console.log(options)
     if (!options.type) {
@@ -77,9 +81,11 @@ Page({
     this.setData({
       type: options.type,
       activityCode: options.activityCode,
+      orderObj: options.orderObj ? JSON.parse(options.orderObj) : null,
 
       oldSelectedGoodsList,
     }, () => {
+      console.log(this.data.orderObj)
       this.calcSumPrice()
     })
   },
@@ -168,8 +174,26 @@ Page({
       sumPrice: toMoney(sum)
     })
   },
-  //点击提交订单
-  submit: async function () {
+  //点击submit
+  submitBtnClick: function () {
+    const self = this
+    wx.showModal({
+      title: '提示',
+      content: '是否确认提交订单？',
+      success: function (res) {
+        if (res.confirm) {
+          // on confirm
+          if (self.data.orderObj) {
+            self.submit2()
+          } else {
+            self.submit1()
+          }
+        }
+      },
+    })
+  },
+  //点击提交订单(商用第一次下单)
+  submit1: async function () {
     const {
       type,
       activityCode,
@@ -243,6 +267,76 @@ Page({
     })
     let res = await requestw({
       url: allApiStr.submitPreOrderApi, //商用下单 要先认筹一下 要走认筹的口
+      data: postData,
+    })
+    wx.hideLoading()
+    console.log(res)
+
+    if (res.data.code !== '0') {
+      wx.showToast({
+        title: res.data.message,
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+
+    this.openResultModal()
+  },
+  //点击提交订单(商用第二次下单)
+  submit2: async function () {
+    const {
+      type,
+      activityCode,
+      oldSelectedGoodsList, //修改了商品价格
+      orderObj,
+    } = this.data
+
+    //验证
+    if (type == '' || activityCode == '') {
+      wx.showToast({
+        title: '参数缺失，请重新访问',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    //验证 end
+
+    //商用销售单 下单
+    //发送参数
+    let goodsListJson = []
+    oldSelectedGoodsList.forEach((obj) => {
+      let objTemp = {
+        goodsCode: obj.goodsCode,
+        goodsCount: obj.count,
+      }
+      goodsListJson.push(objTemp)
+    })
+    let postData = {
+      tradeType: 'BUSI_USE',
+      preOrderNo: orderObj.orderNo,
+      activityCode,
+      //form
+      custName: orderObj.custName,
+      phoneNumber: orderObj.phoneNumber,
+      phoneNumberBak: orderObj.phoneNumberBak ? orderObj.phoneNumberBak : orderObj.phoneNumber,
+      provinceCode: orderObj.provinceCode,
+      eparchyCode: orderObj.eparchyCode,
+      cityCode: orderObj.cityCode,
+      address: orderObj.address,
+      remark: orderObj.remark,
+
+      goodsListJsonStr: JSON.stringify(goodsListJson),
+    }
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    let res = await requestw({
+      url: allApiStr.sumbitSaleOrderApi,
       data: postData,
     })
     wx.hideLoading()

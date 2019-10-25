@@ -57,7 +57,7 @@
       <image class="list_item_img" src='https://cdn.s.bld365.com/getli_index_list_item_img_01.png' alt=''></image>
       <view class="list_item_content">
         <view>今日销售：台</view>
-        <view class="list_item_count">{{2}}</view>
+        <view class="list_item_count">{{6}}</view>
       </view>
     </view>
 
@@ -65,7 +65,7 @@
       <image class="list_item_img" src='https://cdn.s.bld365.com/getli_index_list_item_img_02.png' alt=''></image>
       <view class="list_item_content">
         <view>本店销售：台</view>
-        <view class="list_item_count">{{2}}</view>
+        <view class="list_item_count">{{86}}</view>
       </view>
     </view>
 
@@ -73,7 +73,7 @@
       <image class="list_item_img" src='https://cdn.s.bld365.com/getli_index_list_item_img_03.png' alt=''></image>
       <view class="list_item_content">
         <view>待转销售：台</view>
-        <view class="list_item_count">{{2}}</view>
+        <view class="list_item_count">{{32}}</view>
       </view>
     </view>
 
@@ -81,7 +81,7 @@
       <image class="list_item_img" src='https://cdn.s.bld365.com/getli_index_list_item_img_04.png' alt=''></image>
       <view class="list_item_content">
         <view>已转销售：台</view>
-        <view class="list_item_count">{{2}}</view>
+        <view class="list_item_count">{{26}}</view>
       </view>
     </view>
 

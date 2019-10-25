@@ -254,10 +254,10 @@ Page {
 }
 
 .selectedItem .label1 {
+  max-width: 80%;
 }
 
 .selectedItem .label2 {
-  max-width: 50%;
 }
 
 .selectedItem .label3 {

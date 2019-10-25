@@ -5,14 +5,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    userInfo:{},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let userInfo=wx.getStorageSync('gree_userInfo')
+    console.log(userInfo)
+    this.setData({
+      userInfo
+    })
   },
 
   /**
@@ -93,7 +97,17 @@ Page({
   //导航
   goPage: function (e) {
     let url = e.currentTarget.dataset.item
-    console.log(url)
+
+    if(!url){
+      wx.showToast({
+        title: '敬请期待',
+        icon: 'none',
+        // mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+
     wx.navigateTo({
       url,
     })

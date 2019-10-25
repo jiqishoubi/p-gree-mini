@@ -43,8 +43,8 @@
     <view wx:for="{{selectedList}}" wx:key="index" 
       class='item selectedItem'
     >
-      <view class="label1">{{item.goodsName}}</view>
-      <view class="label2">{{item.goodsModel}}</view>
+      <view class="label1 textOmit">{{item.goodsName}}</view>
+      <!-- <view class="label2">{{item.goodsModel}}</view> -->
       <view class="label3"><van-icon name="cross" custom-style="position:relative;top:4rpx;" />{{item.count}}</view>
     </view>
     <!-- 选择的商品列表 end -->

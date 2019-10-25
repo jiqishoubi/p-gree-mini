@@ -24,7 +24,8 @@
           </view>
           
           <view class="yuan_wrap flexCenter flexBetween">
-            <view>{{item.priceFeeYuan}}元</view>
+            <view wx:if="{{item.rewardFeeYuan}}">{{item.rewardFeeYuan}}元</view>
+            <view wx:else>{{item.priceFeeYuan}}元</view>
             <view bindtap="openEditPriceModal"
               data-index="{{index}}"
             >修改价格</view>
@@ -168,7 +169,10 @@
     <view class="flexColumn editprice_modal">
       <view class="price_item">
         <view class="price_item_label">当前价格(元)：</view>
-        <view wx:if="{{lookingIndex!==null}}" class="price_item_input">{{selectedList[lookingIndex].priceFeeYuan}}</view>
+        <view wx:if="{{lookingIndex!==null}}" class="price_item_input">
+          <text wx:if="{{selectedList[lookingIndex].rewardFeeYuan}}">{{selectedList[lookingIndex].rewardFeeYuan}}</text>
+          <text wx:else>{{selectedList[lookingIndex].priceFeeYuan}}</text>
+        </view>
       </view>
       <view class="price_item">
         <view class="price_item_label">修改价格(元)：</view>

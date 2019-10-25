@@ -1,19 +1,24 @@
 {
   "pages": [
+      "pages/login/login",
+    "pages/wode/shopcode/shopcode",
+    "pages/wode/mycode/mycode",
+     
+     
+      "pages/wode/wode_index/wode_index",
     "pages/index/index",
     "pages/order/cart_busi/cart_busi",
     "pages/order/order_index/order_index",
     "pages/order/order_detail_yidenglu/order_detail_yidenglu",
-    "pages/login/login",
+  
     "pages/order/doing_search/doing_search",
     "pages/order/cart/cart",
     "pages/order/site_order_new/site_order_new",
     "pages/renchou/renchou",
     "pages/order/choose2/choose2",
     "pages/order/choose2_search/choose2_search",
-    "pages/wode/shopcode/shopcode",
-    "pages/wode/mycode/mycode",
-    "pages/wode/wode_index/wode_index",
+  
+  
     "pages/wode/orderlist/orderlist",
     "pages/statistics/statistics_index/statistics_index",
     "pages/order/doing_search_detail/doing_search_detail",

@@ -2,12 +2,12 @@
 <view class="wode_page">
   <!-- top -->
   <view class="top flexCenter flexBetween">
-    <view class="head_box">
+    <!-- <view class="head_box">
       <image class="head" src='https://cdn.s.bld365.com/getli_wode_index_head.png' alt=''></image>
-    </view>
+    </view> -->
     <view class="head_content">
-      <view class="nickname">姓名</view>
-      <view class="phone">13051832424</view>
+      <view class="nickname">{{userInfo.userName}}</view>
+      <view class="phone">{{userInfo.loginName}}</view>
     </view>
   </view>
 
@@ -26,7 +26,7 @@
       </view> -->
       <view class="nav_item"
         bindtap="goPage"
-        data-item='/pages/wode/'
+        data-item=''
       >
         <image class="nav_item_img" 
           src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_02.png' alt=''
@@ -36,7 +36,7 @@
       </view>
       <view class="nav_item"
         bindtap="goPage"
-        data-item='/pages/wode/'
+        data-item=''
       >
         <image class="nav_item_img" 
           src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_03.png' alt=''

@@ -64,7 +64,8 @@ Page {
 /* 列表 */
 
 .list {
-  margin-top: 203rpx;
+  /* margin-top: 203rpx; */
+  margin-top: 112rpx;
   position: relative;
   z-index: 1;
 }

@@ -1,4 +1,3 @@
-
 const isTest = true
 
 const hostObj = {
@@ -9,6 +8,11 @@ const hostObj = {
   prod: {
     host: ''
   },
+}
+
+//二维码
+export const initQrcodeUrl=(type,code)=>{
+  return `https://greet.bld365.com?type=${type}&code=${code}`
 }
 
 //获取host

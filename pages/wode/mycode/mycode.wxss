@@ -58,14 +58,16 @@ Page {
 /* 中间 */
 
 .img_box {
-  width: 518rpx;
-  height: 518rpx;
+  /* width: 518rpx;
+  height: 518rpx; */
   margin: 52rpx auto;
   border-radius: 12rpx;
-  background-color: #e6e6e6;
+  /* background-color: #e6e6e6; */
+  display: flex;
+  justify-content: center;
 }
 
 .code {
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
 }

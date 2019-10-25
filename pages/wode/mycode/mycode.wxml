@@ -3,22 +3,24 @@
   <view class="container positionCenter">
     <!-- 上面 -->
     <view class="top flexCenter">
-      <view class="head_box">
+      <!-- <view class="head_box">
         <image class="head" src='https://cdn.s.bld365.com/getli_wode_index_head.png' alt=''></image>
-      </view>
+      </view> -->
       <view class="top_content">
-        <view class="top_name">姓名</view>
-        <view class="top_phone">13051832424</view>
+        <view class="top_name">{{userInfo.userName}}</view>
+        <view class="top_phone">{{userInfo.loginName}}</view>
       </view>
-      <view class="shop">铁西大润发店</view>
+      <view class="shop">{{userInfo.departName}}</view>
     </view>
     <!-- 中间 -->
     <view class="img_box">
-      <image class="code" src='' alt=''></image>
+      <canvas class="code" canvas-id="myQrcode"
+         style="width:250PX;height:250PX;"
+      />
     </view>
     <!-- 下面 -->
-    <view class="bottom flexJCenter">
+    <!-- <view class="bottom flexJCenter">
       地址
-    </view>
+    </view> -->
   </view>
 </view>

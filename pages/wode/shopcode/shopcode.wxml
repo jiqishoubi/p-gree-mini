@@ -4,16 +4,18 @@
     <!-- 上面 -->
     <view class="top flexCenter">
       <view class="head_box">
-        <image class="head" src='https://cdn.s.bld365.com/getli_wode_index_head.png' alt=''></image>
+        <image class="head" src='https://cdn.s.bld365.com/getli_wode_qrcode_shop_head.png' alt=''></image>
       </view>
       <view class="top_content">
-        <view class="top_name">姓名</view>
-        <view class="top_phone">13051832424</view>
+        <view class="top_name">{{userInfo.departName}}</view>
+        <!-- <view class="top_phone">13051832424</view> -->
       </view>
     </view>
     <!-- 中间 -->
     <view class="img_box">
-      <image class="code" src='' alt=''></image>
+      <canvas class="code" canvas-id="myQrcode"
+         style="width:250PX;height:250PX;"
+      />
     </view>
   </view>
 </view>

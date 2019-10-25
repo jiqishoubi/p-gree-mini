@@ -32,8 +32,8 @@ Page {
   flex: 1 0 0;
   height: 100%;
   padding-left: 16rpx;
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
 }
 
 /* content */

@@ -52,7 +52,7 @@
               </view>
               
               <view class="yuan_wrap flexCenter flexBetween">
-                <view wx:if="{{item.rewardFeeYuan}}">{{item.rewardFeeYuan}}元</view>
+                <view wx:if="{{item.priceFeeActivityYuan}}">{{item.priceFeeActivityYuan}}元</view>
                 <view wx:else>{{item.priceFeeYuan}}元</view>
                 <van-stepper value="{{item.count}}" 
                   min="{{0}}"

@@ -39,6 +39,16 @@ Page {
   height: 50rpx;
 }
 
+.label1 {
+  max-width: 80%;
+}
+
+.label2 {
+}
+
+.label3 {
+}
+
 /* 修改商品btn */
 
 .goodsBtn {

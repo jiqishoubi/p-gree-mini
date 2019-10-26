@@ -99,7 +99,7 @@
       <view class='item positionRe' id="{{'goodsItem'+indexwrap}}" style="z-index:{{itemwrap.goodsItemZindex}}">
         <view class="label">商品机型</view>
         <view wx:if="{{itemwrap.selectedGoods}}"
-          class="input flexCenter"
+          class="input flexCenter textOmit"
           bindtap="toggleGoodsList"
           data-param='{{indexwrap}}'
         >

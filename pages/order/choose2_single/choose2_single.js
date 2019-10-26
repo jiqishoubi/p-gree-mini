@@ -33,7 +33,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function(options) {
+  onLoad: async function (options) {
     //1、设置options
     //(1)已选中的商品
     if (options.selectedGoodsList) {
@@ -56,61 +56,61 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-    
+  onShow: function () {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方
   //打开搜索页面
-  goSearch: function() {
-    const {lookingIndex}=this.data
+  goSearch: function () {
+    const { lookingIndex } = this.data
     wx.navigateTo({
       url: `/pages/order/choose2_search_single/choose2_search_single?activityCode=${this.data.activityCode}&lookingIndex=${lookingIndex}`,
     })
   },
   // 点击左侧
-  chooseleft: function(e) {
+  chooseleft: function (e) {
     let indexleft = e.currentTarget.dataset.param
 
     this.setData({
@@ -120,7 +120,7 @@ Page({
     this.getGoodsList(indexleft)
   },
   //点击右侧
-  chooseRight: function(e) {
+  chooseRight: function (e) {
     let index = e.currentTarget.dataset.index
     const {
       active_left,
@@ -136,8 +136,8 @@ Page({
     wx.navigateBack()
   },
   //获取商品分类
-  getGoodsGroup: async function(activityCode) {
-    return new Promise(async(resolve, reject) => {
+  getGoodsGroup: async function (activityCode) {
+    return new Promise(async (resolve, reject) => {
       let postData = {
         activityCode: activityCode ? activityCode : null, //根据活动
       }
@@ -164,7 +164,7 @@ Page({
     })
   },
   //根据商品分类获取商品列表
-  getGoodsList: async function(indexleft) {
+  getGoodsList: async function (indexleft) {
     let {
       leftlist
     } = this.data
@@ -174,7 +174,7 @@ Page({
     }
 
     let postData = {
-      goodsGroupCode: leftlist[indexleft].goodsGroupCode, //根据商品分类
+      goodsGroup: leftlist[indexleft].goodsGroupCode, //根据商品分类
       activityCode: this.data.activityCode ? this.data.activityCode : null, //根据活动
     }
     wx.showLoading({

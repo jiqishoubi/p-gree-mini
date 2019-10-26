@@ -168,7 +168,7 @@ Page({
     } = this.data
     let sum = 0
     oldSelectedGoodsList.forEach((obj) => {
-      sum = sum + (Number(obj.rewardFeeYuan ? obj.rewardFeeYuan : obj.priceFeeYuan) * obj.count)
+      sum = sum + (Number(obj.priceFeeActivityYuan ? obj.priceFeeActivityYuan : obj.priceFeeYuan) * obj.count)
     })
     this.setData({
       sumPrice: toMoney(sum)
@@ -420,7 +420,7 @@ Page({
     }
     //验证 end
 
-    oldSelectedGoodsList[lookingIndex].rewardFeeYuan = price1
+    oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan = price1
     this.setData({
       oldSelectedGoodsList,
     }, () => {

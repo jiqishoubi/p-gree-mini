@@ -7,10 +7,16 @@ Page({
     //banner
     imgList:[
       'https://cdn.s.bld365.com/getli_index_banner_02.png'
-    ]
+    ],
+
+    userInfo:{},
   },
   onLoad: function () {
-    
+    let userInfo=wx.getStorageSync('gree_userInfo')
+    console.log(userInfo)
+    this.setData({
+      userInfo
+    })
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
   //切换tabbar

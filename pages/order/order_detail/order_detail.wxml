@@ -1,0 +1,210 @@
+<!-- 订单详情 -->
+<view class="order_detail_page">
+  <view class="container">
+    <view class="content">
+      <!-- 订单信息 -->
+      <view class="title flexBetween">
+        <view class="flexCenter">
+          <view class="rect"></view>订单信息
+        </view>
+        <image wx:if="{{info.tradeStatus!=='93'}}"
+          src="https://cdn.s.bld365.com/gelirc_order_detail_qrcode.png" alt='' 
+          style="width:29rpx;height:29rpx;"
+          bindtap="openCodeModal"
+        ></image>
+      </view>
+      <view class="form noborder">
+        <!-- 认筹单 -->
+        <block wx:if="{{type=='preorder'}}">
+          <view class="item">
+            <view class="label">认筹编号</view>
+            <view class="input">{{info.orderNo}}</view>
+          </view>
+          <view wx class="item">
+            <view class="label">下单时间</view>
+            <view class="input">{{info.orderDateStr}}</view>
+          </view>
+        </block>
+        <!-- 销售单 -->
+        <block wx:if="{{type=='trade'}}">
+          <view class="item">
+            <view class="label">认筹编号</view>
+            <view class="input">{{info.preOrderNo}}</view>
+          </view>
+          <view class="item">
+            <view class="label">销售单编号</view>
+            <view class="input">{{info.tradeNo}}</view>
+          </view>
+          <view wx class="item">
+            <view class="label">下单时间</view>
+            <view class="input">{{info.tradeDateStr}}</view>
+          </view>
+        </block>
+      </view>
+
+      <!-- 商品信息 -->
+      <block wx:for="{{info.goodsList}}" wx:key="index">
+        <view class="title"><view class="rect"></view>商品信息</view>
+        <!-- 认筹单商品 -->
+        <block wx:if="{{type=='preorder'}}">
+          <view class="form">
+            <view class="item">
+              <view class="label">商品名称</view>
+              <view class="input textOmit">{{item.goodsName}}</view>
+            </view>
+            <view class="item">
+              <view class="label">商品价格</view>
+              <view class="input textOmit">{{item.priceFeeYuan}}元</view>
+            </view>
+            <view class="item">
+              <view class="label">安装地址</view>
+              <view class="input textOmit">{{item.provinceName}}{{item.eparchyName}}{{item.cityName}}{{item.address}}</view>
+            </view>
+          </view>
+        </block>
+        <!-- 销售单商品 -->
+        <block wx:if="{{type=='trade'}}">
+          <view class="form">
+            <view class="item">
+              <view class="label">商品名称</view>
+              <view class="input textOmit">{{item.goodsName}}</view>
+            </view>
+            <view class="item">
+              <view class="label">商品型号</view>
+              <view class="input textOmit">{{item.goodsModel}}</view>
+            </view>
+            <view class="item">
+              <view class="label">商品价格</view>
+              <view class="input textOmit">{{item.tradeFeeStr}}元</view>
+            </view>
+            <view class="item">
+              <view class="label">安装地址</view>
+              <view class="input textOmit">
+                {{item.installOrderDTO.provinceName}}
+                {{item.installOrderDTO.eparchyName}}
+                {{item.installOrderDTO.cityName}}
+                {{item.installOrderDTO.address}}
+              </view>
+            </view>
+            <view wx:if="{{item.installOrderDTO.reserveDateStr}}" class="item">
+              <view class="label">安装时间</view>
+              <view class="input textOmit">{{item.installOrderDTO.reserveDateStr}}</view>
+            </view>
+          </view>
+          <view wx:if="{{info.tradeStatus!=='93'&&item.installOrderDTO.orderStatus=='0'}}" class="btn_wrap">
+            <button class="btn"
+              hover-class="btn_active"
+              bindtap="onOpenTimePicker"
+              data-index="{{index}}"
+            >
+              <text wx:if="{{!item.installOrderDTO.reserveDateStr}}">预约安装</text>
+              <text wx:if="{{item.installOrderDTO.reserveDateStr}}">修改安装时间</text>
+            </button>
+            <button 
+              class="btn"
+              hover-class="btn_active"
+              bindtap="onOpenAddressModal"
+              data-index="{{index}}"
+            >修改地址</button>
+          </view>
+        </block>
+
+        <!-- 安装进度 -->
+        <block wx:if="{{info.tradeStatus!=='93'&&item.installOrderDTO.reserveDateStr}}">
+          <view class="title"><view class="rect"></view>安装进度</view>
+          <!-- 已预约 -->
+          <block wx:if="{{item.installOrderDTO.reserveDateStr&&item.installOrderDTO.orderStatus=='0'}}">
+            <van-steps
+              steps="{{steps}}"
+              active="{{0}}"
+              active-color="#00A6FF"
+            />
+          </block>
+          <!-- 正在安装 -->
+          <block wx:if="{{item.installOrderDTO.reserveDateStr&&item.installOrderDTO.orderStatus=='50'}}">
+            <van-steps
+              steps="{{steps}}"
+              active="{{1}}"
+              active-color="#00A6FF"
+            />
+          </block>
+          <!-- 安装完成 -->
+          <block wx:if="{{item.installOrderDTO.orderStatus=='90'}}">
+            <van-steps
+              steps="{{steps}}"
+              active="{{2}}"
+              active-color="#00A6FF"
+            />
+          </block>
+          <view class="form">
+            <view class="item">
+              <view class="label">网点名称</view>
+              <view class="input">{{item.installOrderDTO.curInstallDepartName}}</view>
+            </view>
+            <view class="item">
+              <view class="label">师傅电话</view>
+              <view class="input">
+                <text wx:if="{{item.installOrderDTO.installUserLoginName}}">{{item.installOrderDTO.installUserLoginName}}</text>
+                <text wx:else>暂无</text>
+              </view>
+            </view>
+          </view>
+          <view wx:if="{{item.installOrderDTO.installUserLoginName}}" class="btn_wrap">
+            <button class="btn"
+              hover-class="btn_active"
+              bindtap="callInstaller"
+              data-item="{{item}}"
+            >安装师傅</button>
+          </view>
+        </block>
+        <!-- 安装进度 end -->
+      </block>
+    </view>
+  </view>
+
+  <view style="height:200rpx;"></view>
+
+  <!-- *****************************模态框***************************** -->
+  <!-- 二维码modal -->
+  <view class='mask draw' wx:if="{{showCodeModal}}">
+    <view class="code_modal positionCenter draw">
+      <view class="code_title draw">
+        <image class="code_title_logo draw" src='https://cdn.s.bld365.com/gelirc_renchou_logo.png' alt=''></image>
+      </view>
+      <view class="code_content draw">
+        <view class="code draw">
+          <canvas class="code_img draw" canvas-id="myQrcode" style="width:200PX;height:200PX;"/>
+        </view>
+        <view class="code_info flexColumn draw">
+          <view class="code_info_count draw">{{info.orderNo}}</view>
+          <view class="code_info_title draw">认筹编号</view>
+        </view>
+        <view class="flexCenter flexAround">
+          <button class="code_btn"
+            hover-class="code_btn_hover"
+            bindtap="saveToLocal"
+          >保存二维码</button>
+          <button class="code_btn"
+            hover-class="code_btn_hover"
+            bindtap="closeCodeModal"
+          >关闭</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 时间picker -->
+  <van-popup show="{{showTimePicker}}" 
+    position='bottom'
+    z-index="{{11}}"
+    bind:close="onCloseTimePicker"
+  > 
+    <van-datetime-picker
+      type="datetime"
+      min-date="{{minDate}}"
+      value="{{currentDate}}"
+      bind:input="onInputTimePicker"
+      bind:cancel="onCloseTimePicker"
+      bind:confirm="onConfirmTimePicker"
+    />
+  </van-popup>
+</view>

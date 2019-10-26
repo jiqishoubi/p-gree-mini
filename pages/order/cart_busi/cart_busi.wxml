@@ -24,8 +24,8 @@
           </view>
           
           <view class="yuan_wrap flexCenter flexBetween">
-            <view wx:if="{{item.rewardFeeYuan}}">
-              {{item.rewardFeeYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text>
+            <view wx:if="{{item.priceFeeActivityYuan}}">
+              {{item.priceFeeActivityYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text>
             </view>
             <view wx:else>
               {{item.priceFeeYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text>
@@ -171,7 +171,7 @@
       <view class="price_item">
         <view class="price_item_label">当前价格(元)：</view>
         <view wx:if="{{lookingIndex!==null}}" class="price_item_input">
-          <text wx:if="{{oldSelectedGoodsList[lookingIndex].rewardFeeYuan}}">{{oldSelectedGoodsList[lookingIndex].rewardFeeYuan}}</text>
+          <text wx:if="{{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}">{{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}</text>
           <text wx:else>{{oldSelectedGoodsList[lookingIndex].priceFeeYuan}}</text>
         </view>
       </view>

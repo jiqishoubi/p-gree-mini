@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "修改地址",
+  "usingComponents": {
+    "citypicker": "../../../components/citypicker/citypicker",
+    "van-icon": "vant-weapp/icon/index"
+  }
+}

@@ -118,7 +118,8 @@ Page({
     }
 
     this.setData({
-      navIndex: index
+      navIndex: index,
+      page: 1,
     }, () => {
       this.getData(false)
     })
@@ -154,13 +155,13 @@ Page({
       case 0:
         postData = {
           orderType: 'HOME_USE',
-          orderStatus: '40',
+          orderStatus: '50',
         }
         break
       case 1:
         postData = {
           orderType: 'BUSI_USE',
-          orderStatus: '50',
+          orderStatus: '20,50,93',
         }
         break
       case 2:
@@ -187,6 +188,7 @@ Page({
       },
     })
     wx.hideLoading()
+    wx.stopPullDownRefresh()
     //没查到
     if (
       res.data.code !== '0' ||
@@ -224,11 +226,33 @@ Page({
       navIndex
     } = this.data
 
+    console.log(item)
+
+    let code, typeUse
     switch (navIndex) {
-      case 1:
+      case 0: //已认筹 外面的转销售的 另一个入口
+        wx.navigateTo({
+          url: `/pages/order/doing_search_detail/doing_search_detail?order=${JSON.stringify(item)}`,
+        })
+        break
+      case 1: //已登录 已认筹的商用 去下单
         wx.navigateTo({
           url: `/pages/order/order_detail_yidenglu/order_detail_yidenglu?order=${JSON.stringify(item)}`,
         })
+        break
+      default: //2、3 //已下单 销售单 可能是家用或商用  //已退单
+        code = item.tradeNo
+
+        typeUse = item.tradeType == 'BUSI_USE' ? 'busi' : 'home'
+        if (typeUse == 'busi') {
+          wx.navigateTo({
+            url: `/pages/order/order_detail_busi/order_detail_busi?type=trade&code=${code}`,
+          })
+        } else {
+          wx.navigateTo({
+            url: `/pages/order/order_detail/order_detail?type=trade&code=${code}`,
+          })
+        }
         break
     }
   },

@@ -7,7 +7,7 @@ const allApiStr = {
 
   //登录页
   loginApi: '/mp/doLogin', //登录
-  getUserinfoApi: '/mp/getUserInfo', //获取个人信息
+  getUserinfoApi: '/mp/getUserInfo', //获取个人信息 
 
 
   getAllGoodsGroupApi: '/mp/cust/goodsGroup/queryAll', //获取所有商品分类
@@ -27,6 +27,9 @@ const allApiStr = {
   //转销售
   getRenchouListApi: '/mp/preorder/getPreOrderList', //搜索认筹单列表
   getTradeListApi: '/mp/trade/getTradeList', //查询销售单列表
+  getTradeOrderInfoApi: '/mp/trade/getTradeInfo', //获取销售单详情
+  reserveTimeApi: '/mp/installorder/updateInstallOrderInfo', //预约安装时间 修改售后单信息
+  
 
   //选择商品choose2
   getGoodsGroupByQueryApi: '/mp/cust/goodsGroup/queryByGoods', //根据条件获取商品分类
@@ -35,6 +38,7 @@ const allApiStr = {
   //销售单
   getActivityListSaleApi: '/mp/trade/getActivityList', //查销售单的活动 token activityType  HOME_USE-家用; BUSI_USE-商用
   sumbitSaleOrderApi: '/mp/trade/submitTrade', //提交销售单
+
 }
 
 export default allApiStr

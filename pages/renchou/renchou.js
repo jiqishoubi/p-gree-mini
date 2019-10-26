@@ -503,8 +503,14 @@ Page({
           let {
             list
           } = self.data
+
           let upObj = list[indexwrap - 1]
-          list[indexwrap] = JSON.parse(JSON.stringify(upObj))
+          let upObjTemp = JSON.parse(JSON.stringify(upObj))
+          list[indexwrap].receiver = upObjTemp.receiver
+          list[indexwrap].receiverPhone = upObjTemp.receiverPhone
+          list[indexwrap].address = upObjTemp.address
+          list[indexwrap].pickerCityVal = upObjTemp.pickerCityVal
+
           self.setData({
             list
           })

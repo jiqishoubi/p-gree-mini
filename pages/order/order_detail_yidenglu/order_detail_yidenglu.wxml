@@ -43,7 +43,7 @@
       <view wx:for="{{order.goodsList}}" wx:for-index="idx" wx:for-item="itm" wx:key="idx"
         class="item"
       >
-        <view class="label1">{{itm.goodsName}}</view>
+        <view class="label1 textOmit">{{itm.goodsName}}</view>
         <view class="label3"><van-icon name="cross" custom-style="position:relative;top:4rpx;" />{{itm.goodsCount}}</view>
       </view>
     </view>

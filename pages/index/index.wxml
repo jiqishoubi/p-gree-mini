@@ -18,7 +18,8 @@
   <!-- 位置 -->
   <view class="location flexCenter bg_white">
     <image class="location_icon" src='https://cdn.s.bld365.com/getli_index_location_icon.png' alt=''></image>
-    {{'东北格力新零售（铁西店）'}}
+    <!-- {{'东北格力新零售（铁西店）'}} -->
+    {{userInfo.departName}}
   </view>
 
   <!-- 导航 -->

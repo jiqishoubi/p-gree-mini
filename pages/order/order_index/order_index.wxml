@@ -60,26 +60,13 @@
             
             <view class="yuan_wrap flexCenter flexBetween">
               <view>
-                <text wx:if="{{itm.rewardFeeYuan}}">{{itm.rewardFeeYuan}}元</text>
+                <text wx:if="{{itm.priceFeeActivityYuan}}">{{itm.priceFeeActivityYuan}}元</text>
                 <text wx:else>{{itm.priceFeeYuan}}元</text>
                 <text wx:if="{{navIndex==1&&item.orderStatus==50}}"><text decode="{{true}}">&nbsp;</text>x{{itm.goodsCount}}</text>
               </view>
             </view>
           </view>
         </view>
-        <!-- 已登录的按钮 -->
-        <!-- <view wx:if="{{navIndex==1}}" class="item_ctrl">
-          <button class="ctrl_btn"
-            hover-class="ctrl_btn_active"
-            bindtap="goChooseGoods"
-            data-index="{{index}}"
-          >修改商品</button>
-          <button class="ctrl_btn"
-            hover-class="ctrl_btn_active"
-            bindtap="goCart"
-            data-index="{{index}}"
-          >提交</button>
-        </view> -->
       </view>
     </block>
     <!-- 销售单接口 -->

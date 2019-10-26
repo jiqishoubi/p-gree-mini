@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "订单详情",
+  "usingComponents": {
+    "van-steps": "vant-weapp/steps/index",
+    "van-popup": "vant-weapp/popup/index",
+    "van-datetime-picker": "vant-weapp/datetime-picker/index"
+  }
+}

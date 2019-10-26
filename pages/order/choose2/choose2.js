@@ -40,7 +40,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function(options) {
+  onLoad: async function (options) {
     //1、设置options
     //(1)已选中的商品 把单个的goodsList处理成带count的
     if (options.selectedGoodsList) {
@@ -73,7 +73,7 @@ Page({
       //   selectedGoodsList,
       //   leftlist,
       // })
-      
+
       let selectedGoodsList = JSON.parse(options.selectedGoodsList)
       this.setData({
         selectedGoodsList
@@ -93,14 +93,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     //从搜索页回来
     if (wx.getStorageSync('from_choose2_search_selectedList')) {
       let selectedList = wx.getStorageSync('from_choose2_search_selectedList')
@@ -139,46 +139,46 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方
   //打开搜索页面
-  goSearch: function() {
+  goSearch: function () {
     wx.navigateTo({
       url: `/pages/order/choose2_search/choose2_search?activityCode=${this.data.activityCode}`,
     })
   },
   // 点击左侧
-  chooseleft: function(e) {
+  chooseleft: function (e) {
     let indexleft = e.currentTarget.dataset.param
 
     this.setData({
@@ -188,7 +188,7 @@ Page({
     this.getGoodsList(indexleft)
   },
   //获取商品分类
-  getGoodsGroup: async function(activityCode) {
+  getGoodsGroup: async function (activityCode) {
     let postData = {
       activityCode: activityCode ? activityCode : null, //根据活动
     }
@@ -211,7 +211,7 @@ Page({
     })
   },
   //根据商品分类获取商品列表
-  getGoodsList: async function(indexleft) {
+  getGoodsList: async function (indexleft) {
     let {
       leftlist
     } = this.data
@@ -221,7 +221,7 @@ Page({
     }
 
     let postData = {
-      goodsGroupCode: leftlist[indexleft].goodsGroupCode, //根据商品分类
+      goodsGroup: leftlist[indexleft].goodsGroupCode, //根据商品分类
       activityCode: this.data.activityCode ? this.data.activityCode : null, //根据活动
     }
     wx.showLoading({
@@ -261,7 +261,7 @@ Page({
     }
   },
   //步进器组件
-  onChangeStep: function(e) {
+  onChangeStep: function (e) {
     let indexright = e.currentTarget.dataset.param //indexright
     let value = e.detail //步进器数量
     console.log(value)
@@ -309,7 +309,7 @@ Page({
     })
   },
   //绘制界面
-  renderPage: function() {
+  renderPage: function () {
     let {
       selectedGoodsList,
       leftlist
@@ -339,7 +339,7 @@ Page({
     })
   },
   //点击下一步
-  clickBtn: function() {
+  clickBtn: function () {
     const {
       selectedGoodsList
     } = this.data

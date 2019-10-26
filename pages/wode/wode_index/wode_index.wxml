@@ -14,16 +14,6 @@
   <!-- 导航 -->
   <view class="nav bg_white">
     <view class="nav_content">
-      <!-- <view class="nav_item"
-        bindtap="goPage"
-        data-item='/pages/wode/orderlist/orderlist'
-      >
-        <image class="nav_item_img" 
-          src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_01.png' alt=''
-        ></image>
-        <view class="nav_text">我的订单</view>
-        <view class="nav_item_arrow"></view>
-      </view> -->
       <view class="nav_item"
         bindtap="goPage"
         data-item=''
@@ -36,12 +26,22 @@
       </view>
       <view class="nav_item"
         bindtap="goPage"
-        data-item=''
+        data-item='/pages/statistics/statistics_index/statistics_index'
       >
         <image class="nav_item_img" 
           src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_03.png' alt=''
         ></image>
         <view class="nav_text">我的收益</view>
+        <view class="nav_item_arrow"></view>
+      </view>
+      <view class="nav_item"
+        bindtap="goPage"
+        data-item='/pages/wode/changePsd/changePsd'
+      >
+        <image class="nav_item_img" 
+          src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_06.png' alt=''
+        ></image>
+        <view class="nav_text">修改密码</view>
         <view class="nav_item_arrow"></view>
       </view>
       <view class="nav_item"

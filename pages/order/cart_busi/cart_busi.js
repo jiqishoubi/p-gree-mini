@@ -2,7 +2,8 @@ import regeneratorRuntime from '../../../utils/runtime.js' //让小程序支持a
 import requestw from '../../../utils/requestw.js'
 import allApiStr from '../../../utils/allApiStr.js'
 import {
-  toMoney
+  toMoney,
+  moneyToNum
 } from '../../../utils/util.js'
 
 const app = getApp()
@@ -60,7 +61,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log(options)
     // wx.setStorageSync('test_cart', options) //测试用
     // options = wx.getStorageSync('test_cart') //测试用
@@ -77,6 +78,7 @@ Page({
 
     //处理selectedGoodsList
     let oldSelectedGoodsList = JSON.parse(options.selectedGoodsList)
+    console.log(oldSelectedGoodsList)
 
     this.setData({
       type: options.type,
@@ -93,54 +95,54 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
   //绑定input
-  onInputChange: function (e) {
+  onInputChange: function(e) {
     let key = e.currentTarget.dataset.key
     let value = e.detail.value
 
@@ -149,12 +151,12 @@ Page({
     })
   },
   //选择城市组件
-  openCitypicker: function (e) {
+  openCitypicker: function(e) {
     this.setData({
       showCitypicker: true
     })
   },
-  closeCitypicker: function (e) {
+  closeCitypicker: function(e) {
     let arr = e.detail
     this.setData({
       showCitypicker: false,
@@ -162,25 +164,25 @@ Page({
     })
   },
   //计算合计钱数
-  calcSumPrice: function () {
+  calcSumPrice: function() {
     const {
       oldSelectedGoodsList
     } = this.data
     let sum = 0
     oldSelectedGoodsList.forEach((obj) => {
-      sum = sum + (Number(obj.priceFeeActivityYuan ? obj.priceFeeActivityYuan : obj.priceFeeYuan) * obj.count)
+      sum = sum + (Number(obj.tradeFeeYuan ? obj.tradeFeeYuan : obj.priceFeeActivityYuan) * obj.count)
     })
     this.setData({
       sumPrice: toMoney(sum)
     })
   },
   //点击submit
-  submitBtnClick: function () {
+  submitBtnClick: function() {
     const self = this
     wx.showModal({
       title: '提示',
       content: '是否确认提交订单？',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           // on confirm
           if (self.data.orderObj) {
@@ -193,7 +195,7 @@ Page({
     })
   },
   //点击提交订单(商用第一次下单)
-  submit1: async function () {
+  submit1: async function() {
     const {
       type,
       activityCode,
@@ -222,7 +224,7 @@ Page({
     if (
       receiver == '' ||
       receivePhone == '' ||
-      receivePhoneBak == '' ||
+      // receivePhoneBak == '' ||
       address == '' ||
       !pickerCityVal[0]
     ) {
@@ -243,6 +245,7 @@ Page({
       let objTemp = {
         goodsCode: obj.goodsCode,
         goodsCount: obj.count,
+        tradeFee: obj.tradeFeeYuan ? obj.tradeFeeYuan * 100 : obj.priceFeeActivityYuan * 100
       }
       goodsListJson.push(objTemp)
     })
@@ -252,7 +255,7 @@ Page({
       //form
       custName: receiver,
       phoneNumber: receivePhone,
-      phoneNumberBak: receivePhoneBak,
+      phoneNumberBak: receivePhoneBak ? receivePhoneBak : null,
       provinceCode: pickerCityVal[0].areaCode,
       eparchyCode: pickerCityVal[1].areaCode,
       cityCode: pickerCityVal[2].areaCode,
@@ -285,7 +288,7 @@ Page({
     this.openResultModal()
   },
   //点击提交订单(商用第二次下单)
-  submit2: async function () {
+  submit2: async function() {
     const {
       type,
       activityCode,
@@ -312,6 +315,7 @@ Page({
       let objTemp = {
         goodsCode: obj.goodsCode,
         goodsCount: obj.count,
+        tradeFee: obj.tradeFeeYuan ? obj.tradeFeeYuan * 100 : obj.priceFeeActivityYuan * 100
       }
       goodsListJson.push(objTemp)
     })
@@ -355,12 +359,12 @@ Page({
     this.openResultModal()
   },
   //成功modal组件
-  openResultModal: function () {
+  openResultModal: function() {
     this.setData({
       showResultModal: true,
     })
   },
-  clickModalBtn: function () {
+  clickModalBtn: function() {
     this.setData({
       showResultModal: false,
     })
@@ -369,7 +373,7 @@ Page({
     })
   },
   //修改价格modal
-  openEditPriceModal: function (e) {
+  openEditPriceModal: function(e) {
     console.log(e)
     let index = e.currentTarget.dataset.index
     this.setData({
@@ -377,7 +381,7 @@ Page({
       lookingIndex: index,
     })
   },
-  onEditPriceCancel: function () {
+  onEditPriceCancel: function() {
     this.setData({
       showEditPriceModal: false,
       lookingIndex: null,
@@ -385,7 +389,7 @@ Page({
       price2: '',
     })
   },
-  onEditPriceConfirm: function () {
+  onEditPriceConfirm: function() {
     const {
       oldSelectedGoodsList,
       price1,
@@ -406,7 +410,7 @@ Page({
       })
       return false
     }
-    if (price1 !== price2) {
+    if (moneyToNum(price1) !== moneyToNum(price2)) {
       wx.showToast({
         title: '两次输入价格不一致',
         icon: 'none',
@@ -420,7 +424,7 @@ Page({
     }
     //验证 end
 
-    oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan = price1
+    oldSelectedGoodsList[lookingIndex].tradeFeeYuan = price1
     this.setData({
       oldSelectedGoodsList,
     }, () => {

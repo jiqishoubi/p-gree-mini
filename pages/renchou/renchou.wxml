@@ -170,6 +170,16 @@
           ></input>
         </view>
         <view class='item'>
+          <view class="label">备用电话</view>
+          <input class="input"
+            placeholder="请输入备用电话（选填）"
+            value="{{itemwrap.receiverPhoneBak}}"
+            bindinput="onInputChange_index"
+            data-key="receiverPhoneBak"
+            data-indexwrap="{{indexwrap}}"
+          ></input>
+        </view>
+        <view class='item'>
           <view class="label">所在地区</view>
           <view wx:if="{{itemwrap.pickerCityVal[0]}}"
             class="input flexCenter" 

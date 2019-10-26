@@ -59,3 +59,13 @@ export const toMoney = (val) => { //数字
   var ret = intSum + dot;
   return ret;
 }
+
+//金钱变回数字number
+export const moneyToNum = (str) => { //数字
+  if (str) {
+    let strTemp = str.replace(",", "")
+    return Number(strTemp)
+  } else {
+    return str
+  }
+}

@@ -211,6 +211,7 @@
       bind:input="onInputTimePicker"
       bind:cancel="onCloseTimePicker"
       bind:confirm="onConfirmTimePicker"
+      formatter="{{formatterPicker}}"
     />
   </van-popup>
 </view>

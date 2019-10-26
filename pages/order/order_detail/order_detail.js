@@ -46,6 +46,27 @@ Page({
     currentDate: new Date().getTime(),
     minDate: new Date().getTime(),
     lookingGoodsIndex: null,
+    formatterPicker: (type, value) => {
+      let str = ''
+      switch (type) {
+        case 'year':
+          str = '年'
+          break
+        case 'month':
+          str = '月'
+          break
+        case 'day':
+          str = '日'
+          break
+        case 'hour':
+          str = '时'
+          break
+        case 'minute':
+          str = '分'
+          break
+      }
+      return value+str
+    },
 
   },
 

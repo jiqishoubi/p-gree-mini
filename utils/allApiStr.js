@@ -8,6 +8,7 @@ const allApiStr = {
   //登录页
   loginApi: '/mp/doLogin', //登录
   getUserinfoApi: '/mp/getUserInfo', //获取个人信息 
+  changePasswordApi: '/mp/updateUserPassword', //修改密码
 
 
   getAllGoodsGroupApi: '/mp/cust/goodsGroup/queryAll', //获取所有商品分类
@@ -29,7 +30,7 @@ const allApiStr = {
   getTradeListApi: '/mp/trade/getTradeList', //查询销售单列表
   getTradeOrderInfoApi: '/mp/trade/getTradeInfo', //获取销售单详情
   reserveTimeApi: '/mp/installorder/updateInstallOrderInfo', //预约安装时间 修改售后单信息
-  
+
 
   //选择商品choose2
   getGoodsGroupByQueryApi: '/mp/cust/goodsGroup/queryByGoods', //根据条件获取商品分类

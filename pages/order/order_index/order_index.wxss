@@ -85,6 +85,10 @@ Page {
   color: #000;
   font-size: 28rpx;
 }
+.datetime{
+  color: #4a4a4a;
+  font-size: 23rpx;
+}
 
 /* 右侧item */
 

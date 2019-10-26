@@ -1,0 +1,43 @@
+<!-- 修改密码 -->
+<view class="changePsd_page">
+  <view class="container">
+    <view class="item">
+      <view class="label">原始密码</view>
+      <input class="input"
+        password
+        placeholder="请输入"
+        value="{{oldPassword}}"
+        bindinput="onInputChange"
+        data-key="oldPassword"
+      ></input>
+    </view>
+    <view class="item">
+      <view class="label">设置密码</view>
+      <input class="input"
+        password
+        placeholder="请输入"
+        value="{{password1}}"
+        bindinput="onInputChange"
+        data-key="password1"
+      ></input>
+    </view>
+    <view class="item">
+      <view class="label">确认密码</view>
+      <input class="input"
+        password
+        placeholder="请输入"
+        value="{{password2}}"
+        bindinput="onInputChange"
+        data-key="password2"
+      ></input>
+    </view>
+  </view>
+
+
+  <!-- 按钮 -->
+  <view class="btn_submit{{isX?' isX':''}}" 
+    hover-class="btn_submit_active"
+    hover-stay-time="{{150}}"
+    bindtap="submit"
+  >修改密码</view>
+</view>

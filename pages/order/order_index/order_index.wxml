@@ -36,7 +36,10 @@
         bindtap="goDetail"
         data-item="{{item}}"
       >
-        <view class="item_title van-hairline--bottom">{{item.orderNo}}</view>
+        <view class="item_title flexBetween van-hairline--bottom">
+          <view>{{item.orderNo}}</view>
+          <view class="datetime">{{item.orderDateStr}}</view>
+        </view>
         <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"
           wx:key="idx"
           class="item_content flexCenter flexBetween"
@@ -47,7 +50,10 @@
           <view class="item_content_content">
             <view class="item_content_content_top">
               <view class="textOmit" style="color:#000;font-size:25rpx;">{{itm.goodsName}}</view>
-              <view style="color:#9B9B9B;font-size:22rpx;margin:10rpx 0;">{{itm.goodsDesc}}</view>
+              <view style="color:#9B9B9B;font-size:22rpx;margin:10rpx 0;">
+                <text wx:if="{{item.custName}}">{{item.custName}}</text>
+                <text wx:else>{{itm.custName}}</text>
+              </view>
               <!-- <view class="flex">
                 <view wx:for="{{item.tag}}"
                   wx:for-index="tagIndex" 
@@ -76,7 +82,10 @@
         bindtap="goDetail"
         data-item="{{item}}"
       >
-        <view class="item_title van-hairline--bottom">{{item.tradeNo}}</view>
+        <view class="item_title flexBetween van-hairline--bottom">
+          <view>{{item.tradeNo}}</view>
+          <view class="datetime">{{item.tradeDateStr}}</view>
+        </view>
         <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"
           wx:key="idx"
           class="item_content flexCenter flexBetween"
@@ -87,7 +96,10 @@
           <view class="item_content_content">
             <view class="item_content_content_top">
               <view class="textOmit" style="color:#000;font-size:25rpx;">{{itm.goodsName}}</view>
-              <view style="color:#9B9B9B;font-size:22rpx;margin:10rpx 0;">{{itm.goodsDesc||itm.goodsModel}}</view>
+              <view style="color:#9B9B9B;font-size:22rpx;margin:10rpx 0;">
+                <text wx:if="{{item.custName}}">{{item.custName}}</text>
+                <text wx:else>{{itm.custName}}</text>
+              </view>
               <!-- <view class="flex">
                 <view wx:for="{{item.tag}}"
                   wx:for-index="tagIndex" 

@@ -2,7 +2,8 @@ import regeneratorRuntime from '../../../utils/runtime.js' //让小程序支持a
 import requestw from '../../../utils/requestw.js'
 import allApiStr from '../../../utils/allApiStr.js'
 import {
-  toMoney
+  toMoney,
+  moneyToNum
 } from '../../../utils/util.js'
 
 const app = getApp()
@@ -47,7 +48,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log(options)
     // wx.setStorageSync('test_cart', options) //测试用
     // options = wx.getStorageSync('test_cart') //测试用
@@ -77,6 +78,7 @@ Page({
     selectedList.forEach((obj) => {
       obj.receiver = '' //收货人
       obj.receivePhone = '' //收货电话
+      obj.receivePhoneBak = '' //收货电话
       obj.addressTemp = '' //详细地址
       obj.billNumber = '' //提单号
       obj.remarkinput = '' //备注
@@ -100,54 +102,54 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
   //绑定input
-  onInputChange: function (e) {
+  onInputChange: function(e) {
     let key = e.currentTarget.dataset.key
     let value = e.detail.value
 
@@ -155,7 +157,7 @@ Page({
       [key]: value
     })
   },
-  onInputChange_index: function (e) {
+  onInputChange_index: function(e) {
     let key = e.currentTarget.dataset.key
     let index = e.currentTarget.dataset.index
     let value = e.detail.value
@@ -169,7 +171,7 @@ Page({
     })
   },
   //选择城市组件
-  openCitypicker: function (e) {
+  openCitypicker: function(e) {
     let index = e.currentTarget.dataset.index
     let {
       selectedList
@@ -179,7 +181,7 @@ Page({
       selectedList
     })
   },
-  closeCitypicker: function (e) {
+  closeCitypicker: function(e) {
     let index = e.currentTarget.dataset.index
     let arr = e.detail
     let {
@@ -192,12 +194,12 @@ Page({
     })
   },
   //使用上方地址
-  useUpAddress: function (e) {
+  useUpAddress: function(e) {
     const self = this
     wx.showModal({
       title: '提示',
       content: '是否确认使用上方地址信息？',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           // on confirm
           let index = e.currentTarget.dataset.index
@@ -208,6 +210,7 @@ Page({
 
           selectedList[index].receiver = upObj.receiver
           selectedList[index].receivePhone = upObj.receivePhone
+          selectedList[index].receivePhoneBak = upObj.receivePhoneBak
           selectedList[index].addressTemp = upObj.addressTemp
           selectedList[index].billNumber = upObj.billNumber
           selectedList[index].remarkinput = upObj.remarkinput
@@ -221,20 +224,20 @@ Page({
     })
   },
   //计算合计钱数
-  calcSumPrice: function () {
+  calcSumPrice: function() {
     const {
       selectedList
     } = this.data
     let sum = 0
     selectedList.forEach((obj) => {
-      sum = sum + Number(obj.priceFeeActivityYuan ? obj.priceFeeActivityYuan : obj.priceFeeYuan)
+      sum = sum + Number(obj.tradeFeeYuan ? obj.tradeFeeYuan : obj.priceFeeActivityYuan)
     })
     this.setData({
       sumPrice: toMoney(sum)
     })
   },
   //点击提交订单
-  submit: async function () {
+  submit: async function() {
     const {
       type,
       activityCode,
@@ -287,6 +290,7 @@ Page({
         addressInfo = {
           custName: obj.receiver,
           phoneNumber: obj.receivePhone,
+          phoneNumberBak: obj.receivePhoneBak,
           provinceCode: obj.pickerCityVal[0].areaCode,
           eparchyCode: obj.pickerCityVal[1].areaCode,
           cityCode: obj.pickerCityVal[2].areaCode,
@@ -296,6 +300,7 @@ Page({
         addressInfo = {
           custName: obj.custName,
           phoneNumber: obj.phoneNumber,
+          phoneNumberBak: obj.phoneNumberBak,
           provinceCode: obj.provinceCode,
           eparchyCode: obj.eparchyCode,
           cityCode: obj.cityCode,
@@ -305,6 +310,8 @@ Page({
       let objTemp = {
         goodsCode: obj.goodsCode,
         shoppingCode: obj.billNumber,
+        remark: obj.remarkinput,
+        tradeFee: obj.tradeFeeYuan ? obj.tradeFeeYuan * 100 : obj.priceFeeActivityYuan * 100,
         ...addressInfo
       }
       goodsListJson.push(objTemp)
@@ -340,12 +347,12 @@ Page({
     this.openResultModal()
   },
   //成功modal组件
-  openResultModal: function () {
+  openResultModal: function() {
     this.setData({
       showResultModal: true,
     })
   },
-  clickModalBtn: function () {
+  clickModalBtn: function() {
     this.setData({
       showResultModal: false,
     })
@@ -354,7 +361,7 @@ Page({
     })
   },
   //修改价格modal
-  openEditPriceModal: function (e) {
+  openEditPriceModal: function(e) {
     console.log(e)
     let index = e.currentTarget.dataset.index
     this.setData({
@@ -362,7 +369,7 @@ Page({
       lookingIndex: index,
     })
   },
-  onEditPriceCancel: function () {
+  onEditPriceCancel: function() {
     this.setData({
       showEditPriceModal: false,
       lookingIndex: null,
@@ -370,7 +377,7 @@ Page({
       price2: '',
     })
   },
-  onEditPriceConfirm: function () {
+  onEditPriceConfirm: function() {
     const {
       selectedList,
       price1,
@@ -391,7 +398,7 @@ Page({
       })
       return false
     }
-    if (price1 !== price2) {
+    if (moneyToNum(price1) !== moneyToNum(price2)) {
       wx.showToast({
         title: '两次输入价格不一致',
         icon: 'none',
@@ -405,7 +412,7 @@ Page({
     }
     //验证 end
 
-    selectedList[lookingIndex].priceFeeActivityYuan = price1
+    selectedList[lookingIndex].tradeFeeYuan = price1
     this.setData({
       selectedList,
     }, () => {

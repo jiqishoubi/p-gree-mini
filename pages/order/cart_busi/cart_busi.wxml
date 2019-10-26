@@ -24,13 +24,14 @@
           </view>
           
           <view class="yuan_wrap flexCenter flexBetween">
-            <view wx:if="{{item.priceFeeActivityYuan}}">
-              {{item.priceFeeActivityYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text>
+            <view wx:if="{{item.tradeFeeYuan}}">
+              {{item.tradeFeeYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text>
             </view>
             <view wx:else>
-              {{item.priceFeeYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text>
+              {{item.priceFeeActivityYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text>
             </view>
-            <view bindtap="openEditPriceModal"
+            <view wx:if="{{type!=='BUSI_USE'}}"
+              bindtap="openEditPriceModal"
               data-index="{{index}}"
             >修改价格</view>
           </view>
@@ -171,8 +172,10 @@
       <view class="price_item">
         <view class="price_item_label">当前价格(元)：</view>
         <view wx:if="{{lookingIndex!==null}}" class="price_item_input">
-          <text wx:if="{{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}">{{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}</text>
-          <text wx:else>{{oldSelectedGoodsList[lookingIndex].priceFeeYuan}}</text>
+          <text wx:if="{{oldSelectedGoodsList[lookingIndex].tradeFeeYuan}}">
+            {{oldSelectedGoodsList[lookingIndex].tradeFeeYuan}}
+          </text>
+          <text wx:else>{{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}</text>
         </view>
       </view>
       <view class="price_item">
@@ -205,7 +208,7 @@
     <view class="flexColumn result_modal">
       <view class="flexColumn">
         <view style="font-size:33rpx;margin-bottom:15rpx;">下单成功</view>
-        <!-- <view style="font-size:24rpx;margin-bottom:60rpx;">请通知顾客微信进行预约安装</view> -->
+        <!-- <view style="font-size:24rpx;margin-bottom:60rpx;">请通知顾客使用微信小程序进行预约安装</view> -->
       </view>
       <view>
         <button class="btn_result"

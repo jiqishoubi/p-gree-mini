@@ -114,6 +114,7 @@ Page({
     let obj = {
       receiver: '', //收货人
       receiverPhone: '', //收货电话
+      receiverPhoneBak: '', //备用电话
       address: '', //详细地址
 
       //选择城市组件
@@ -508,6 +509,7 @@ Page({
           let upObjTemp = JSON.parse(JSON.stringify(upObj))
           list[indexwrap].receiver = upObjTemp.receiver
           list[indexwrap].receiverPhone = upObjTemp.receiverPhone
+          list[indexwrap].receiverPhoneBak = upObjTemp.receiverPhoneBak
           list[indexwrap].address = upObjTemp.address
           list[indexwrap].pickerCityVal = upObjTemp.pickerCityVal
 
@@ -621,6 +623,7 @@ Page({
         goodsCode: obj.selectedGoods.goodsCode,
         custName: obj.receiver,
         phoneNumber: obj.receiverPhone,
+        phoneNumberBak: obj.receiverPhoneBak,
         provinceCode: obj.pickerCityVal[0].areaCode,
         eparchyCode: obj.pickerCityVal[1].areaCode,
         cityCode: obj.pickerCityVal[2].areaCode,

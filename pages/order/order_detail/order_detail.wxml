@@ -7,7 +7,7 @@
         <view class="flexCenter">
           <view class="rect"></view>订单信息
         </view>
-        <image wx:if="{{info.tradeStatus!=='93'}}"
+        <image wx:if="{{info.preOrderNo&&info.tradeStatus!=='93'}}"
           src="https://cdn.s.bld365.com/gelirc_order_detail_qrcode.png" alt='' 
           style="width:29rpx;height:29rpx;"
           bindtap="openCodeModal"
@@ -27,7 +27,7 @@
         </block>
         <!-- 销售单 -->
         <block wx:if="{{type=='trade'}}">
-          <view class="item">
+          <view wx:if="{{info.preOrderNo}}" class="item">
             <view class="label">认筹编号</view>
             <view class="input">{{info.preOrderNo}}</view>
           </view>
@@ -205,6 +205,7 @@
       bind:input="onInputTimePicker"
       bind:cancel="onCloseTimePicker"
       bind:confirm="onConfirmTimePicker"
+      formatter="{{formatterPicker}}"
     />
   </van-popup>
 </view>

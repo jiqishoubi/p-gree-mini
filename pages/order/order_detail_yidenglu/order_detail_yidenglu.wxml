@@ -19,7 +19,7 @@
       </view>
       <view class="item">
         <view class="label">安装地址</view>
-        <view class="input">{{order.provinceName}}{{order.eparchyName}}{{order.cityName}}</view>
+        <view class="input">{{order.provinceName}}{{order.eparchyName}}{{order.cityName}}{{order.address}}</view>
       </view>
       <view class="item">
         <view class="label">下单时间</view>
@@ -35,7 +35,8 @@
       <view class="flexCenter">
         <view class="rect"></view>商品
       </view>
-      <button class="goodsBtn"
+      <button wx:if="{{order.orderStatus=='50'}}"
+        class="goodsBtn"
         bindtap="goChooseGoods"
       >修改商品</button>
     </view>
@@ -53,7 +54,8 @@
   
 
   <!-- 按钮 -->
-  <view class="btn_submit{{isX?' isX':''}}" 
+  <view wx:if="{{order.orderStatus=='50'}}"
+    class="btn_submit{{isX?' isX':''}}" 
     hover-class="btn_submit_active"
     hover-stay-time="{{200}}"
     bindtap="clickOrder"

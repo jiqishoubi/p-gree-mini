@@ -24,9 +24,10 @@
           </view>
           
           <view class="yuan_wrap flexCenter flexBetween">
-            <view wx:if="{{item.priceFeeActivityYuan}}">{{item.priceFeeActivityYuan}}元</view>
-            <view wx:else>{{item.priceFeeYuan}}元</view>
-            <view bindtap="openEditPriceModal"
+            <view wx:if="{{item.tradeFeeYuan}}">{{item.tradeFeeYuan}}元</view>
+            <view wx:else>{{item.priceFeeActivityYuan}}元</view>
+            <view wx:if="{{type!=='BUSI_USE'}}"
+              bindtap="openEditPriceModal"
               data-index="{{index}}"
             >修改价格</view>
           </view>
@@ -59,6 +60,16 @@
               value="{{item.receivePhone}}"
               bindinput="onInputChange_index"
               data-key="receivePhone"
+              data-index="{{index}}"
+            ></input>
+          </view>
+          <view class="item van-hairline--bottom">
+            <view class="label">备用电话</view>
+            <input class="input"
+              placeholder="请输入（选填）"
+              value="{{item.receivePhoneBak}}"
+              bindinput="onInputChange_index"
+              data-key="receivePhoneBak"
               data-index="{{index}}"
             ></input>
           </view>
@@ -170,8 +181,10 @@
       <view class="price_item">
         <view class="price_item_label">当前价格(元)：</view>
         <view wx:if="{{lookingIndex!==null}}" class="price_item_input">
-          <text wx:if="{{selectedList[lookingIndex].priceFeeActivityYuan}}">{{selectedList[lookingIndex].priceFeeActivityYuan}}</text>
-          <text wx:else>{{selectedList[lookingIndex].priceFeeYuan}}</text>
+          <text wx:if="{{selectedList[lookingIndex].tradeFeeYuan}}">
+            {{selectedList[lookingIndex].tradeFeeYuan}}
+          </text>
+          <text wx:else>{{selectedList[lookingIndex].priceFeeActivityYuan}}</text>
         </view>
       </view>
       <view class="price_item">
@@ -204,7 +217,7 @@
     <view class="flexColumn result_modal">
       <view class="flexColumn">
         <view style="font-size:33rpx;margin-bottom:15rpx;">下单成功</view>
-        <view style="font-size:24rpx;margin-bottom:60rpx;">请通知顾客微信进行预约安装</view>
+        <view style="font-size:24rpx;margin-bottom:60rpx;">请通知顾客使用微信小程序进行预约安装</view>
       </view>
       <view>
         <button class="btn_result"

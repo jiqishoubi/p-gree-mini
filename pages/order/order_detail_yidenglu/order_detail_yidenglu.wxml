@@ -3,7 +3,12 @@
 
   <view class="content">
     <!-- 订单信息 -->
-    <view class="title"><view class="rect"></view>订单信息</view>
+    <view class="title flexBetween">
+      <view class="flexCenter">
+        <view class="rect"></view>订单信息
+      </view>
+      <view wx:if="{{order.orderStatus!=='50'}}" style="color:#00A6FF;">审核中</view>
+    </view>
     <view class="form">
       <view class="item">
         <view class="label">订单编号</view>

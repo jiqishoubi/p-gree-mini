@@ -19,21 +19,21 @@
         data-goods="{{item}}"
         data-index="{{index}}"
       >
-        <view class="textOmit">{{item.goodsName}}</view>
+        <view class="result_input_name textOmit">{{item.goodsName}}</view>
         <van-icon name="arrow" custom-style="position:relative;top:2rpx;" />
       </view>
     </view>
     <view class="result_item van-hairline--bottom">
       <view class="result_label">客户姓名</view>
-      <view class="result_input">{{item.custName}}</view>
+      <view class="result_input textOmit">{{item.custName}}</view>
     </view>
     <view class="result_item van-hairline--bottom">
       <view class="result_label">客户电话</view>
-      <view class="result_input">{{item.phoneNumber}}</view>
+      <view class="result_input textOmit">{{item.phoneNumber}}</view>
     </view>
     <view class="result_item">
       <view class="result_label">安装地址</view>
-      <view class="result_input">{{item.provinceName}}{{item.eparchyName}}{{item.cityName}}{{item.address}}</view>
+      <view class="result_input textOmit">{{item.provinceName}}{{item.eparchyName}}{{item.cityName}}{{item.address}}</view>
     </view>
   </view>
 

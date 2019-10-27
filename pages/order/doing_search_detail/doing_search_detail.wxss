@@ -39,22 +39,29 @@ Page {
   height: 80rpx;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .result_label {
   color: #9b9b9b;
 }
-.result_input{
-  flex: 1 0 0;
+
+.result_input {
+  width: calc(100% - 150rpx);
   height: 100%;
   padding-left: 45rpx;
   display: flex;
   align-items: center;
 }
-.result_input_goods{
+
+.result_input_goods {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.result_input_name {
+  max-width: calc(100% - 20px);
 }
 
 /* 删除按钮 */

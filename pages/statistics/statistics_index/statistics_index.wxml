@@ -31,33 +31,33 @@
       <view class='chart_circle_wrap'>
         <view class="flexJCenter">
           <view>
-            <view>已下单21笔</view>
+            <view>已下单0笔</view>
             <image class="static_img_01" src='https://cdn.s.bld365.com/getli_statistics_img_01.png' alt=''></image>
           </view>
           <view style="position:relative;">
             <!-- 环形进度条 -->
             <van-circle 
               value="{{50}}" 
-              text="{{42}}笔" 
+              text="{{0}}笔" 
               color="#93d1fa"
               layer-color="#48a5f8"
               stroke-width="{{8}}"
             />
           </view>
           <view>
-            <view style="text-align:right;">待转销售21笔</view>
+            <view style="text-align:right;">待转销售0笔</view>
             <image class="static_img_01" src='https://cdn.s.bld365.com/getli_statistics_img_02.png' alt=''></image>
           </view>
         </view>
 
         <view class="flexCenter flexBetween chart_circle_text_wrap">
           <view>
-            <view>本日订单：6笔</view>
-            <view>本月订单：60笔</view>
+            <view>本日订单：0笔</view>
+            <view>本月订单：0笔</view>
           </view>
           <view>
-            <view>预计收入：120.00</view>
-            <view>预计收入：1200.00</view>
+            <view>预计收入：0.00</view>
+            <view>预计收入：0.00</view>
           </view>
         </view>
       </view>
@@ -100,7 +100,7 @@
       <view class='chart_circle_wrap'>
         <view class="flexJCenter">
           <view>
-            <view>已下单40笔</view>
+            <view>已下单0笔</view>
             <image class="static_img_01" src='https://cdn.s.bld365.com/getli_statistics_img_01.png' alt=''></image>
           </view>
           <view>
@@ -114,19 +114,19 @@
             />
           </view>
           <view>
-            <view style="text-align:right;">待转销售40笔</view>
+            <view style="text-align:right;">待转销售0笔</view>
             <image class="static_img_01" src='https://cdn.s.bld365.com/getli_statistics_img_02.png' alt=''></image>
           </view>
         </view>
 
         <view class="flexCenter flexBetween chart_circle_text_wrap">
           <view>
-            <view>本日订单：6笔</view>
-            <view>本月订单：60笔</view>
+            <view>本日订单：0笔</view>
+            <view>本月订单：00笔</view>
           </view>
           <view>
-            <view>预计收入：120.00</view>
-            <view>预计收入：1200.00</view>
+            <view>预计收入：0.00</view>
+            <view>预计收入：0.00</view>
           </view>
         </view>
       </view>

@@ -107,7 +107,7 @@
             <!-- 环形进度条 -->
             <van-circle 
               value="{{50}}" 
-              text="{{80}}笔" 
+              text="{{0}}笔" 
               color="#93d1fa"
               layer-color="#48a5f8"
               stroke-width="{{8}}"

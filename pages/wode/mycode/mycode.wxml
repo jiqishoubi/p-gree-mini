@@ -3,9 +3,9 @@
   <view class="container positionCenter">
     <!-- 上面 -->
     <view class="top flexCenter">
-      <!-- <view class="head_box">
-        <image class="head" src='https://cdn.s.bld365.com/getli_wode_index_head.png' alt=''></image>
-      </view> -->
+      <view class="head_box">
+        <image class="head" src='https://cdn.s.bld365.com/getli_wode_index_head_new.png' alt=''></image>
+      </view>
       <view class="top_content">
         <view class="top_name">{{userInfo.userName}}</view>
         <view class="top_phone">{{userInfo.loginName}}</view>

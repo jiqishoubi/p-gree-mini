@@ -37,7 +37,7 @@
         data-item="{{item}}"
       >
         <view class="item_title flexBetween van-hairline--bottom">
-          <view>{{item.orderNo}}</view>
+          <view wx:if="{{item.orderNo}}">{{item.orderNo}}</view>
           <view class="datetime">{{item.orderDateStr}}</view>
         </view>
         <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"
@@ -83,7 +83,7 @@
         data-item="{{item}}"
       >
         <view class="item_title flexBetween van-hairline--bottom">
-          <view>{{item.tradeNo}}</view>
+          <view wx:if="{{item.tradeNo}}">{{item.tradeNo}}</view>
           <view class="datetime">{{item.tradeDateStr}}</view>
         </view>
         <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"

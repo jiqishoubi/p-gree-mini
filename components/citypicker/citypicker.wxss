@@ -1,6 +1,6 @@
 .citypicker_content {
   height: 500rpx;
-  padding: 10rpx 20rpx;
+  padding: 10rpx 45rpx;
 }
 .citypicker_item{
   height: 60rpx;

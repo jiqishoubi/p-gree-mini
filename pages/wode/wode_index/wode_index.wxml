@@ -2,9 +2,9 @@
 <view class="wode_page">
   <!-- top -->
   <view class="top flexCenter flexBetween">
-    <!-- <view class="head_box">
-      <image class="head" src='https://cdn.s.bld365.com/getli_wode_index_head.png' alt=''></image>
-    </view> -->
+    <view class="head_box">
+      <image class="head" src='https://cdn.s.bld365.com/getli_wode_index_head_new.png' alt=''></image>
+    </view>
     <view class="head_content">
       <view class="nickname">{{userInfo.userName}}</view>
       <view class="phone">{{userInfo.loginName}}</view>

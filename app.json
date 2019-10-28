@@ -1,13 +1,14 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/statistics/statistics_index/statistics_index",
+    "pages/index/index",
     "pages/wode/changePsd/changePsd",
     "pages/order/changeAddress/changeAddress",
     "pages/wode/shopcode/shopcode",
     "pages/wode/mycode/mycode",
     "pages/order/order_detail/order_detail",
     "pages/wode/wode_index/wode_index",
-    "pages/index/index",
     "pages/order/cart_busi/cart_busi",
     "pages/order/order_index/order_index",
     "pages/order/order_detail_yidenglu/order_detail_yidenglu",
@@ -17,7 +18,6 @@
     "pages/renchou/renchou",
     "pages/order/choose2/choose2",
     "pages/order/choose2_search/choose2_search",
-    "pages/statistics/statistics_index/statistics_index",
     "pages/order/doing_search_detail/doing_search_detail",
     "pages/order/choose2_single/choose2_single",
     "pages/order/choose2_search_single/choose2_search_single",

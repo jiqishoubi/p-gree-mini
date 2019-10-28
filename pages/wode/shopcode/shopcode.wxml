@@ -17,5 +17,10 @@
          style="width:250PX;height:250PX;"
       />
     </view>
+
+    <button class="code_btn"
+      hover-class="code_btn_hover"
+      bindtap="saveToLocal"
+    >保存二维码到本地</button>
   </view>
 </view>

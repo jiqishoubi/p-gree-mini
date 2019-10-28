@@ -2,13 +2,9 @@
 
 Page {
   background-color: #f5f5f5;
-  /* height: 100%;
-  overflow: hidden; */
 }
 
 .statistics_page {
-  /* height: 100%;
-  overflow: hidden; */
 }
 
 /* 上面tab */
@@ -18,19 +14,22 @@ Page {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 9999 !important; */
+  z-index: 29; */
+  height: 82rpx;
+  background-color: #fff;
 }
 
-/* .van-tabs.van-tabs.van-tabs--line.van-tabs--line {
-  z-index: 999 !important;
+.tabs_item {
+  flex: 1 0 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.van-tabs__wrap.van-tabs__wrap.van-hairline--top-bottom.van-hairline--top-bottom {
-  z-index: 999 !important;
+.tabs_item.active {
+  border-bottom: 3rpx solid #00a6ff;
 }
-.van-tabs__nav.van-tabs__nav.van-tabs__nav--line.van-tabs__nav--line{
-z-index: 999 !important;
-} */
 
 /* content */
 
@@ -85,18 +84,25 @@ z-index: 999 !important;
 /* 列表 */
 
 .list {
-  margin-bottom: 160rpx;
+  margin: 24rpx 24rpx;
+  background-color: #fff;
 }
 
 .list_item {
-  margin: 24rpx;
+  display: flex;
+  align-items: center;
+  margin: 0 24rpx;
+  background-color: #fff;
   border-radius: 5rpx;
-  padding: 0 24rpx;
+  border-bottom: 1rpx solid #e6e6e6;
 }
 
-.list_item_title {
-  height: 75rpx;
-  border-bottom: 1px solid #e6e6e6;
+.list_item:last-child {
+  border-bottom: none;
+}
+
+.list_title {
+  height: 85rpx;
 }
 
 .list_item_title_text {
@@ -107,4 +113,18 @@ z-index: 999 !important;
 .list_item_content {
   color: #9b9b9b;
   padding: 20rpx 0;
+}
+
+.rect {
+  width: 8rpx;
+  height: 29rpx;
+  background-color: #00a6ff;
+  margin-right: 12rpx;
+}
+
+/* 暂无数据 */
+
+.noresult {
+  padding: 40rpx 0;
+  text-align: center;
 }

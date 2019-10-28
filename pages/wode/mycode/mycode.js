@@ -87,4 +87,40 @@ Page({
       })
     }, 20)
   },
+  //保存在本地
+  saveToLocal: function () {
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    wx.canvasToTempFilePath({
+      canvasId: 'myQrcode',
+      quality: 0.8,
+      success: function (e) {
+        console.log(e)
+        if (!e.tempFilePath) {
+          wx.hideLoading()
+        }
+        wx.saveImageToPhotosAlbum({
+          filePath: e.tempFilePath,
+          success: function (e) {
+            console.log(e)
+            wx.hideLoading()
+            wx.showToast({
+              title: '操作成功',
+              icon: 'none',
+              mask: true,
+              duration: 1500,
+            })
+          },
+          fail: function () {
+            wx.hideLoading()
+          }
+        })
+      },
+      fail: function () {
+        wx.hideLoading()
+      },
+    })
+  },
 })

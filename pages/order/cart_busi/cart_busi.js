@@ -260,6 +260,7 @@ Page({
       eparchyCode: pickerCityVal[1].areaCode,
       cityCode: pickerCityVal[2].areaCode,
       address: address,
+      shoppingCode:billNumber,
       remark: remarkinput,
 
       goodsListJsonStr: JSON.stringify(goodsListJson),

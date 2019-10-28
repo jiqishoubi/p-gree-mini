@@ -217,7 +217,7 @@
     <view class="flexColumn result_modal">
       <view class="flexColumn">
         <view style="font-size:33rpx;margin-bottom:15rpx;">下单成功</view>
-        <view style="font-size:24rpx;margin-bottom:60rpx;">请通知顾客使用微信小程序进行预约安装</view>
+        <view style="font-size:24rpx;margin-bottom:60rpx;">请通知顾客到货后预约安装</view>
       </view>
       <view>
         <button class="btn_result"

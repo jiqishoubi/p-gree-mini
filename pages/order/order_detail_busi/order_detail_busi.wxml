@@ -85,9 +85,9 @@
                 <view class="label">商品价格</view>
                 <view class="input textOmit">{{item.priceFeeYuan}}元</view>
               </view>
-              <view class="item">
+              <view wx:if="{{item.goodsCount}}" class="item">
                 <view class="label">商品数量</view>
-                <view class="input textOmit">{{item.goodsCount}}元</view>
+                <view class="input textOmit">{{item.goodsCount}}</view>
               </view>
             </view>
           </block>
@@ -106,9 +106,9 @@
                 <view class="label">商品价格</view>
                 <view class="input textOmit">{{item.tradeFeeStr}}元</view>
               </view>
-              <view class="item">
+              <view wx:if="{{item.goodsCount}}" class="item">
                 <view class="label">商品数量</view>
-                <view class="input textOmit">{{item.goodsCount}}元</view>
+                <view class="input textOmit">{{item.goodsCount}}</view>
               </view>
             </view>
           </block>

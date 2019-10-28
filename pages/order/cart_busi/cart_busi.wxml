@@ -118,6 +118,7 @@
           placeholder="请输入"
           value="{{remarkinput}}"
           bindinput="onInputChange"
+          data-key="remarkinput"
         ></input>
       </view>
     </block>

@@ -22,5 +22,10 @@
     <!-- <view class="bottom flexJCenter">
       地址
     </view> -->
+    
+    <button class="code_btn"
+      hover-class="code_btn_hover"
+      bindtap="saveToLocal"
+    >保存二维码到本地</button>
   </view>
 </view>

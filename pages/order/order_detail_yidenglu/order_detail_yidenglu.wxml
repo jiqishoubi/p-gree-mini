@@ -7,7 +7,8 @@
       <view class="flexCenter">
         <view class="rect"></view>订单信息
       </view>
-      <view wx:if="{{order.orderStatus!=='50'}}" style="color:#00A6FF;">审核中</view>
+      <view wx:if="{{order.orderStatus!=='50'&&order.orderStatus!=='93'}}" style="color:#00A6FF;">审核中</view>
+      <view wx:if="{{order.orderStatus=='93'}}">审核未通过</view>
     </view>
     <view class="form">
       <view class="item">

@@ -75,12 +75,20 @@
   background-color: #eee;
 }
 
+.datetime {
+  font-size: 23rpx;
+}
+
 .result_item {
   justify-content: space-between;
 }
 
 .result_label {
   color: #9b9b9b;
+}
+
+.result_input {
+  width: calc(100% - 150rpx);
 }
 
 /* 下面按钮 */

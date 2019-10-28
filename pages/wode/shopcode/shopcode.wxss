@@ -65,3 +65,18 @@ Page {
   /* width: 100%;
   height: 100%; */
 }
+
+/* 保存到本地 */
+.code_btn {
+  margin: 70rpx 47rpx 46rpx;
+  font-size: 24rpx;
+  background-color: #fff;
+  height: 85rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.code_btn_hover {
+  background-color: #f0f0f0;
+}

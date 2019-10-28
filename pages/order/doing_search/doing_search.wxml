@@ -28,26 +28,35 @@
       bindtap="goOrderDetail"
       data-item="{{item}}"
     >
-      <view class="result_title">{{item.orderNo}}</view>
+      <view class="result_title flexCenter flexBetween">
+        <view>{{item.orderNo}}</view>
+        <view wx:if="{{item.orderDateStr}}" class="datetime">{{item.orderDateStr}}</view>
+      </view>
+      <view wx:if="{{item.ticketCode}}" class="result_content">
+        <view class="result_item">
+          <view class="result_label">认筹券号</view>
+          <view class="result_input">{{item.ticketCode}}</view>
+        </view>
+      </view>
       <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"
         wx:key="idx"
         class="result_content"
       >
         <view class="result_item">
           <view class="result_label">客户姓名</view>
-          <view>{{itm.custName}}</view>
+          <view class="result_input">{{itm.custName}}</view>
         </view>
         <view class="result_item">
           <view class="result_label">客户电话</view>
-          <view>{{itm.phoneNumber}}</view>
+          <view class="result_input">{{itm.phoneNumber}}</view>
         </view>
         <view class="result_item">
           <view class="result_label">商品名称</view>
-          <view>{{itm.goodsName}}</view>
+          <view class="result_input textOmit">{{itm.goodsName}}</view>
         </view>
         <view class="result_item">
           <view class="result_label">安装地址</view>
-          <view>{{itm.provinceName}}{{itm.eparchyName}}{{itm.cityName}}{{itm.address}}</view>
+          <view class="result_input textOmit">{{itm.provinceName}}{{itm.eparchyName}}{{itm.cityName}}{{itm.address}}</view>
         </view>
       </view>
     </view>

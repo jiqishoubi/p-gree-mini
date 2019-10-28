@@ -10,6 +10,11 @@ const allApiStr = {
   getUserinfoApi: '/mp/getUserInfo', //获取个人信息 
   changePasswordApi: '/mp/updateUserPassword', //修改密码
 
+  //首页统计
+  getStatisticsIndexApi: '/mp/homePage/getSaleCountInfo', //首页统计
+  //统计页统计
+  getStatisticsSIndexApi: '/mp/report/getSaleInfo', //统计页数据
+
 
   getAllGoodsGroupApi: '/mp/cust/goodsGroup/queryAll', //获取所有商品分类
   getGoodsListByGroupApi: '/mp/cust/goods/queryByGroup', //根据商品分类获取商品列表

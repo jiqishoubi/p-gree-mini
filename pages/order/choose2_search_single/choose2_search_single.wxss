@@ -35,7 +35,7 @@
 
 .cancel_btn {
   color: #4a4a4a;
-  font-size: 25rpx;
+  font-size: 29rpx;
   height: 100%;
   padding: 0 24rpx;
 }
@@ -86,7 +86,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20rpx;
+  font-size: 24rpx;
   border: 1px solid #e6e6e6;
   padding: 0 12rpx;
   margin-right: 12rpx;
@@ -106,7 +106,7 @@
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 28rpx;
+  font-size: 32rpx;
   z-index: 666;
 }
 

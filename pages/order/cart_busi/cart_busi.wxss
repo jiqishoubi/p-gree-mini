@@ -46,7 +46,7 @@ Page {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20rpx;
+  font-size: 24rpx;
   border: 1px solid #e6e6e6;
   padding: 0 12rpx;
   margin-right: 12rpx;
@@ -85,7 +85,7 @@ Page {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #9b9b9b;
 }
 
@@ -118,7 +118,7 @@ Page {
   justify-content: center;
   background-color: #00a6ff;
   color: #fff;
-  font-size: 33rpx;
+  font-size: 37rpx;
 }
 
 .submit_hover {
@@ -146,7 +146,7 @@ Page {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 25rpx;
+  font-size: 29rpx;
 }
 
 /* 修改价格modal */
@@ -154,7 +154,7 @@ Page {
 .editprice_modal {
   height: 400rpx;
   background-color: #fff;
-  font-size: 25rpx;
+  font-size: 29rpx;
 }
 
 .price_item {

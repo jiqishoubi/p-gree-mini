@@ -46,7 +46,7 @@ Page {
 }
 
 .top_name {
-  font-size: 33rpx;
+  font-size: 37rpx;
 }
 
 .shop {

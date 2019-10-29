@@ -107,7 +107,7 @@ Page {
 
 .list_item_title_text {
   color: #000;
-  font-size: 28rpx;
+  font-size: 32rpx;
 }
 
 .list_item_content {

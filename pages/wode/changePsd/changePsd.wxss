@@ -37,7 +37,7 @@ Page {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 28rpx;
+  font-size: 32rpx;
 }
 
 .btn_submit_active {

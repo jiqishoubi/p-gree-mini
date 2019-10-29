@@ -39,8 +39,8 @@
             </view>
             <view class="item_content_content">
               <view class="item_content_content_top">
-                <view class="textOmit" style="color:#000;font-size:25rpx;">{{item.goodsName}}</view>
-                <view style="color:#9B9B9B;font-size:22rpx;margin:10rpx 0;">{{item.goodsDesc}}</view>
+                <view class="textOmit" style="color:#000;font-size:29rpx;">{{item.goodsName}}</view>
+                <view style="color:#9B9B9B;font-size:26rpx;margin:10rpx 0;">{{item.goodsDesc}}</view>
                 <!-- <view class="flex">
                   <view wx:for="{{item.tag}}"
                     wx:for-index="tagIndex" 

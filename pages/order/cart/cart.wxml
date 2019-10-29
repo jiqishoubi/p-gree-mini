@@ -11,8 +11,8 @@
         </view>
         <view class="item_content_content">
           <view class="item_content_content_top">
-            <view class="textOmit" style="color:#000;font-size:25rpx;">{{item.goodsName}}</view>
-            <view style="color:#9B9B9B;font-size:22rpx;margin:10rpx 0;">{{item.goodsDesc}}</view>
+            <view class="textOmit" style="color:#000;font-size:29rpx;">{{item.goodsName}}</view>
+            <view style="color:#9B9B9B;font-size:26rpx;margin:10rpx 0;">{{item.goodsDesc}}</view>
             <!-- <view class="flex">
               <view wx:for="{{item.tag}}"
                 wx:for-index="tagIndex" 
@@ -25,8 +25,10 @@
           
           <view class="yuan_wrap flexCenter flexBetween">
             <view wx:if="{{item.tradeFeeYuan}}">{{item.tradeFeeYuan}}元</view>
-            <view wx:else>{{item.priceFeeActivityYuan}}元</view>
-            <view wx:if="{{type!=='BUSI_USE'}}"
+            <view wx:elif="{{item.priceFeeActivityYuan}}">{{item.priceFeeActivityYuan}}元</view>
+            <view wx:else>{{item.priceFeeYuan}}元</view>
+
+            <view wx:if="{{type!=='BUSI_USE'&&item.ifUpdatePrice==1}}"
               bindtap="openEditPriceModal"
               data-index="{{index}}"
             >修改价格</view>
@@ -184,7 +186,12 @@
           <text wx:if="{{selectedList[lookingIndex].tradeFeeYuan}}">
             {{selectedList[lookingIndex].tradeFeeYuan}}
           </text>
-          <text wx:else>{{selectedList[lookingIndex].priceFeeActivityYuan}}</text>
+          <text wx:elif="{{selectedList[lookingIndex].priceFeeActivityYuan}}">
+            {{selectedList[lookingIndex].priceFeeActivityYuan}}
+          </text>
+          <text wx:else>
+            {{selectedList[lookingIndex].priceFeeYuan}}
+          </text>
         </view>
       </view>
       <view class="price_item">
@@ -216,8 +223,8 @@
   >
     <view class="flexColumn result_modal">
       <view class="flexColumn">
-        <view style="font-size:33rpx;margin-bottom:15rpx;">下单成功</view>
-        <view style="font-size:24rpx;margin-bottom:60rpx;">请通知顾客到货后预约安装</view>
+        <view style="font-size:37rpx;margin-bottom:15rpx;">下单成功</view>
+        <view style="font-size:28rpx;margin-bottom:60rpx;">请通知顾客到货后预约安装</view>
       </view>
       <view>
         <button class="btn_result"

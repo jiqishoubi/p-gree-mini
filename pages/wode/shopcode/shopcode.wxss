@@ -46,7 +46,7 @@ Page {
 }
 
 .top_name {
-  font-size: 33rpx;
+  font-size: 37rpx;
 }
 
 /* 中间 */
@@ -69,7 +69,7 @@ Page {
 /* 保存到本地 */
 .code_btn {
   margin: 70rpx 47rpx 46rpx;
-  font-size: 24rpx;
+  font-size: 28rpx;
   background-color: #fff;
   height: 85rpx;
   display: flex;

@@ -87,8 +87,9 @@ Page({
 
       oldSelectedGoodsList,
     }, () => {
-      console.log(this.data.orderObj)
       this.calcSumPrice()
+      //是否可以修改价格
+      this.checkIfUpdatePrice()
     })
   },
 
@@ -170,7 +171,15 @@ Page({
     } = this.data
     let sum = 0
     oldSelectedGoodsList.forEach((obj) => {
-      sum = sum + (Number(obj.tradeFeeYuan ? obj.tradeFeeYuan : obj.priceFeeActivityYuan) * obj.count)
+      let yuan = '0'
+      if (obj.tradeFeeYuan) {
+        yuan = obj.tradeFeeYuan
+      } else if (obj.priceFeeActivityYuan) {
+        yuan = obj.priceFeeActivityYuan
+      } else {
+        yuan = obj.priceFeeYuan
+      }
+      sum = sum + (Number(yuan) * obj.count)
     })
     this.setData({
       sumPrice: toMoney(sum)
@@ -242,10 +251,19 @@ Page({
     //发送参数
     let goodsListJson = []
     oldSelectedGoodsList.forEach((obj) => {
+      //价格
+      let yuan = '0'
+      if (obj.tradeFeeYuan) {
+        yuan = obj.tradeFeeYuan
+      } else if (obj.priceFeeActivityYuan) {
+        yuan = obj.priceFeeActivityYuan
+      } else {
+        yuan = obj.priceFeeYuan
+      }
       let objTemp = {
         goodsCode: obj.goodsCode,
         goodsCount: obj.count,
-        tradeFee: obj.tradeFeeYuan ? obj.tradeFeeYuan * 100 : obj.priceFeeActivityYuan * 100
+        tradeFee: yuan * 100,
       }
       goodsListJson.push(objTemp)
     })
@@ -260,7 +278,7 @@ Page({
       eparchyCode: pickerCityVal[1].areaCode,
       cityCode: pickerCityVal[2].areaCode,
       address: address,
-      shoppingCode:billNumber,
+      shoppingCode: billNumber,
       remark: remarkinput,
 
       goodsListJsonStr: JSON.stringify(goodsListJson),
@@ -313,10 +331,18 @@ Page({
     //发送参数
     let goodsListJson = []
     oldSelectedGoodsList.forEach((obj) => {
+      let yuan = '0'
+      if (obj.tradeFeeYuan) {
+        yuan = obj.tradeFeeYuan
+      } else if (obj.priceFeeActivityYuan) {
+        yuan = obj.priceFeeActivityYuan
+      } else {
+        yuan = obj.priceFeeYuan
+      }
       let objTemp = {
         goodsCode: obj.goodsCode,
         goodsCount: obj.count,
-        tradeFee: obj.tradeFeeYuan ? obj.tradeFeeYuan * 100 : obj.priceFeeActivityYuan * 100
+        tradeFee: yuan * 100
       }
       goodsListJson.push(objTemp)
     })
@@ -435,4 +461,39 @@ Page({
     this.onEditPriceCancel()
   },
   //修改价格modal end
+  //确认是否可以修改价格
+  checkIfUpdatePrice: function() {
+    let {
+      activityCode,
+      oldSelectedGoodsList
+    } = this.data
+    console.log(oldSelectedGoodsList)
+
+    oldSelectedGoodsList.forEach(async(obj) => {
+      console.log('查询')
+      if (obj.ifUpdatePrice !== 0 && obj.ifUpdatePrice !== 1) {
+        let postData = {
+          activityCode,
+          goodsCode: obj.goodsCode,
+        }
+        let res = await requestw({
+          url: allApiStr.getGoodsByQueryApi,
+          data: postData,
+        })
+        console.log(res)
+        if (
+          res.data.code !== '0' ||
+          !res.data.data ||
+          res.data.data.length == 0
+        ) {
+          return false
+        }
+        obj.ifUpdatePrice = res.data.data[0].ifUpdatePrice
+      }
+    })
+
+    this.setData({
+      oldSelectedGoodsList
+    })
+  },
 })

@@ -31,7 +31,7 @@ Page {
 }
 
 .nickname {
-  font-size: 33rpx;
+  font-size: 37rpx;
 }
 
 /* 导航 */

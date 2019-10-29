@@ -96,6 +96,8 @@ Page({
       selectedList,
     }, () => {
       this.calcSumPrice()
+      //是否可以修改价格
+      this.checkIfUpdatePrice()
     })
   },
 
@@ -230,7 +232,15 @@ Page({
     } = this.data
     let sum = 0
     selectedList.forEach((obj) => {
-      sum = sum + Number(obj.tradeFeeYuan ? obj.tradeFeeYuan : obj.priceFeeActivityYuan)
+      let yuan = '0'
+      if (obj.tradeFeeYuan) {
+        yuan = obj.tradeFeeYuan
+      } else if (obj.priceFeeActivityYuan) {
+        yuan = obj.priceFeeActivityYuan
+      } else {
+        yuan = obj.priceFeeYuan
+      }
+      sum = sum + Number(yuan)
     })
     this.setData({
       sumPrice: toMoney(sum)
@@ -284,7 +294,6 @@ Page({
     //发送参数
     let goodsListJson = []
     selectedList.forEach((obj) => {
-      console.log(obj)
       let addressInfo
       if (type == 'HOME_USE') { //家用
         addressInfo = {
@@ -307,11 +316,20 @@ Page({
           address: obj.address,
         }
       }
+      //价格
+      let yuan = '0'
+      if (obj.tradeFeeYuan) {
+        yuan = obj.tradeFeeYuan
+      } else if (obj.priceFeeActivityYuan) {
+        yuan = obj.priceFeeActivityYuan
+      } else {
+        yuan = obj.priceFeeYuan
+      }
       let objTemp = {
         goodsCode: obj.goodsCode,
         shoppingCode: obj.billNumber,
         remark: obj.remarkinput,
-        tradeFee: obj.tradeFeeYuan ? obj.tradeFeeYuan * 100 : obj.priceFeeActivityYuan * 100,
+        tradeFee: yuan * 100,
         ...addressInfo
       }
       goodsListJson.push(objTemp)
@@ -362,7 +380,6 @@ Page({
   },
   //修改价格modal
   openEditPriceModal: function(e) {
-    console.log(e)
     let index = e.currentTarget.dataset.index
     this.setData({
       showEditPriceModal: true,
@@ -422,4 +439,39 @@ Page({
     this.onEditPriceCancel()
   },
   //修改价格modal end
+  //确认是否可以修改价格
+  checkIfUpdatePrice: function() {
+    let {
+      activityCode,
+      selectedList,
+    } = this.data
+    console.log(selectedList)
+
+    selectedList.forEach(async(obj) => {
+      console.log('查询')
+      if (obj.ifUpdatePrice !== 0 && obj.ifUpdatePrice !== 1) {
+        let postData = {
+          activityCode,
+          goodsCode: obj.goodsCode,
+        }
+        let res = await requestw({
+          url: allApiStr.getGoodsByQueryApi,
+          data: postData,
+        })
+        console.log(res)
+        if (
+          res.data.code !== '0' ||
+          !res.data.data ||
+          res.data.data.length == 0
+        ) {
+          return false
+        }
+        obj.ifUpdatePrice = res.data.data[0].ifUpdatePrice
+      }
+    })
+
+    this.setData({
+      selectedList
+    })
+  },
 })

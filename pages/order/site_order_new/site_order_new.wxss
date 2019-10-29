@@ -93,7 +93,7 @@ Page {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28rpx;
+  font-size: 32rpx;
   z-index: 10;
 }
 
@@ -152,16 +152,16 @@ Page {
 }
 
 .code_info_count {
-  font-size: 36rpx;
+  font-size: 40rpx;
 }
 
 .code_info_title {
-  font-size: 24rpx;
+  font-size: 28rpx;
 }
 
 .code_btn {
   margin: 70rpx 47rpx 46rpx;
-  font-size: 24rpx;
+  font-size: 28rpx;
   background-color: #fff;
   height: 85rpx;
   display: flex;

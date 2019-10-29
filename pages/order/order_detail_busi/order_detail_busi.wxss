@@ -58,7 +58,7 @@ Page {
   align-items: center;
   justify-content: center;
   border: none;
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #fff;
   background-color: #00A6FF;
 }
@@ -118,16 +118,16 @@ Page {
 }
 
 .code_info_count {
-  font-size: 36rpx;
+  font-size: 40rpx;
 }
 
 .code_info_title {
-  font-size: 24rpx;
+  font-size: 28rpx;
 }
 
 .code_btn {
   margin: 70rpx 47rpx 46rpx;
-  font-size: 24rpx;
+  font-size: 28rpx;
   background-color: #fff;
   width: 204rpx;
   height: 85rpx;

@@ -342,7 +342,7 @@ Page({
           //发送参数
           let postData = {
             orderNo: info.installOrderNo, //售后单号
-            reserveDate: formatDate(new Date(currentDate), 'yyyy-MM-dd hh:mm:ss'),
+            reserveDate: formatDate(new Date(currentDate), 'yyyy-MM-dd'),
           }
           wx.showLoading({
             title: '请稍候...',

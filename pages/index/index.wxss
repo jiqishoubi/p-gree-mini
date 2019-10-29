@@ -89,7 +89,7 @@ Page {
   width: 72rpx;
   height: 72rpx;
   margin-left: 30rpx;
-  margin-right: 30rpx;
+  margin-right: 20rpx;
 }
 
 .list_item_content {

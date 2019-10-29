@@ -70,9 +70,22 @@
         class="list_item"
       >
         <view class="list_item_content">
-          <view>商品型号：{{item.goodsCode}}</view>
-          <view>商品名称：{{item.goodsName}}</view>
-          <view>数<text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>量：{{item.goodsCount}}台</view>
+          <view class="item">
+            <view class="item_label">商品编号</view>：
+            <view class="item_input">{{item.goodsCode}}</view>
+          </view>
+          <view class="item">
+            <view class="item_label">商品型号</view>：
+            <view class="item_input">{{item.goodsModel}}</view>
+          </view>
+          <view class="item">
+            <view class="item_label">商品名称</view>：
+            <view class="item_input textOmit">{{item.goodsName}}</view>
+          </view>
+          <view class="item">
+            <view class="item_label">数量</view>：
+            <view class="item_input">{{item.goodsCount}}台</view>
+          </view>
         </view>
       </view>
       <view wx:if="{{list.length==0}}" class='noresult'>暂无数据</view>

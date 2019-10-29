@@ -199,7 +199,7 @@
     bind:close="onCloseTimePicker"
   > 
     <van-datetime-picker
-      type="datetime"
+      type="date"
       min-date="{{minDate}}"
       value="{{currentDate}}"
       bind:input="onInputTimePicker"

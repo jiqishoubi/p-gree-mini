@@ -57,32 +57,32 @@
     <view class="list_item van-hairline--surround">
       <image class="list_item_img" src='https://cdn.s.bld365.com/getli_index_list_item_img_01.png' alt=''></image>
       <view class="list_item_content">
-        <view>今日销售：台</view>
-        <view class="list_item_count">{{countData.preOrderSaleUserCount}}</view>
+        <view>今日待转销售：</view>
+        <view><text class="list_item_count">{{countData.preOrderSaleUserCount}}</text><text decode="{{true}}">&nbsp;</text>台</view>
       </view>
     </view>
 
     <view class="list_item van-hairline--surround">
       <image class="list_item_img" src='https://cdn.s.bld365.com/getli_index_list_item_img_02.png' alt=''></image>
       <view class="list_item_content">
-        <view>本店销售：台</view>
-        <view class="list_item_count">{{countData.preOrderDepartCount}}</view>
+        <view>今日已转销售：</view>
+        <view><text class="list_item_count">{{countData.preOrderFinishSaleUserCount}}</text><text decode="{{true}}">&nbsp;</text>台</view>
       </view>
     </view>
 
     <view class="list_item van-hairline--surround">
       <image class="list_item_img" src='https://cdn.s.bld365.com/getli_index_list_item_img_03.png' alt=''></image>
       <view class="list_item_content">
-        <view>待转销售：台</view>
-        <view class="list_item_count">{{countData.tradeSaleUserCount}}</view>
+        <view>今日销售：</view>
+        <view><text class="list_item_count">{{countData.tradeSaleUserCount}}</text><text decode="{{true}}">&nbsp;</text>台</view>
       </view>
     </view>
 
     <view class="list_item van-hairline--surround">
       <image class="list_item_img" src='https://cdn.s.bld365.com/getli_index_list_item_img_04.png' alt=''></image>
       <view class="list_item_content">
-        <view>已转销售：台</view>
-        <view class="list_item_count">{{countData.tradeDepartCount}}</view>
+        <view>今日门店销售：</view>
+        <view><text class="list_item_count">{{countData.tradeDepartCount}}</text><text decode="{{true}}">&nbsp;</text>台</view>
       </view>
     </view>
 

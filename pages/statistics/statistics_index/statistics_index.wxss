@@ -89,8 +89,8 @@ Page {
 }
 
 .list_item {
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
   margin: 0 24rpx;
   background-color: #fff;
   border-radius: 5rpx;
@@ -127,4 +127,21 @@ Page {
 .noresult {
   padding: 40rpx 0;
   text-align: center;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item_label {
+  width: 127rpx;
+  text-align: justify;
+  text-align-last: justify;
+}
+
+.item_input {
+  flex: 1 0 0;
+  padding-left: 10rpx;
 }

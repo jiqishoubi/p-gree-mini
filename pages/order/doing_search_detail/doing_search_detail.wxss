@@ -47,7 +47,7 @@ Page {
 }
 
 .result_input {
-  width: calc(100% - 150rpx);
+  width: calc(100% - 160rpx);
   height: 100%;
   padding-left: 45rpx;
   display: flex;
@@ -73,7 +73,7 @@ Page {
   font-size: 28rpx;
   color: #9b9b9b;
   margin: 0;
-  width: 107rpx;
+  /* width: 107rpx; */
   height: 50rpx;
 }
 

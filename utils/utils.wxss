@@ -62,6 +62,15 @@
   white-space: nowrap;
 }
 
+/* 限制行数 */
+
+.limitLineTwo {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
 .bg_white {
   background-color: #fff;
 }

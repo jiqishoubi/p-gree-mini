@@ -110,7 +110,7 @@ Page {
 }
 
 .submit {
-  width: 197rpx;
+  /* width: 197rpx; */
   height: 79rpx;
   margin: 0;
   display: flex;

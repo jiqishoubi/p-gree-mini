@@ -43,7 +43,7 @@ Page {
 }
 
 .label {
-  width: 139rpx;
+  width: 144rpx;
   color: #000;
 }
 

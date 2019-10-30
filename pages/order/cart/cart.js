@@ -5,6 +5,7 @@ import {
   toMoney,
   moneyToNum
 } from '../../../utils/util.js'
+import patternCreator from '../../../utils/patternCreator.js'
 
 const app = getApp()
 
@@ -266,7 +267,9 @@ Page({
       return false
     }
     if (type == 'HOME_USE') { //不是转销售的，那就是家用下单的，就得校验地址信息
+      let reg_phone = patternCreator.phone.pattern
       let flag = true
+      let flag_phone = true
       for (let i = 0; i < selectedList.length; i++) {
         if (
           selectedList[i].receiver == '' ||
@@ -275,12 +278,30 @@ Page({
           !selectedList[i].pickerCityVal[0]
         ) {
           flag = false
-          break
+        }
+
+        if (!reg_phone.test(selectedList[i].receivePhone)) {
+          flag_phone = false
+        }
+        if (
+          selectedList[i].receivePhoneBak !== '' &&
+          !reg_phone.test(selectedList[i].receivePhoneBak)
+        ) {
+          flag_phone = false
         }
       }
       if (!flag) {
         wx.showToast({
           title: '信息请输入完整',
+          icon: 'none',
+          mask: true,
+          duration: 1500,
+        })
+        return false
+      }
+      if(!flag_phone){
+        wx.showToast({
+          title: '请输入正确格式的手机号',
           icon: 'none',
           mask: true,
           duration: 1500,

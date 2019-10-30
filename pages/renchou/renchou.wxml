@@ -83,7 +83,7 @@
           <view class="rect"></view>商品
         </view>
         <view class="flexCenter">
-          <button wx:if="{{list.length>1&&indexwrap!==list.length-1}}"
+          <button wx:if="{{list.length>1}}"
             class="deleteBtn"
             bindtap="deleteItemWrap"
             data-indexwrap="{{indexwrap}}"
@@ -99,7 +99,7 @@
       <view class='item positionRe' id="{{'goodsItem'+indexwrap}}" style="z-index:{{itemwrap.goodsItemZindex}}">
         <view class="label">商品机型</view>
         <view wx:if="{{itemwrap.selectedGoods}}"
-          class="input flexCenter textOmit"
+          class="input textOmit"
           bindtap="toggleGoodsList"
           data-param='{{indexwrap}}'
         >
@@ -131,19 +131,24 @@
           </view>
           <view class="item_wrap">
             <view wx:for="{{itemwrap.goodsList}}" wx:key="index"
-              class="item"
+              class="item goodsItemWrap"
               bindtap="selectGoods"
               data-item="{{item}}"
               data-indexwrap="{{indexwrap}}"
             >
-              <view class="label goodsLabel">{{item.goodsName}}</view>
+              <view class="label goodsLabel limitLineTwo">{{item.goodsName}}</view>
+              <image wx:if="{{item.ifMix==1}}"
+                class="taogou_icon" 
+                src='https://cdn.s.bld365.com/getli_renchou_taogou_icon.png' alt=''
+              ></image>
             </view>
           </view>
         </scroll-view>
         <!-- 商品列表 end -->
       </view>
 
-      <block wx:if="{{indexwrap==0||itemwrap.selectedGoods}}">
+      <!-- <block wx:if="{{indexwrap==0||itemwrap.selectedGoods}}"> -->
+      <block>
         <view class='item'>
           <view class="label">收 货 人</view>
           <input class="input"
@@ -217,6 +222,13 @@
       </block>
     </view>
   </block>
+
+  <view wx:if="{{list.length>0&&list[0].selectedGoods&&list[0].selectedGoods.ifMix==1&&list.length<2}}"
+    class="addbtn"
+    hover-class="addbtn_active"
+     hover-stay-time="{{150}}"
+    bindtap="clickAddbtn"
+  >添加商品</view>
   <!-- *********************block end********************* -->
 
   <view style="height:360rpx;"></view>
@@ -224,7 +236,7 @@
   <!-- 按钮 -->
   <view class="btn{{isX?' isX':''}}" 
     hover-class="btn_active"
-    hover-stay-time="{{200}}"
+    hover-stay-time="{{150}}"
     bindtap="submitRc"
   >提交</view>
 

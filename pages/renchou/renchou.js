@@ -2,7 +2,7 @@ import regeneratorRuntime from '../../utils/runtime.js' //让小程序支持asyc
 import requestw from '../../utils/requestw.js'
 import allApiStr from '../../utils/allApiStr.js'
 import drawQrcode from 'weapp-qrcode' //生成二维码
-// import wxml2canvas from '../../utils/wxml2canvas.js'
+import patternCreator from '../../utils/patternCreator.js'
 
 const app = getApp()
 
@@ -174,7 +174,6 @@ Page({
         userCode: code
       },
     })
-    console.log(res)
     if (res.data.code !== '0') {
       wx.showToast({
         title: res.message,
@@ -209,7 +208,6 @@ Page({
   //生成二维码
   initCode: function(orderNo) {
     setTimeout(() => {
-      console.log('生成')
       drawQrcode({
         width: 200,
         height: 200,
@@ -269,7 +267,6 @@ Page({
           departCode
         },
       })
-      console.log(res)
       if (res.data.code !== '0') {
         wx.showToast({
           title: '获取导购员列表失败，' + res.data.message,
@@ -293,7 +290,6 @@ Page({
   },
   //绑定活动picker
   onChangeActivitypicker: function(e) {
-    console.log(e)
     const {
       activityList,
       selectedActivityIndex,
@@ -317,6 +313,7 @@ Page({
     let {
       list,
       selectedActivityIndex,
+      goodsList, //全部商品
     } = this.data
 
     if (selectedActivityIndex == null) {
@@ -331,6 +328,18 @@ Page({
 
     list[indexwrap].showGoodsList = !list[indexwrap].showGoodsList
     list[indexwrap].goodsItemZindex = list[indexwrap].goodsItemZindex == 11 ? 9 : 11
+    console.log(list[indexwrap].showGoodsList)
+    if (list[indexwrap].showGoodsList) { //原来关闭 现在打开 //打开的时候
+      if (list.length > 1) { //大于1的话 只能显示套购的
+        console.log('显示套购')
+        let oldGoodsList = JSON.parse(JSON.stringify(goodsList))
+        list[indexwrap].goodsList = oldGoodsList.filter((obj) => {
+          return obj.ifMix == 1
+        })
+      } else { //只有一个的时候，显示全部商品
+        list[indexwrap].goodsList = JSON.parse(JSON.stringify(goodsList))
+      }
+    }
     this.setData({
       list
     })
@@ -344,7 +353,6 @@ Page({
           activityType: 'PRE_SALE'
         },
       })
-      console.log(res)
       if (res.data.code !== '0') {
         wx.showToast({
           title: '获取活动列表失败，' + res.data.message,
@@ -369,7 +377,6 @@ Page({
           activityCode
         },
       })
-      console.log(res)
       if (res.data.code !== '0') {
         wx.showToast({
           title: '获取商品列表失败，' + res.data.message,
@@ -387,6 +394,7 @@ Page({
   //选择机型
   selectGoods: function(e) {
     let item = e.currentTarget.dataset.item
+    console.log(item)
     let indexwrap = e.currentTarget.dataset.indexwrap
     let {
       list
@@ -398,10 +406,14 @@ Page({
     this.setData({
       list
     }, () => {
-      //如果选择的是最后一个就再增加一个
-      if (indexwrap == list.length - 1) {
-        this.addOneSelect()
-      }
+      // //如果选择的是最后一个就再增加一个 //并且选择的是套购的才再增加一个选项 //并且最多选择2个
+      // if (
+      //   indexwrap == list.length - 1 &&
+      //   item.ifMix == 1 &&
+      //   this.data.list.length < 2
+      // ) {
+      //   this.addOneSelect()
+      // }
     })
   },
   //点击删除
@@ -431,48 +443,16 @@ Page({
       title: '请稍候...',
       mask: true,
     })
-    // const wrapperId = '#wrapper'
-    // const drawClassName = '.draw'
-    // const canvasId = 'canvas-map'
-    // wxml2canvas(wrapperId, drawClassName, canvasId).then(() => {
-    //   // canvas has been drawn
-    //   // can save the image with wx.canvasToTempFilePath and wx.saveImageToPhotosAlbum 
-    //   wx.canvasToTempFilePath({
-    //     canvasId:'canvas-map',
-    //     quality:0.8,
-    //     success:function(e){
-    //       console.log(e)
-    //       if(!e.tempFilePath){
-    //         wx.hideLoading()
-    //       }
-    //       wx.saveImageToPhotosAlbum({
-    //         filePath: e.tempFilePath,
-    //         success:function(e){
-    //           wx.hideLoading()
-    //           console.log(e)
-    //         },
-    //         fail:function(){
-    //           wx.hideLoading()
-    //         }
-    //       })
-    //     },
-    //     fail:function(){
-    //       wx.hideLoading()
-    //     },
-    //   })
-    // })
     wx.canvasToTempFilePath({
       canvasId: 'myQrcode',
       quality: 0.8,
       success: function(e) {
-        console.log(e)
         if (!e.tempFilePath) {
           wx.hideLoading()
         }
         wx.saveImageToPhotosAlbum({
           filePath: e.tempFilePath,
           success: function(e) {
-            console.log(e)
             wx.hideLoading()
             wx.showToast({
               title: '操作成功',
@@ -522,7 +502,6 @@ Page({
   },
   //搜索商品列表
   inputSeachGoodsVal: function(e) {
-    console.log(e)
     let value = e.detail.value
     let indexwrap = e.currentTarget.dataset.indexwrap
     let {
@@ -562,9 +541,10 @@ Page({
     } = this.data
 
     //验证
+    let reg_phone = patternCreator.phone.pattern
     let flag = true //可以的
+    let flag_phone = true
     list.forEach((obj) => {
-      console.log(obj)
       if (list.length > 1) { //list大于1个
         if (obj.selectedGoods) {
           if (
@@ -586,6 +566,13 @@ Page({
           flag = false
         }
       }
+
+      if (!reg_phone.test(obj.receiverPhone)) {
+        flag_phone = false
+      }
+      if (obj.receiverPhoneBak !== '' && !reg_phone.test(obj.receiverPhoneBak)) {
+        flag_phone = false
+      }
     })
     if (
       couponNo == '' ||
@@ -601,6 +588,9 @@ Page({
       })
       return false
     }
+    if (!reg_phone.test(couponPhoneNo)) {
+      flag_phone = false
+    }
     if (type == 'd') {
       if (selectedSalerIndex == null) {
         wx.showToast({
@@ -611,6 +601,15 @@ Page({
         })
         return false
       }
+    }
+    if (!flag_phone) {
+      wx.showToast({
+        title: '请输入正确格式的手机号',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
     }
     //验证 end
 
@@ -630,7 +629,6 @@ Page({
         address: obj.address,
       }
     })
-    console.log(goodsListJson)
     let postData = {
       activityCode: activityList[selectedActivityIndex].activityCode, //         活动编码(非空)
       // salerUserCode: type == 'd' ? salerList[selectedSalerIndex].userCode : saler.userCode, //       导购员编码(非空)
@@ -639,7 +637,6 @@ Page({
       phoneNumber: couponPhoneNo, //认筹手机号
       goodsListJsonStr: JSON.stringify(goodsListJson)
     }
-    console.log(postData)
 
     wx.showLoading({
       title: '请稍候...',
@@ -650,7 +647,6 @@ Page({
       data: postData,
     })
     wx.hideLoading()
-    console.log(res)
 
     if (res.data.code !== '0') {
       wx.showToast({
@@ -691,4 +687,8 @@ Page({
 
   // },
   // //短信验证码 end
+  //点击添加商品
+  clickAddbtn: function() {
+    this.addOneSelect()
+  },
 })

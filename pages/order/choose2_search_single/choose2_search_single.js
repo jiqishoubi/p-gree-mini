@@ -7,6 +7,7 @@ import allApiStr from '../../../utils/allApiStr.js'
  * options：
  * activityCode //活动code
  * lookingIndex
+ * isTaogou //是否套购
  */
 
 Page({
@@ -30,6 +31,7 @@ Page({
     this.setData({
       activityCode: options.activityCode ? options.activityCode : null,
       lookingIndex: options.lookingIndex,
+      isTaogou: options.isTaogou == 'true' ? true : false,
     })
   },
 
@@ -129,7 +131,6 @@ Page({
       data: postData,
     })
     wx.hideLoading()
-    console.log(res)
 
     if (res.data.code !== '0' || !res.data.data) {
       wx.showToast({

@@ -6,8 +6,8 @@ import allApiStr from '../../../utils/allApiStr.js'
  * 选择商品界面 (单选)
  * options：
  * activityCode //活动code
- * selectedGoods  //obj
  * lookingIndex  //上一页的商品index
+ * isTaogou //是否套购
  */
 
 Page({
@@ -18,8 +18,8 @@ Page({
   data: {
     // options
     activityCode: null, //活动code
-    selectedGoods: [], //已选中的商品 //options过来的数据
     lookingIndex: null, //上一页的商品index
+    isTaogou: false,
 
     //搜索
     searchVal: '',
@@ -33,84 +33,81 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function (options) {
+  onLoad: async function(options) {
     //1、设置options
-    //(1)已选中的商品
-    if (options.selectedGoodsList) {
-      let selectedGoods = JSON.parse(options.selectedGoods)
-      this.setData({
-        selectedGoods
-      })
-    }
     //(2)活动code lookingIndex
     this.setData({
       activityCode: options.activityCode ? options.activityCode : null,
       lookingIndex: options.lookingIndex,
+      isTaogou: options.isTaogou == 'true' ? true : false,
+    }, async() => {
+      //2、获取数据 商品分类
+      await this.getGoodsGroup(options.activityCode)
+      this.getGoodsList(0)
     })
-
-    //2、获取数据 商品分类
-    await this.getGoodsGroup(options.activityCode)
-    this.getGoodsList(0)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方
   //打开搜索页面
-  goSearch: function () {
-    const { lookingIndex } = this.data
+  goSearch: function() {
+    const {
+      lookingIndex,
+      isTaogou,
+    } = this.data
     wx.navigateTo({
-      url: `/pages/order/choose2_search_single/choose2_search_single?activityCode=${this.data.activityCode}&lookingIndex=${lookingIndex}`,
+      url: `/pages/order/choose2_search_single/choose2_search_single?activityCode=${this.data.activityCode}&lookingIndex=${lookingIndex}&isTaogou=${isTaogou}`,
     })
   },
   // 点击左侧
-  chooseleft: function (e) {
+  chooseleft: function(e) {
     let indexleft = e.currentTarget.dataset.param
 
     this.setData({
@@ -120,7 +117,7 @@ Page({
     this.getGoodsList(indexleft)
   },
   //点击右侧
-  chooseRight: function (e) {
+  chooseRight: function(e) {
     let index = e.currentTarget.dataset.index
     const {
       active_left,
@@ -129,15 +126,14 @@ Page({
     } = this.data
 
     let goods = leftlist[active_left].children[index]
-    console.log(goods)
 
     wx.setStorageSync('from_choose2_single_selectedGoods', goods)
     wx.setStorageSync('from_choose2_single_lookingIndex', lookingIndex)
     wx.navigateBack()
   },
   //获取商品分类
-  getGoodsGroup: async function (activityCode) {
-    return new Promise(async (resolve, reject) => {
+  getGoodsGroup: async function(activityCode) {
+    return new Promise(async(resolve, reject) => {
       let postData = {
         activityCode: activityCode ? activityCode : null, //根据活动
       }
@@ -145,7 +141,6 @@ Page({
         url: allApiStr.getGoodsGroupByQueryApi,
         data: postData,
       })
-      console.log(res)
       if (res.data.code !== '0') {
         wx.showToast({
           title: '查询商品失败',
@@ -164,9 +159,10 @@ Page({
     })
   },
   //根据商品分类获取商品列表
-  getGoodsList: async function (indexleft) {
+  getGoodsList: async function(indexleft) {
     let {
-      leftlist
+      leftlist,
+      isTaogou
     } = this.data
 
     if (leftlist[indexleft].children) {
@@ -186,14 +182,16 @@ Page({
       data: postData,
     })
     wx.hideLoading()
-    console.log(res)
 
     if (
       res.data.code &&
       res.data.data &&
       res.data.data.length > 0
     ) { //查到了
-      leftlist[indexleft].children = res.data.data
+      let list = res.data.data.filter((obj) => {
+        return obj.ifMix == 1
+      })
+      leftlist[indexleft].children = list
       this.setData({
         leftlist
       })

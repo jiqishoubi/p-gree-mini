@@ -34,20 +34,18 @@ Page({
       return false
     }
 
-    console.log(JSON.parse(options.order))
     this.setData({
       oldOrder: JSON.parse(options.order),
       order: JSON.parse(options.order),
     }, async() => {
 
-      //获取详情
-      let res = await requestw({
-        url: allApiStr.getPreOrderInfoApi,
-        data: {
-          orderNo: this.data.order.orderNo
-        },
-      })
-      console.log(res)
+      // //获取详情
+      // let res = await requestw({
+      //   url: allApiStr.getPreOrderInfoApi,
+      //   data: {
+      //     orderNo: this.data.order.orderNo
+      //   },
+      // })
     })
   },
 
@@ -67,8 +65,6 @@ Page({
       let selectedGoods = wx.getStorageSync('from_choose2_single_selectedGoods')
       let lookingIndex = wx.getStorageSync('from_choose2_single_lookingIndex')
 
-      console.log(selectedGoods, lookingIndex)
-
       wx.removeStorage({
         key: 'from_choose2_single_selectedGoods'
       })
@@ -87,8 +83,6 @@ Page({
 
       this.setData({
         order
-      }, () => {
-        console.log(this.data.order)
       })
     }
     //从选择商品页（单选）回来 end
@@ -160,13 +154,13 @@ Page({
     const {
       order
     } = this.data
-    let goods = e.currentTarget.dataset.goods
     let index = e.currentTarget.dataset.index
 
-    console.log(index)
+    console.log(order)
+    let isTaogou = order.goodsList.length > 1
 
     wx.navigateTo({
-      url: `/pages/order/choose2_single/choose2_single?activityCode=${order.activityCode}&selectedGoods=${JSON.stringify(goods)}&lookingIndex=${index}`,
+      url: `/pages/order/choose2_single/choose2_single?activityCode=${order.activityCode}&lookingIndex=${index}&isTaogou=${isTaogou}`,
     })
   },
   //点击下单
@@ -181,6 +175,16 @@ Page({
 
     wx.navigateTo({
       url: `/pages/order/cart/cart?type=${type}&activityCode=${activityCode}&selectedGoodsList=${JSON.stringify(selectedGoodsList)}`,
+    })
+  },
+  //拨打电话
+  callPhone: function(e) {
+    let phone = e.currentTarget.dataset.phone
+    if (!phone) {
+      return false
+    }
+    wx.makePhoneCall({
+      phoneNumber: phone
     })
   },
 })

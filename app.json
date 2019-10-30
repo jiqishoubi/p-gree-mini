@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/renchou/renchou",
+   
     "pages/statistics/statistics_index/statistics_index",
     "pages/index/index",
     "pages/wode/changePsd/changePsd",
@@ -15,7 +17,7 @@
     "pages/order/doing_search/doing_search",
     "pages/order/cart/cart",
     "pages/order/site_order_new/site_order_new",
-    "pages/renchou/renchou",
+   
     "pages/order/choose2/choose2",
     "pages/order/choose2_search/choose2_search",
     "pages/order/doing_search_detail/doing_search_detail",

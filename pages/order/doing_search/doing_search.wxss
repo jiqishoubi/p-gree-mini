@@ -91,6 +91,19 @@
   width: calc(100% - 150rpx);
 }
 
+/* 转销售按钮 */
+
+.zhuanBtn {
+  font-size: 26rpx;
+  color: #4f4f4f;
+  margin: 0;
+  padding: 0 10rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* 下面按钮 */
 
 .btn_submit {

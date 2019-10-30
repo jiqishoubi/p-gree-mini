@@ -6,7 +6,7 @@ const hostObj = {
     host: 'https://greet.bld365.com',
   },
   prod: {
-    host: ''
+    host: 'https://greeweb.bld365.com'
   },
 }
 

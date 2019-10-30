@@ -21,7 +21,17 @@
       </view>
       <view class="item">
         <view class="label">用户电话</view>
-        <view class="input">{{order.phoneNumber}}</view>
+        <view class="input"
+          bindtap="callPhone"
+          data-phone="{{order.phoneNumber}}"
+        >
+          {{order.phoneNumber}}
+          <van-icon wx:if="{{order.phoneNumber}}"
+            name="phone" 
+            color='#00a6ff' 
+            style="margin-left:3rpx;position:relative;top:4rpx;" 
+          />
+        </view>
       </view>
       <view class="item">
         <view class="label">安装地址</view>

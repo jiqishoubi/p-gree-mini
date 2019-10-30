@@ -9,7 +9,23 @@ Page({
    */
   data: {
     navIndex: 0,
-    navList: ['已认筹', '已登录', '已下单', '已退单'],
+    navList: [{
+        text: '已认筹',
+        count: '',
+      },
+      {
+        text: '已登录',
+        count: '',
+      },
+      {
+        text: '已下单',
+        count: '',
+      },
+      {
+        text: '已退单',
+        count: '',
+      }
+    ],
     showList: [],
 
     page: 1, //请求的page
@@ -128,6 +144,7 @@ Page({
   //获取列表
   getData: async function(isScroll) {
     const {
+      navList,
       navIndex,
       page,
       pageSize,
@@ -218,6 +235,13 @@ Page({
       page: page + 1,
       showList: list,
     })
+
+    //总数量
+    navList[navIndex].count = res.data.data.rowTop
+    this.setData({
+      navList,
+    })
+
   },
   //去订单详情
   goDetail: function(e) {
@@ -255,5 +279,15 @@ Page({
         }
         break
     }
+  },
+  //拨打电话
+  callPhone: function(e) {
+    let phone = e.currentTarget.dataset.phone
+    if(!phone){
+      return false
+    }
+    wx.makePhoneCall({
+      phoneNumber: phone
+    })
   },
 })

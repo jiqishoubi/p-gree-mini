@@ -5,6 +5,7 @@ import {
   toMoney,
   moneyToNum
 } from '../../../utils/util.js'
+import patternCreator from '../../../utils/patternCreator.js'
 
 const app = getApp()
 
@@ -220,6 +221,8 @@ Page({
     } = this.data
 
     //验证
+    let reg_phone = patternCreator.phone.pattern
+    let flag_phone = true
     if (type == '' || activityCode == '') {
       wx.showToast({
         title: '参数缺失，请重新访问',
@@ -239,6 +242,21 @@ Page({
     ) {
       wx.showToast({
         title: '信息请输入完整',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    if (
+      (!reg_phone.test(receivePhone)) ||
+      (receivePhoneBak !== '' && !reg_phone.test(receivePhoneBak))
+    ) {
+      flag_phone = false
+    }
+    if (!flag_phone) {
+      wx.showToast({
+        title: '请输入正确格式的手机号',
         icon: 'none',
         mask: true,
         duration: 1500,

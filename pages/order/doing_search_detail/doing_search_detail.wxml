@@ -6,11 +6,11 @@
   >
     <view class="result_item result_title van-hairline--bottom">
       <view wx:if="{{order}}">{{order.orderNo}}</view>
-      <button wx:if="{{order&&order.goodsList.length>1}}"
+      <!-- <button wx:if="{{order&&order.goodsList.length>1}}"
         class="deleteBtn"
         bindtap="deleteGoods"
         data-index="{{index}}"
-      >删除</button>
+      >删除</button> -->
     </view>
     <view class="result_item van-hairline--bottom">
       <view class="result_label">商品名称</view>
@@ -29,7 +29,17 @@
     </view>
     <view class="result_item van-hairline--bottom">
       <view class="result_label">客户电话</view>
-      <view class="result_input textOmit">{{item.phoneNumber}}</view>
+      <view class="result_input textOmit"
+        bindtap="callPhone"
+        data-phone="{{item.phoneNumber}}"
+      >
+        {{item.phoneNumber}}
+        <van-icon 
+          name="phone" 
+          color='#00a6ff' 
+          style="margin-left:3rpx;position:relative;top:4rpx;" 
+        />
+      </view>
     </view>
     <view class="result_item">
       <view class="result_label">安装地址</view>

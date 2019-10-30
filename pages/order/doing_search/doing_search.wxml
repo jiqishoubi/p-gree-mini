@@ -25,8 +25,6 @@
   <block wx:if="{{resultList&&resultList.length>0}}">
     <view wx:for="{{resultList}}" wx:key="index"
       class="result"
-      bindtap="goOrderDetail"
-      data-item="{{item}}"
     >
       <view class="result_title flexCenter flexBetween">
         <view>{{item.orderNo}}</view>
@@ -35,7 +33,13 @@
       <view wx:if="{{item.ticketCode}}" class="result_content">
         <view class="result_item">
           <view class="result_label">认筹券号</view>
-          <view class="result_input">{{item.ticketCode}}</view>
+          <view class="result_input flexCenter flexBetween">
+            <view>{{item.ticketCode}}</view>
+            <button class="zhuanBtn"
+              bindtap="goOrderDetail"
+              data-item="{{item}}"
+            >转销售</button>
+          </view>
         </view>
       </view>
       <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"

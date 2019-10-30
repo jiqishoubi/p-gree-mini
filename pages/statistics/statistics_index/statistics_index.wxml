@@ -63,7 +63,7 @@
 
     <!-- 列表 -->
     <view class="list">
-      <view class="list_item list_title">
+      <view class="list_item list_title flexCenter">
         <view class="rect"></view>销售数量
       </view>
       <view wx:for="{{list}}" wx:key="index"

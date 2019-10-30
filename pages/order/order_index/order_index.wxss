@@ -55,10 +55,26 @@ Page {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .nav_item.active {
   border-bottom: 2PX solid #00a6ff;
+}
+
+/* 导航数量 */
+
+.nav_count {
+  position: absolute;
+  top: 0;
+  right: -20rpx;
+  font-size: 20rpx;
+  text-align: center;
+  min-width: 16rpx;
+  background-color: #00a6ff;
+  color: #fff;
+  border-radius: 10rpx;
+  padding: 1rpx 4rpx;
 }
 
 /* 列表 */
@@ -85,7 +101,8 @@ Page {
   color: #000;
   font-size: 32rpx;
 }
-.datetime{
+
+.datetime {
   color: #4a4a4a;
   font-size: 27rpx;
 }
@@ -123,15 +140,12 @@ Page {
   justify-content: space-between;
 }
 
-.item_tag {
-  height: 31rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24rpx;
-  border: 1px solid #e6e6e6;
-  padding: 0 12rpx;
-  margin-right: 12rpx;
+.item_content_title {
+}
+
+.item_content_desc {
+  color: #9b9b9b;
+  font-size: 26rpx;
 }
 
 /* 控制按钮 */

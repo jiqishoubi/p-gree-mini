@@ -162,11 +162,21 @@ Page({
       }
       return objTemp
     })
-    let orderObj=order
+    let orderObj = order
 
     //商用下单购物车
     wx.navigateTo({
       url: `/pages/order/cart_busi/cart_busi?type=${typeCart}&activityCode=${activityCode}&selectedGoodsList=${JSON.stringify(selectedGoodsList)}&&orderObj=${JSON.stringify(orderObj)}`,
+    })
+  },
+  //拨打电话
+  callPhone: function(e) {
+    let phone = e.currentTarget.dataset.phone
+    if (!phone) {
+      return false
+    }
+    wx.makePhoneCall({
+      phoneNumber: phone
     })
   },
 })

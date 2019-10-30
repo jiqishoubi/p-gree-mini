@@ -22,24 +22,37 @@
         class="nav_item{{navIndex==index?' active':''}}"
         bindtap="clickNav"
         data-index="{{index}}"
-      >{{item}}</view>
+      >
+        {{item.text}}
+        <view wx:if="{{item.count}}" class="nav_count">{{item.count}}</view>
+      </view>
     </view>
   </view>
   
 
   <!-- list -->
   <view class="list">
-    <!-- 认筹单接口 -->
-    <block wx:if="{{navIndex==0||navIndex==1}}">
+    <block>
       <view wx:for="{{showList}}" wx:key="index"
         class="item"
         bindtap="goDetail"
         data-item="{{item}}"
       >
-        <view class="item_title flexBetween van-hairline--bottom">
+        <!-- 认筹单接口 -->
+        <view wx:if="{{navIndex==0||navIndex==1}}"
+          class="item_title flexBetween van-hairline--bottom"
+        >
           <view wx:if="{{item.orderNo}}">{{item.orderNo}}</view>
           <view class="datetime">{{item.orderDateStr}}</view>
         </view>
+        <!-- 销售单接口 -->
+        <view wx:if="{{navIndex==2||navIndex==3}}"
+          class="item_title flexBetween van-hairline--bottom"
+        >
+          <view wx:if="{{item.tradeNo}}">{{item.tradeNo}}</view>
+          <view class="datetime">{{item.tradeDateStr}}</view>
+        </view>
+
         <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"
           wx:key="idx"
           class="item_content flexCenter flexBetween"
@@ -48,69 +61,65 @@
             <image class="item_img" src="{{itm.logoImage}}" alt=''></image>
           </view>
           <view class="item_content_content">
-            <view class="item_content_content_top">
-              <view class="textOmit" style="color:#000;font-size:29rpx;">{{itm.goodsName}}</view>
-              <view style="color:#9B9B9B;font-size:26rpx;margin:10rpx 0;">
-                <text wx:if="{{item.custName}}">{{item.custName}}</text>
-                <text wx:else>{{itm.custName}}</text>
+            <!-- 家用认筹 -->
+            <view wx:if="{{!item.custName}}"
+              class="item_content_content_top"
+            >
+              <view class="item_content_title textOmit">{{itm.goodsName}}</view>
+              <view class="item_content_desc textOmit" 
+                catchtap="callPhone" 
+                data-phone="{{itm.phoneNumber}}"
+              >
+                <text>{{itm.custName}}</text>
+                <text decode="{{true}}">&nbsp;</text>
+                <text wx:if="{{itm.phoneNumber}}">{{itm.phoneNumber}}</text>
+                <van-icon wx:if="{{itm.phoneNumber}}"
+                  name="phone" 
+                  color='#00a6ff' 
+                  style="margin-left:3rpx;position:relative;top:4rpx;" 
+                />
               </view>
-              <!-- <view class="flex">
-                <view wx:for="{{item.tag}}"
-                  wx:for-index="tagIndex" 
-                  wx:for-item="tagName"
-                  wx:key="tagIndex"
-                  class="item_tag"
-                >{{tagName}}</view>
-              </view> -->
+              <view class="item_content_desc textOmit">
+                {{itm.provinceName}}{{itm.eparchyName}}{{itm.cityName}}{{itm.address}}
+              </view>
+            </view>
+            <!-- 商用认筹 已登录 -->
+            <view wx:if="{{item.custName}}"
+              class="item_content_content_top"
+            >
+              <view class="item_content_title textOmit">{{itm.goodsName}}</view>
+              <view class="item_content_desc textOmit" 
+                catchtap="callPhone" 
+                data-phone="{{item.phoneNumber}}"
+              >
+                <text>{{item.custName}}</text>
+                <text decode="{{true}}">&nbsp;</text>
+                <text wx:if="{{item.phoneNumber}}">{{item.phoneNumber}}</text>
+                <van-icon wx:if="{{item.phoneNumber}}"
+                  name="phone" 
+                  color='#00a6ff' 
+                  style="margin-left:3rpx;position:relative;top:4rpx;" 
+                />
+              </view>
+              <view class="item_content_desc textOmit">
+                {{item.provinceName}}{{item.eparchyName}}{{item.cityName}}{{item.address}}
+              </view>
             </view>
             
-            <view class="yuan_wrap flexCenter flexBetween">
+            <!-- 认筹单接口 -->
+            <view wx:if="{{navIndex==0||navIndex==1}}"
+              class="yuan_wrap flexCenter flexBetween"
+            >
               <view>
                 <text wx:if="{{itm.priceFeeActivityYuan}}">{{itm.priceFeeActivityYuan}}元</text>
                 <text wx:else>{{itm.priceFeeYuan}}元</text>
                 <text wx:if="{{navIndex==1&&item.orderStatus==50}}"><text decode="{{true}}">&nbsp;</text>x{{itm.goodsCount}}</text>
               </view>
             </view>
-          </view>
-        </view>
-      </view>
-    </block>
-    <!-- 销售单接口 -->
-    <block wx:if="{{navIndex==2||navIndex==3}}">
-      <view wx:for="{{showList}}" wx:key="index"
-        class="item"
-        bindtap="goDetail"
-        data-item="{{item}}"
-      >
-        <view class="item_title flexBetween van-hairline--bottom">
-          <view wx:if="{{item.tradeNo}}">{{item.tradeNo}}</view>
-          <view class="datetime">{{item.tradeDateStr}}</view>
-        </view>
-        <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"
-          wx:key="idx"
-          class="item_content flexCenter flexBetween"
-        >
-          <view class="item_img_box">
-            <image class="item_img" src="{{itm.logoImage}}" alt=''></image>
-          </view>
-          <view class="item_content_content">
-            <view class="item_content_content_top">
-              <view class="textOmit" style="color:#000;font-size:29rpx;">{{itm.goodsName}}</view>
-              <view style="color:#9B9B9B;font-size:26rpx;margin:10rpx 0;">
-                <text wx:if="{{item.custName}}">{{item.custName}}</text>
-                <text wx:else>{{itm.custName}}</text>
-              </view>
-              <!-- <view class="flex">
-                <view wx:for="{{item.tag}}"
-                  wx:for-index="tagIndex" 
-                  wx:for-item="tagName"
-                  wx:key="tagIndex"
-                  class="item_tag"
-                >{{tagName}}</view>
-              </view> -->
-            </view>
-            
-            <view class="yuan_wrap flexCenter flexBetween">
+            <!-- 销售单接口 -->
+            <view wx:if="{{navIndex==2||navIndex==3}}"
+              class="yuan_wrap flexCenter flexBetween"
+            >
               <view>{{itm.tradeFeeStr}}元</view>
             </view>
           </view>

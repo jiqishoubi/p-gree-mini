@@ -10,7 +10,6 @@ const requestw = ({
 }) => {
   //token
   let dataTemp = data
-  console.log()
   if (wx.getStorageSync('gree_userInfo')) {
     let userInfo = wx.getStorageSync('gree_userInfo')
     dataTemp = {
@@ -26,7 +25,6 @@ const requestw = ({
     urlTemp = globalHost() + url
   }
   return new Promise((resolve, reject) => {
-    console.log(data)
     wx.request({
       method,
       url: urlTemp,
@@ -36,7 +34,6 @@ const requestw = ({
         ...header
       },
       success: function(res) {
-        console.log(res)
         //登录失效
         if (res.data.code == 9999 && res.data.message.indexOf('无效') > -1) {
           wx.showToast({

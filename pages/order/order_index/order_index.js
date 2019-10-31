@@ -30,6 +30,11 @@ Page({
 
     page: 1, //请求的page
     pageSize: 10,
+
+    //modal
+    //退单modal
+    showCancelModal: false,
+    lookingOrder: null, //当前操作的order
   },
 
   /**
@@ -250,8 +255,6 @@ Page({
       navIndex
     } = this.data
 
-    console.log(item)
-
     let code, typeUse
     switch (navIndex) {
       case 0: //已认筹 外面的转销售的 另一个入口
@@ -283,11 +286,74 @@ Page({
   //拨打电话
   callPhone: function(e) {
     let phone = e.currentTarget.dataset.phone
-    if(!phone){
+    if (!phone) {
       return false
     }
-    wx.makePhoneCall({
-      phoneNumber: phone
+    wx.showModal({
+      title: '提示',
+      content: `确认拨打电话${phone}？`,
+      success: function(res) {
+        if (res.confirm) {
+          wx.makePhoneCall({
+            phoneNumber: phone
+          })
+        }
+      },
     })
+  },
+  //退单modal
+  openCancelModal: function(e) {
+    let item = e.currentTarget.dataset.item
+    this.setData({
+      showCancelModal: true,
+      lookingOrder: item,
+    })
+  },
+  closeCancelModal: function() {
+    this.setData({
+      showCancelModal: false,
+      lookingOrder: null,
+    })
+  },
+  confirmCancelModal: async function(e) {
+    const {
+      lookingOrder
+    } = this.data
+    let value = e.detail
+    let postData = {
+      tradeNo: lookingOrder.tradeNo,
+      resultNote: value,
+    }
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    let res = await requestw({
+      url: allApiStr.cancelTradeOrderApi,
+      data: postData,
+    })
+    wx.hideLoading()
+    console.log(res)
+
+    if (res.data.code !== '0') {
+      wx.showToast({
+        title: res.data.message,
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+
+    wx.showToast({
+      title: '操作成功',
+      icon: 'none',
+      // mask: true,
+      duration: 1500,
+    })
+    
+    this.selectComponent('#cancelordermodal').resetVal()
+    this.closeCancelModal()
+    this.getData(false)
   },
 })

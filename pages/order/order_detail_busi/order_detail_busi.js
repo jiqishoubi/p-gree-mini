@@ -1,9 +1,11 @@
 import regeneratorRuntime from '../../../utils/runtime.js' //让小程序支持asyc await
 import requestw from '../../../utils/requestw.js'
 import allApiStr from '../../../utils/allApiStr.js'
-import drawQrcode from 'weapp-qrcode' //生成二维码
 import {
-  formatDate
+  formatDate,
+  initQrcodeUrl,
+  initQrcodeImgUrl,
+  saveImgBaseLocal
 } from '../../../utils/util.js'
 
 /**
@@ -41,6 +43,7 @@ Page({
     //modal
     //二维码modal
     showCodeModal: false,
+    qrcodeURL: '',
     //时间picker
     showTimePicker: false,
     currentDate: new Date().getTime(),
@@ -205,87 +208,25 @@ Page({
   },
   //生成二维码
   initCode: function() {
-    setTimeout(() => {
+    setTimeout(async() => {
       const {
         type,
         info
       } = this.data
 
       let orderNo = type == 'preorder' ? info.orderNo : info.preOrderNo
-      console.log('生成')
-      drawQrcode({
-        width: 200,
-        height: 200,
-        canvasId: 'myQrcode',
-        text: orderNo,
+
+      let imgData = await initQrcodeImgUrl(orderNo)
+
+      this.setData({
+        qrcodeURL: imgData
       })
     }, 20)
   },
   //保存在本地
   saveToLocal: function() {
-    wx.showLoading({
-      title: '请稍候...',
-      mask: true,
-    })
-    // const wrapperId = '#wrapper'
-    // const drawClassName = '.draw'
-    // const canvasId = 'canvas-map'
-    // wxml2canvas(wrapperId, drawClassName, canvasId).then(() => {
-    //   // canvas has been drawn
-    //   // can save the image with wx.canvasToTempFilePath and wx.saveImageToPhotosAlbum 
-    //   wx.canvasToTempFilePath({
-    //     canvasId:'canvas-map',
-    //     quality:0.8,
-    //     success:function(e){
-    //       console.log(e)
-    //       if(!e.tempFilePath){
-    //         wx.hideLoading()
-    //       }
-    //       wx.saveImageToPhotosAlbum({
-    //         filePath: e.tempFilePath,
-    //         success:function(e){
-    //           wx.hideLoading()
-    //           console.log(e)
-    //         },
-    //         fail:function(){
-    //           wx.hideLoading()
-    //         }
-    //       })
-    //     },
-    //     fail:function(){
-    //       wx.hideLoading()
-    //     },
-    //   })
-    // })
-    wx.canvasToTempFilePath({
-      canvasId: 'myQrcode',
-      quality: 0.8,
-      success: function(e) {
-        console.log(e)
-        if (!e.tempFilePath) {
-          wx.hideLoading()
-        }
-        wx.saveImageToPhotosAlbum({
-          filePath: e.tempFilePath,
-          success: function(e) {
-            console.log(e)
-            wx.hideLoading()
-            wx.showToast({
-              title: '操作成功',
-              icon: 'none',
-              mask: true,
-              duration: 1500,
-            })
-          },
-          fail: function() {
-            wx.hideLoading()
-          }
-        })
-      },
-      fail: function() {
-        wx.hideLoading()
-      },
-    })
+    var imgSrc = this.data.qrcodeURL
+    saveImgBaseLocal(imgSrc)
   },
   //时间picker
   onOpenTimePicker: function(e) {

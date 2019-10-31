@@ -13,9 +13,10 @@
     </view>
     <!-- 中间 -->
     <view class="img_box">
-      <canvas class="code" canvas-id="myQrcode"
+      <!-- <canvas class="code" canvas-id="myQrcode"
          style="width:250PX;height:250PX;"
-      />
+      /> -->
+      <image class="code" src="{{qrcodeURL}}"></image>
     </view>
 
     <button class="code_btn"

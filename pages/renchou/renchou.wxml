@@ -250,7 +250,8 @@
       </view>
       <view class="code_content draw">
         <view class="code draw">
-          <canvas class="code_img draw" canvas-id="myQrcode" style="width:200PX;height:200PX;"/>
+          <!-- <canvas class="code_img draw" canvas-id="myQrcode" style="width:200PX;height:200PX;"/> -->
+          <image class="code_img" src="{{qrcodeURL}}"></image>
         </view>
         <view class="code_info flexColumn draw">
           <view class="code_info_count draw">{{orderNo}}</view>

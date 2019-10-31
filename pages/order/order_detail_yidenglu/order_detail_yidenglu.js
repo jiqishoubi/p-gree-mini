@@ -24,7 +24,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function(options) {
+  onLoad: async function (options) {
     // wx.setStorageSync('test_cart', options) //测试用
     // options = wx.getStorageSync('test_cart') //测试用
     if (!options.order) {
@@ -47,14 +47,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     //从选择商品页面回来
     if (wx.getStorageSync('from_choose2_selectedList')) {
       let selectedList = wx.getStorageSync('from_choose2_selectedList')
@@ -82,40 +82,40 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
   //点击商品名称 去选择商品
-  goChooseGoods: function(e) {
+  goChooseGoods: function (e) {
     const {
       order
     } = this.data
@@ -135,7 +135,7 @@ Page({
     })
   },
   //点击下单
-  clickOrder: function() {
+  clickOrder: function () {
     const {
       order
     } = this.data
@@ -170,13 +170,21 @@ Page({
     })
   },
   //拨打电话
-  callPhone: function(e) {
+  callPhone: function (e) {
     let phone = e.currentTarget.dataset.phone
     if (!phone) {
       return false
     }
-    wx.makePhoneCall({
-      phoneNumber: phone
+    wx.showModal({
+      title: '提示',
+      content: `确认拨打电话${phone}？`,
+      success: function (res) {
+        if (res.confirm) {
+          wx.makePhoneCall({
+            phoneNumber: phone
+          })
+        }
+      },
     })
   },
 })

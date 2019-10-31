@@ -1,0 +1,75 @@
+@import "../../miniprogram_npm/vant-weapp/common/index.wxss";
+
+.mask{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 666;
+  background-color: rgba(0,0,0,0.3);
+}
+
+.cancel_modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 604rpx;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+.title{
+    line-height: 135rpx;
+  font-size: 37rpx;
+}
+
+.form {
+  width: 500rpx;
+  margin-bottom: 85rpx;
+  font-size: 28rpx;
+}
+
+.form_title {
+  font-size: 32rpx;
+  margin-bottom: 15rpx;
+}
+
+.form_input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 180rpx;
+  padding: 10rpx;
+  outline: none;
+  border: 1px solid #e6e6e6;
+  border-radius: 5rpx;
+  font-size: 28rpx;
+}
+
+.form_input_placeholder {
+  font-size: 28rpx;
+  color: #dbdbdb;
+}
+
+/* 控制 */
+.ctrl{
+  width: 100%;
+  height: 84rpx;
+  display: flex;
+  align-items: center;
+}
+.btn{
+  flex: 1 0 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn_hover{
+  background-color: #e8e8e8;
+}

@@ -1,0 +1,31 @@
+<!-- 退单modal -->
+<view class="mask" style="display:{{show?'block':'none'}}">
+  <view class="cancel_modal">
+    <view class="title">确认取消订单？</view>
+    <view class="form">
+      <view class="form_title">取消原因：</view>
+      <textarea class="form_input"
+        fixed="{{true}}"
+        show-confirm-bar="{{false}}"
+        placeholder="请输入取消原因"
+        placeholder-class="form_input_placeholder"
+        value="{{resultVal}}"
+        bindinput="onInputChange"
+        data-key="resultVal"
+      ></textarea>
+    </view>
+    <view class="ctrl van-hairline--top">
+      <view class="btn"
+        hover-class="btn_hover"
+        hover-stay-time="{{150}}"
+        bindtap="_onCancel"
+      >取消</view>
+      <view class="btn van-hairline--left"
+        hover-class="btn_hover"
+        hover-stay-time="{{150}}"
+        bindtap="_onConfirm"
+      >确定</view>
+    </view>
+  </view>
+</view>
+

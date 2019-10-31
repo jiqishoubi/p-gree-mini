@@ -1,8 +1,12 @@
 import regeneratorRuntime from '../../utils/runtime.js' //让小程序支持asyc await
 import requestw from '../../utils/requestw.js'
 import allApiStr from '../../utils/allApiStr.js'
-import drawQrcode from 'weapp-qrcode' //生成二维码
 import patternCreator from '../../utils/patternCreator.js'
+import {
+  initQrcodeUrl,
+  initQrcodeImgUrl,
+  saveImgBaseLocal
+} from '../../utils/util.js'
 
 const app = getApp()
 
@@ -37,6 +41,7 @@ Page({
     //二维码modal
     showCodeModal: false,
     orderNo: '',
+    qrcodeURL: '',
   },
 
   /**
@@ -207,12 +212,11 @@ Page({
   },
   //生成二维码
   initCode: function(orderNo) {
-    setTimeout(() => {
-      drawQrcode({
-        width: 200,
-        height: 200,
-        canvasId: 'myQrcode',
-        text: orderNo,
+    setTimeout(async() => {
+      let imgData = await initQrcodeImgUrl(orderNo)
+
+      this.setData({
+        qrcodeURL: imgData
       })
     }, 20)
   },
@@ -439,37 +443,8 @@ Page({
   },
   //保存在本地
   saveToLocal: function() {
-    wx.showLoading({
-      title: '请稍候...',
-      mask: true,
-    })
-    wx.canvasToTempFilePath({
-      canvasId: 'myQrcode',
-      quality: 0.8,
-      success: function(e) {
-        if (!e.tempFilePath) {
-          wx.hideLoading()
-        }
-        wx.saveImageToPhotosAlbum({
-          filePath: e.tempFilePath,
-          success: function(e) {
-            wx.hideLoading()
-            wx.showToast({
-              title: '操作成功',
-              icon: 'none',
-              mask: true,
-              duration: 1500,
-            })
-          },
-          fail: function() {
-            wx.hideLoading()
-          }
-        })
-      },
-      fail: function() {
-        wx.hideLoading()
-      },
-    })
+    var imgSrc = this.data.qrcodeURL
+    saveImgBaseLocal(imgSrc)
   },
   //使用上方地址
   useUpAddress: function(e) {

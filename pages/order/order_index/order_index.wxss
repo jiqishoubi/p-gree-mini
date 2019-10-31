@@ -41,7 +41,7 @@ Page {
 /* 状态导航 */
 
 .nav {
-  height: 82rpx;
+  height: 84rpx;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -66,11 +66,11 @@ Page {
 
 .nav_count {
   position: absolute;
-  top: 0;
+  top: 3rpx;
   right: -20rpx;
   font-size: 20rpx;
   text-align: center;
-  min-width: 16rpx;
+  min-width: 25rpx;
   background-color: #00a6ff;
   color: #fff;
   border-radius: 10rpx;
@@ -141,6 +141,7 @@ Page {
 }
 
 .item_content_title {
+  margin-bottom: 5rpx;
 }
 
 .item_content_desc {
@@ -179,4 +180,35 @@ Page {
 
 .noresult {
   text-align: center;
+}
+
+/* 退单按钮 */
+
+.btn_wrap {
+  height: 85rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn {
+  width: auto;
+  height: 58rpx;
+  margin-left: 39rpx;
+  margin-right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 28rpx;
+  color: #00a6ff;
+  background-color: #fff;
+}
+
+.btn::after {
+  border: 1px solid #00a6ff !important;
+}
+
+.btn_active {
+  background-color: #e8e8e8;
 }

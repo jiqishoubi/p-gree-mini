@@ -9,14 +9,16 @@
       <view class="top_content">
         <view class="top_name">{{userInfo.userName}}</view>
         <view class="top_phone">{{userInfo.loginName}}</view>
+        <view class="top_phone">{{userInfo.departName}}</view>
       </view>
-      <view class="shop">{{userInfo.departName}}</view>
+      <!-- <view class="shop">{{userInfo.departName}}</view> -->
     </view>
     <!-- 中间 -->
     <view class="img_box">
-      <canvas class="code" canvas-id="myQrcode"
+      <!-- <canvas class="code" canvas-id="myQrcode"
          style="width:250PX;height:250PX;"
-      />
+      /> -->
+      <image class="code" src="{{qrcodeURL}}"></image>
     </view>
     <!-- 下面 -->
     <!-- <view class="bottom flexJCenter">

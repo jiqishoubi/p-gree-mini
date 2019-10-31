@@ -44,6 +44,7 @@ const allApiStr = {
   //销售单
   getActivityListSaleApi: '/mp/trade/getActivityList', //查销售单的活动 token activityType  HOME_USE-家用; BUSI_USE-商用
   sumbitSaleOrderApi: '/mp/trade/submitTrade', //提交销售单
+  cancelTradeOrderApi: '/mp/trade/cancelTrade', ///销售单 退单
 
 }
 

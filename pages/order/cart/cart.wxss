@@ -168,4 +168,6 @@ Page {
 .price_item_input {
   flex: 1 0 0;
   width: 0;
+  display: flex;
+  align-content: center;
 }

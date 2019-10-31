@@ -13,14 +13,6 @@
           <view class="item_content_content_top">
             <view class="textOmit" style="color:#000;font-size:29rpx;">{{item.goodsName}}</view>
             <view style="color:#9B9B9B;font-size:26rpx;margin:10rpx 0;">{{item.goodsDesc}}</view>
-            <!-- <view class="flex">
-              <view wx:for="{{item.tag}}"
-                wx:for-index="tagIndex" 
-                wx:for-item="tagName"
-                wx:key="tagIndex"
-                class="item_tag"
-              >{{tagName}}</view>
-            </view> -->
           </view>
           
           <view class="yuan_wrap flexCenter flexBetween">
@@ -177,15 +169,9 @@
       <view class="price_item">
         <view class="price_item_label">当前价格(元)：</view>
         <view wx:if="{{lookingIndex!==null}}" class="price_item_input">
-          <text wx:if="{{oldSelectedGoodsList[lookingIndex].tradeFeeYuan}}">
-            {{oldSelectedGoodsList[lookingIndex].tradeFeeYuan}}
-          </text>
-          <text wx:elif="{{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}">
-            {{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}
-          </text>
-          <text wx:else>
-            {{oldSelectedGoodsList[lookingIndex].priceFeeYuan}}
-          </text>
+          <text wx:if="{{oldSelectedGoodsList[lookingIndex].tradeFeeYuan}}">{{oldSelectedGoodsList[lookingIndex].tradeFeeYuan}}</text>
+          <text wx:elif="{{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}">{{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}</text>
+          <text wx:else>{{oldSelectedGoodsList[lookingIndex].priceFeeYuan}}</text>
         </view>
       </view>
       <view class="price_item">

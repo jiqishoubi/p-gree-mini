@@ -113,9 +113,9 @@
           请选择<van-icon name="arrow" custom-style="margin-top:6rpx;" />
         </view>
         <!-- 商品列表 -->
-        <scroll-view wx:if="{{itemwrap.showGoodsList}}"
+        <view wx:if="{{itemwrap.showGoodsList}}"
           class="goodsList"
-          scroll-y="{{true}}"
+          style="height:{{itemwrap.goodsListHeight}}PX"
         >
           <view class="goodsListSearch">
             <van-icon name="search" 
@@ -143,7 +143,7 @@
               ></image>
             </view>
           </view>
-        </scroll-view>
+        </view>
         <!-- 商品列表 end -->
       </view>
 

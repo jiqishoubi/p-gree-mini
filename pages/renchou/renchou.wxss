@@ -205,7 +205,7 @@ Page {
   padding-left: 24rpx;
   padding-right: 24rpx;
   background-color: #fff;
-  max-height: 464rpx;
+  /* max-height: 464rpx; */
   position: absolute;
   top: 84rpx;
   left: 0;
@@ -228,10 +228,14 @@ Page {
 
 .item_wrap {
   margin-top: 92rpx;
+  height: calc(100% - 66rpx);
+  overflow-y: auto;
 }
 
 .goodsItemWrap {
-  padding-right: 80rpx;
+  height: auto;
+  padding: 15rpx 100rpx 15rpx 24rpx;
+  position: relative;
 }
 
 .taogou_icon {
@@ -261,8 +265,7 @@ Page {
   border-radius: 5rpx;
   display: flex;
   align-items: center;
-  margin-top: 15rpx;
-  margin-bottom: 15rpx;
+  margin: 15rpx 24rpx;
   padding-left: 15rpx;
   padding-right: 15rpx;
   position: absolute;

@@ -129,6 +129,7 @@ Page({
       showGoodsList: false,
       goodsList: goodsList,
       goodsItemZindex: 9, //关闭是9  打开是11  //goodsItem的zindex
+      goodsListHeight: 0,
       selectedGoods: null, //选中的商品
       searchGoodsVal: '',
     }
@@ -312,7 +313,7 @@ Page({
     this.initRefresh(activityList[index].activityCode)
   },
   //开关商品列表
-  toggleGoodsList: function(e) {
+  toggleGoodsList: async function(e) {
     let indexwrap = e.currentTarget.dataset.param
     let {
       list,
@@ -330,12 +331,15 @@ Page({
       return false
     }
 
+    //获取dom位置
+    let position = await this.getDomPosition('goodsItem' + indexwrap)
+    console.log(position)
+
+    list[indexwrap].goodsListHeight = 500
     list[indexwrap].showGoodsList = !list[indexwrap].showGoodsList
     list[indexwrap].goodsItemZindex = list[indexwrap].goodsItemZindex == 11 ? 9 : 11
-    console.log(list[indexwrap].showGoodsList)
     if (list[indexwrap].showGoodsList) { //原来关闭 现在打开 //打开的时候
       if (list.length > 1) { //大于1的话 只能显示套购的
-        console.log('显示套购')
         let oldGoodsList = JSON.parse(JSON.stringify(goodsList))
         list[indexwrap].goodsList = oldGoodsList.filter((obj) => {
           return obj.ifMix == 1
@@ -344,6 +348,7 @@ Page({
         list[indexwrap].goodsList = JSON.parse(JSON.stringify(goodsList))
       }
     }
+
     this.setData({
       list
     })
@@ -398,7 +403,6 @@ Page({
   //选择机型
   selectGoods: function(e) {
     let item = e.currentTarget.dataset.item
-    console.log(item)
     let indexwrap = e.currentTarget.dataset.indexwrap
     let {
       list
@@ -665,5 +669,14 @@ Page({
   //点击添加商品
   clickAddbtn: function() {
     this.addOneSelect()
+  },
+  //获取dom位置
+  getDomPosition: function(id) {
+    return new Promise((resolve) => {
+      let query = wx.createSelectorQuery().in(this)
+      query.select('#' + id).boundingClientRect(function(res) {
+        resolve(res)
+      }).exec()
+    })
   },
 })

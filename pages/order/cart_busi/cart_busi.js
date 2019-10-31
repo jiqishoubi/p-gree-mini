@@ -480,33 +480,39 @@ Page({
   },
   //修改价格modal end
   //确认是否可以修改价格
-  checkIfUpdatePrice: function() {
+  checkIfUpdatePrice:async function() {
     let {
       activityCode,
       oldSelectedGoodsList
     } = this.data
     console.log(oldSelectedGoodsList)
 
-    oldSelectedGoodsList.forEach(async(obj) => {
-      console.log('查询')
+    //先查这个活动的商品
+    let postData = {
+      activityCode,
+    }
+    let res = await requestw({
+      url: allApiStr.getGoodsByQueryApi,
+      data: postData,
+    })
+    console.log(res)
+    if (
+      res.data.code !== '0' ||
+      !res.data.data ||
+      res.data.data.length == 0
+    ) {
+      return false
+    }
+    let allActivityGoods = res.data.data
+
+    oldSelectedGoodsList.forEach(async (obj) => {
       if (obj.ifUpdatePrice !== 0 && obj.ifUpdatePrice !== 1) {
-        let postData = {
-          activityCode,
-          goodsCode: obj.goodsCode,
-        }
-        let res = await requestw({
-          url: allApiStr.getGoodsByQueryApi,
-          data: postData,
+        let filterArr = allActivityGoods.filter((objall) => {
+          return objall.goodsCode == obj.goodsCode && objall.ifUpdatePrice == 1
         })
-        console.log(res)
-        if (
-          res.data.code !== '0' ||
-          !res.data.data ||
-          res.data.data.length == 0
-        ) {
-          return false
+        if (filterArr.length > 0) {
+          obj.ifUpdatePrice = res.data.data[0].ifUpdatePrice
         }
-        obj.ifUpdatePrice = res.data.data[0].ifUpdatePrice
       }
     })
 

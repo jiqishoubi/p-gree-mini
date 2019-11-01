@@ -190,7 +190,7 @@ Page({
 
     //处理安装时间
     res.data.data.goodsList.forEach((obj) => {
-      if (obj.installOrderDTO.reserveDateStr) {
+      if (obj.installOrderDTO&&obj.installOrderDTO.reserveDateStr) {
         obj.installOrderDTO.reserveDateStr = obj.installOrderDTO.reserveDateStr.substring(0, 10)
       }
     })

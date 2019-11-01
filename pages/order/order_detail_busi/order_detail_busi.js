@@ -189,7 +189,11 @@ Page({
     }
 
     //处理安装时间
-    if (res.data.data.installOrderDTO.reserveDateStr) {
+    if (
+      res.data.data &&
+      res.data.data.installOrderDTO &&
+      res.data.data.installOrderDTO.reserveDateStr
+    ) {
       res.data.data.installOrderDTO.reserveDateStr = res.data.data.installOrderDTO.reserveDateStr.substring(0, 10)
     }
     //处理安装时间 end

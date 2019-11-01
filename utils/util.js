@@ -1,10 +1,9 @@
 const QR = require('./weapp-qrcode-base64.js') //生成二维码
 
-const isTest = true
+const isTest = false
 
 const hostObj = {
   dev: {
-    // host: 'http://139.129.217.83:8288',
     host: 'https://greet.bld365.com',
   },
   prod: {
@@ -14,8 +13,13 @@ const hostObj = {
 
 //二维码
 export const initQrcodeUrl = (type, code) => {
-  return `https://greet.bld365.com?type=${type}&code=${code}`
+  return `https://gree.bld365.com?type=${type}&code=${code}`
 }
+
+
+
+
+
 
 //获取host
 export const globalHost = () => {

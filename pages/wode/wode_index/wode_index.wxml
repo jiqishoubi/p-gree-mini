@@ -14,7 +14,7 @@
   <!-- 导航 -->
   <view class="nav bg_white">
     <view class="nav_content">
-      <view class="nav_item"
+      <!-- <view class="nav_item"
         bindtap="goPage"
         data-item=''
       >
@@ -23,7 +23,7 @@
         ></image>
         <view class="nav_text">补录下单</view>
         <view class="nav_item_arrow"></view>
-      </view>
+      </view> -->
       <view class="nav_item"
         bindtap="goPage"
         data-item='/pages/statistics/statistics_index/statistics_index'

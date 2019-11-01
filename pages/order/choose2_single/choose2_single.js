@@ -189,7 +189,7 @@ Page({
       res.data.data.length > 0
     ) { //查到了
       let list = res.data.data.filter((obj) => {
-        return obj.ifMix == 1
+        return isTaogou ? obj.ifMix == 1 : 1
       })
       leftlist[indexleft].children = list
       this.setData({

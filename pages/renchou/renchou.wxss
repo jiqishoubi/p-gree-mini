@@ -201,17 +201,11 @@ Page {
 .goodsList {
   box-sizing: border-box;
   width: 100%;
-  /* margin-top: -22rpx; */
-  padding-left: 24rpx;
-  padding-right: 24rpx;
   background-color: #fff;
-  /* max-height: 464rpx; */
   position: absolute;
   top: 84rpx;
   left: 0;
   z-index: 11;
-  /* margin-left: -24rpx;
-  margin-right: -24rpx; */
 }
 
 .goodsList .input {
@@ -234,7 +228,7 @@ Page {
 
 .goodsItemWrap {
   height: auto;
-  padding: 15rpx 100rpx 15rpx 24rpx;
+  padding: 15rpx 124rpx 15rpx 24rpx;
   position: relative;
 }
 
@@ -242,7 +236,7 @@ Page {
   width: 97rpx;
   height: 41rpx;
   position: absolute;
-  right: 0;
+  right: 24rpx;
 }
 
 /* 商品列表的mask */

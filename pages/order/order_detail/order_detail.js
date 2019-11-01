@@ -188,6 +188,14 @@ Page({
       return false
     }
 
+    //处理安装时间
+    res.data.data.goodsList.forEach((obj) => {
+      if (obj.installOrderDTO.reserveDateStr) {
+        obj.installOrderDTO.reserveDateStr = obj.installOrderDTO.reserveDateStr.substring(0, 10)
+      }
+    })
+    //处理安装时间 end
+
     this.setData({
       info: res.data.data
     })

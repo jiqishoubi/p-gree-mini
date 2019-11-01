@@ -177,7 +177,8 @@
           <image class="code_img" src="{{qrcodeURL}}"></image>
         </view>
         <view class="code_info flexColumn draw">
-          <view class="code_info_count draw">{{info.orderNo}}</view>
+          <view class="code_info_count draw" wx:if="{{type=='preorder'}}">{{info.orderNo}}</view>
+          <view class="code_info_count draw" wx:else>{{info.preOrderNo}}</view>
           <view class="code_info_title draw">认筹编号</view>
         </view>
         <view class="flexCenter flexAround">

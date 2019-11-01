@@ -50,7 +50,7 @@ Page {
 }
 
 .nav_item {
-  width: 86rpx;
+  /* width: 86rpx; */
   height: 100%;
   display: flex;
   align-items: center;
@@ -60,21 +60,6 @@ Page {
 
 .nav_item.active {
   border-bottom: 2PX solid #00a6ff;
-}
-
-/* 导航数量 */
-
-.nav_count {
-  position: absolute;
-  top: 3rpx;
-  right: -20rpx;
-  font-size: 20rpx;
-  text-align: center;
-  min-width: 25rpx;
-  background-color: #00a6ff;
-  color: #fff;
-  border-radius: 10rpx;
-  padding: 1rpx 4rpx;
 }
 
 /* 列表 */
@@ -138,15 +123,33 @@ Page {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+}
+
+.item_content_content_top {
+  /* padding-right: 52rpx; */
 }
 
 .item_content_title {
-  margin-bottom: 5rpx;
+  margin-bottom: 12rpx;
 }
 
 .item_content_desc {
   color: #9b9b9b;
   font-size: 26rpx;
+  margin-bottom: 10rpx;
+}
+
+.item_content_desc.nameAndPhone {
+  padding-right: 50rpx;
+}
+
+.callphone_icon {
+  width: 56rpx;
+  height: 56rpx;
+  position: absolute;
+  top: 40rpx;
+  right: 0;
 }
 
 /* 控制按钮 */

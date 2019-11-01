@@ -152,15 +152,18 @@ Page({
       },
     })
     console.log(res)
+    wx.hideLoading()
+    
     if (
+      res.data.code == 9999 ||
       res.data.code !== 0 ||
       !res.data.data
     ) {
+      console.log('登录无效')
       return false
     }
-    wx.hideLoading()
 
-    wx.redirectTo({
+    wx.reLaunch({
       url: '/pages/index/index',
     })
   },

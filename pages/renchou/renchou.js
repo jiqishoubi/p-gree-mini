@@ -47,7 +47,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function(options) {
+  onLoad: async function (options) {
     let userInfo = wx.getStorageSync('gree_userInfo')
 
     wx.showLoading({
@@ -56,7 +56,7 @@ Page({
     })
     this.init(
       's', userInfo.userCode, //导购员
-      async() => {
+      async () => {
         wx.hideLoading()
       })
   },
@@ -64,54 +64,54 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法法方法方法方法方法方法方法
   //加一个选项
-  addOneSelect: function() {
+  addOneSelect: function () {
     const {
       list,
       goodsList
@@ -139,7 +139,7 @@ Page({
     })
   },
   //绑定input
-  onInputChange: function(e) {
+  onInputChange: function (e) {
     let key = e.currentTarget.dataset.key
     let value = e.detail.value
     this.setData({
@@ -147,7 +147,7 @@ Page({
     })
   },
   //绑定input
-  onInputChange_index: function(e) {
+  onInputChange_index: function (e) {
     let key = e.currentTarget.dataset.key
     let indexwrap = e.currentTarget.dataset.indexwrap
     let value = e.detail.value
@@ -160,7 +160,7 @@ Page({
     })
   },
   //初始化
-  init: async function(type, code, callback) {
+  init: async function (type, code, callback) {
     this.setData({
       type
     })
@@ -197,7 +197,7 @@ Page({
     })
   },
   //重新初始化
-  initRefresh: async function(activityCode) {
+  initRefresh: async function (activityCode) {
     await this.getGoodsList(activityCode)
     let {
       list
@@ -212,8 +212,8 @@ Page({
     })
   },
   //生成二维码
-  initCode: function(orderNo) {
-    setTimeout(async() => {
+  initCode: function (orderNo) {
+    setTimeout(async () => {
       let imgData = await initQrcodeImgUrl(orderNo)
 
       this.setData({
@@ -222,7 +222,7 @@ Page({
     }, 20)
   },
   //选择城市组件
-  openCitypicker: function(e) {
+  openCitypicker: function (e) {
     let indexwrap = e.currentTarget.dataset.indexwrap
     let {
       list
@@ -232,7 +232,7 @@ Page({
       list
     })
   },
-  closeCitypicker: function(e) {
+  closeCitypicker: function (e) {
     let indexwrap = e.currentTarget.dataset.indexwrap
     let arr = e.detail
     let {
@@ -246,8 +246,8 @@ Page({
   },
   //选择城市组件 end
   //查询店铺信息
-  getDepartInfo: function() {
-    return new Promise(async(resolve, reject) => {
+  getDepartInfo: function () {
+    return new Promise(async (resolve, reject) => {
       const {
         departCode
       } = this.data
@@ -261,8 +261,8 @@ Page({
     })
   },
   //查询店铺下的导购员信息
-  getSalerUserList: function() {
-    return new Promise(async(resolve, reject) => {
+  getSalerUserList: function () {
+    return new Promise(async (resolve, reject) => {
       const {
         departCode
       } = this.data
@@ -287,14 +287,14 @@ Page({
     })
   },
   //绑定salerpicker 
-  onChangeSalerpicker: function(e) {
+  onChangeSalerpicker: function (e) {
     let index = Number(e.detail.value)
     this.setData({
       selectedSalerIndex: index
     })
   },
   //绑定活动picker
-  onChangeActivitypicker: function(e) {
+  onChangeActivitypicker: function (e) {
     const {
       activityList,
       selectedActivityIndex,
@@ -313,7 +313,7 @@ Page({
     this.initRefresh(activityList[index].activityCode)
   },
   //开关商品列表
-  toggleGoodsList: async function(e) {
+  toggleGoodsList: async function (e) {
     let indexwrap = e.currentTarget.dataset.param
     let {
       list,
@@ -354,8 +354,8 @@ Page({
     })
   },
   //获取全部活动
-  getActivityList: function() {
-    return new Promise(async(resolve, reject) => {
+  getActivityList: function () {
+    return new Promise(async (resolve, reject) => {
       let res = await requestw({
         url: allApiStr.getActivityListApi,
         data: {
@@ -378,8 +378,8 @@ Page({
     })
   },
   //获取全部商品
-  getGoodsList: function(activityCode) {
-    return new Promise(async(resolve, reject) => {
+  getGoodsList: function (activityCode) {
+    return new Promise(async (resolve, reject) => {
       let res = await requestw({
         url: allApiStr.getGoodsByQueryApi,
         data: {
@@ -401,7 +401,7 @@ Page({
     })
   },
   //选择机型
-  selectGoods: function(e) {
+  selectGoods: function (e) {
     let item = e.currentTarget.dataset.item
     let indexwrap = e.currentTarget.dataset.indexwrap
     let {
@@ -425,12 +425,12 @@ Page({
     })
   },
   //点击删除
-  deleteItemWrap: function(e) {
+  deleteItemWrap: function (e) {
     const self = this
     wx.showModal({
       title: '提示',
       content: '是否确认删除该认筹商品？',
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           // on confirm
           let indexwrap = e.currentTarget.dataset.indexwrap
@@ -446,17 +446,17 @@ Page({
     })
   },
   //保存在本地
-  saveToLocal: function() {
+  saveToLocal: function () {
     var imgSrc = this.data.qrcodeURL
     saveImgBaseLocal(imgSrc)
   },
   //使用上方地址
-  useUpAddress: function(e) {
+  useUpAddress: function (e) {
     const self = this
     wx.showModal({
       title: '提示',
       content: '是否确认使用上方地址信息？',
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           // on confirm
           let indexwrap = e.currentTarget.dataset.indexwrap
@@ -480,7 +480,7 @@ Page({
     })
   },
   //搜索商品列表
-  inputSeachGoodsVal: function(e) {
+  inputSeachGoodsVal: function (e) {
     let value = e.detail.value
     let indexwrap = e.currentTarget.dataset.indexwrap
     let {
@@ -506,7 +506,7 @@ Page({
     })
   },
   //提交
-  submitRc: async function() {
+  submitRc: async function () {
     const {
       type,
       saler,
@@ -520,7 +520,7 @@ Page({
     } = this.data
 
     //验证
-    let reg_phone = patternCreator.phone.pattern
+    let reg_phone = patternCreator.mobilePhone.pattern
     let flag = true //可以的
     let flag_phone = true
     list.forEach((obj) => {
@@ -667,14 +667,14 @@ Page({
   // },
   // //短信验证码 end
   //点击添加商品
-  clickAddbtn: function() {
+  clickAddbtn: function () {
     this.addOneSelect()
   },
   //获取dom位置
-  getDomPosition: function(id) {
+  getDomPosition: function (id) {
     return new Promise((resolve) => {
       let query = wx.createSelectorQuery().in(this)
-      query.select('#' + id).boundingClientRect(function(res) {
+      query.select('#' + id).boundingClientRect(function (res) {
         resolve(res)
       }).exec()
     })

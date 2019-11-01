@@ -46,6 +46,8 @@ const allApiStr = {
   sumbitSaleOrderApi: '/mp/trade/submitTrade', //提交销售单
   cancelTradeOrderApi: '/mp/trade/cancelTrade', ///销售单 退单
 
+  getAllOrderCountApi: '/mp/homePage/getOrderCountInfo', //订单页 获取数量
+
 }
 
 export default allApiStr

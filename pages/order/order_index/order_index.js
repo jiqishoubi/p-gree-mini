@@ -9,21 +9,20 @@ Page({
    */
   data: {
     navIndex: 0,
+    //统计数据
+    countArr: [0, 0, 0, 0],
+
     navList: [{
         text: '已认筹',
-        count: '',
       },
       {
         text: '已登录',
-        count: '',
       },
       {
         text: '已下单',
-        count: '',
       },
       {
         text: '已退单',
-        count: '',
       }
     ],
     showList: [],
@@ -148,6 +147,8 @@ Page({
   },
   //获取列表
   getData: async function(isScroll) {
+    this.getAllCount()
+
     const {
       navList,
       navIndex,
@@ -351,9 +352,28 @@ Page({
       // mask: true,
       duration: 1500,
     })
-    
+
     this.selectComponent('#cancelordermodal').resetVal()
     this.closeCancelModal()
     this.getData(false)
+  },
+  //获取数量
+  getAllCount: async function() {
+    let res = await requestw({
+      url: allApiStr.getAllOrderCountApi,
+    })
+    console.log(res)
+    if (res.data.code !== '0' || !res.data.data) {
+      return false
+    }
+    let countArr = [
+      res.data.data.preOrderHomeUseCount,
+      res.data.data.preOrderBusiUseCount,
+      res.data.data.tradeCount,
+      res.data.data.tradeCancelCount
+    ]
+    this.setData({
+      countArr
+    })
   },
 })

@@ -137,7 +137,7 @@ Page({
     //发送参数
     let postData = {
       page: 1,
-      rows: 9999,
+      rows: 999,
       // orderStatus: '0',
       orderStatus: '50',
       orderNoOrPhoneNumber: searchVal,

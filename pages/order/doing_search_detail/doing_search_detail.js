@@ -23,7 +23,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function (options) {
+  onLoad: async function(options) {
     if (!options.order) {
       wx.showToast({
         title: '参数缺失，请重新进入',
@@ -37,29 +37,20 @@ Page({
     this.setData({
       oldOrder: JSON.parse(options.order),
       order: JSON.parse(options.order),
-    }, async () => {
-
-      // //获取详情
-      // let res = await requestw({
-      //   url: allApiStr.getPreOrderInfoApi,
-      //   data: {
-      //     orderNo: this.data.order.orderNo
-      //   },
-      // })
     })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     //从选择商品页（单选）回来
     if (wx.getStorageSync('from_choose2_single_selectedGoods')) {
       let selectedGoods = wx.getStorageSync('from_choose2_single_selectedGoods')
@@ -86,71 +77,91 @@ Page({
       })
     }
     //从选择商品页（单选）回来 end
+
+    //从修改商品页面回来
+    if (wx.getStorageSync('toTrade_changeGoods_oldOrder_new')) {
+      let oldOrder_new = wx.getStorageSync('toTrade_changeGoods_oldOrder_new')
+      this.setData({
+        order: {
+          ...oldOrder_new
+        }
+      })
+
+      wx.removeStorage({
+        key: 'toTrade_changeGoods_oldOrder_new'
+      })
+    }
+    //从修改商品页面回来 end
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
   //删除商品
-  deleteGoods: function (e) {
-    const self = this
-    wx.showModal({
-      title: '提示',
-      content: '是否确认删除该商品？',
-      success: function (res) {
-        if (res.confirm) {
-          // on confirm
-          let index = e.currentTarget.dataset.index
-          let {
-            order
-          } = self.data
-          let goodsList = order.goodsList
-          goodsList.splice(index, 1)
+  deleteGoods: function(e) {
+    // const self = this
+    // wx.showModal({
+    //   title: '提示',
+    //   content: '是否确认删除该商品？',
+    //   success: function (res) {
+    //     if (res.confirm) {
+    //       // on confirm
+    //       let index = e.currentTarget.dataset.index
+    //       let {
+    //         order
+    //       } = self.data
+    //       let goodsList = order.goodsList
+    //       goodsList.splice(index, 1)
 
-          self.setData({
-            order: {
-              ...order,
-              goodsList,
-            }
-          })
-        }
-      },
+    //       self.setData({
+    //         order: {
+    //           ...order,
+    //           goodsList,
+    //         }
+    //       })
+    //     }
+    //   },
+    // })
+
+    //去修改商品页面
+    wx.navigateTo({
+      url: `/pages/order/changeGoods/changeGoods?oldOrder=${JSON.stringify(this.data.oldOrder)}`,
     })
   },
   //点击商品名称 去选择商品
-  goChooseGoods: function (e) {
+  goChooseGoods: function(e) {
     const {
       order
     } = this.data
@@ -164,7 +175,7 @@ Page({
     })
   },
   //点击下单
-  clickOrder: function () {
+  clickOrder: function() {
     const {
       order
     } = this.data
@@ -178,7 +189,7 @@ Page({
     })
   },
   //拨打电话
-  callPhone: function (e) {
+  callPhone: function(e) {
     let phone = e.currentTarget.dataset.phone
     if (!phone) {
       return false
@@ -186,7 +197,7 @@ Page({
     wx.showModal({
       title: '提示',
       content: `确认拨打电话${phone}？`,
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           wx.makePhoneCall({
             phoneNumber: phone

@@ -1,8 +1,7 @@
 {
   "pages": [
-      "pages/login/login",
+    "pages/login/login",
     "pages/order/order_index/order_index",
-  
     "pages/renchou/renchou",
     "pages/wode/mycode/mycode",
     "pages/wode/wode_index/wode_index",
@@ -13,7 +12,6 @@
     "pages/wode/shopcode/shopcode",
     "pages/order/order_detail/order_detail",
     "pages/order/cart_busi/cart_busi",
-   
     "pages/order/order_detail_yidenglu/order_detail_yidenglu",
     "pages/order/doing_search/doing_search",
     "pages/order/cart/cart",
@@ -23,7 +21,8 @@
     "pages/order/doing_search_detail/doing_search_detail",
     "pages/order/choose2_single/choose2_single",
     "pages/order/choose2_search_single/choose2_search_single",
-    "pages/order/order_detail_busi/order_detail_busi"
+    "pages/order/order_detail_busi/order_detail_busi",
+    "pages/order/changeGoods/changeGoods"
   ],
   "window": {
     "backgroundTextStyle": "light",

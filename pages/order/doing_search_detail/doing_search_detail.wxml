@@ -1,50 +1,46 @@
 <!-- 转销售 -->
 <view class="doing_search_page">
 
-  <view wx:for="{{order.goodsList}}" wx:key="index"
-    class="result_content"
-  >
+  <view class="result_content">
     <view class="result_item result_title van-hairline--bottom">
       <view wx:if="{{order}}">{{order.orderNo}}</view>
-      <!-- <button wx:if="{{order&&order.goodsList.length>1}}"
-        class="deleteBtn"
+      <button class="deleteBtn"
         bindtap="deleteGoods"
-        data-index="{{index}}"
-      >删除</button> -->
+      >修改商品</button>
     </view>
-    <view class="result_item van-hairline--bottom">
-      <view class="result_label">商品名称</view>
-      <view class="result_input result_input_goods"
-        bindtap="goChooseGoods"
-        data-goods="{{item}}"
-        data-index="{{index}}"
-      >
-        <view class="result_input_name textOmit">{{item.goodsName}}</view>
-        <van-icon name="arrow" custom-style="position:relative;top:2rpx;" />
+
+    <block wx:for="{{order.goodsList}}" wx:key="index">
+      <view class="result_item van-hairline--bottom">
+        <view class="result_label">商品名称</view>
+        <view class="result_input result_input_goods"
+        >
+          <view class="result_input_name textOmit">{{item.goodsName}}</view>
+          <!-- <van-icon name="arrow" custom-style="position:relative;top:2rpx;" /> -->
+        </view>
       </view>
-    </view>
-    <view class="result_item van-hairline--bottom">
-      <view class="result_label">客户姓名</view>
-      <view class="result_input textOmit">{{item.custName}}</view>
-    </view>
-    <view class="result_item van-hairline--bottom">
-      <view class="result_label">客户电话</view>
-      <view class="result_input textOmit"
-        bindtap="callPhone"
-        data-phone="{{item.phoneNumber}}"
-      >
-        {{item.phoneNumber}}
-        <van-icon 
-          name="phone" 
-          color='#00a6ff' 
-          style="margin-left:3rpx;position:relative;top:4rpx;" 
-        />
+      <view class="result_item van-hairline--bottom">
+        <view class="result_label">客户姓名</view>
+        <view class="result_input textOmit">{{item.custName}}</view>
       </view>
-    </view>
-    <view class="result_item">
-      <view class="result_label">安装地址</view>
-      <view class="result_input textOmit">{{item.provinceName}}{{item.eparchyName}}{{item.cityName}}{{item.address}}</view>
-    </view>
+      <view class="result_item van-hairline--bottom">
+        <view class="result_label">客户电话</view>
+        <view class="result_input textOmit"
+          bindtap="callPhone"
+          data-phone="{{item.phoneNumber}}"
+        >
+          {{item.phoneNumber}}
+          <van-icon 
+            name="phone" 
+            color='#00a6ff' 
+            style="margin-left:3rpx;position:relative;top:4rpx;" 
+          />
+        </view>
+      </view>
+      <view class="result_item">
+        <view class="result_label">安装地址</view>
+        <view class="result_input textOmit">{{item.provinceName}}{{item.eparchyName}}{{item.cityName}}{{item.address}}</view>
+      </view>
+    </block>
   </view>
 
   <view style="height:360rpx;"></view>

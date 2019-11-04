@@ -1,0 +1,301 @@
+@import '../../../utils/utils.wxss';
+
+Page {
+  height: 100%;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.renchou_page {
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+}
+
+.item.title {
+  color: #000;
+}
+
+.rect {
+  width: 12rpx;
+  height: 40rpx;
+  background-color: #00a6ff;
+  margin-right: 12rpx;
+}
+
+.container {
+  margin: 24rpx 0;
+  background-color: #fff;
+}
+
+.item {
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  height: 84rpx;
+  border-bottom: 1rpx solid #d7d6d6;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.label {
+  width: 144rpx;
+  color: #000;
+}
+
+.goodsLabel {
+  width: auto;
+}
+
+.input {
+  /* height: 100%; */
+  flex: 1 0 0;
+  padding-left: 35rpx;
+}
+
+/* 使用上方地址按钮 */
+
+.addressBtn {
+  margin: 0;
+  /* width: 91rpx; */
+  padding: 0 12rpx;
+  height: 42rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #9b9b9b;
+}
+
+/* 删除按钮 */
+
+.deleteBtn {
+  margin: 0;
+  padding: 0;
+  width: 91rpx;
+  height: 42rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #9b9b9b;
+}
+
+/* 导购员picker */
+
+.salerpicker_wrap {
+  height: 100%;
+  flex: 1 0 0;
+  width: 0;
+}
+
+.salerpicker {
+  /* height: 100%;
+  min-height: 100%; */
+  height: 84rpx;
+  padding-left: 35rpx;
+  display: flex;
+  align-items: center;
+}
+
+/* 按钮 */
+
+.btn {
+  box-sizing: content-box;
+  background-color: #00a6ff;
+  color: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 89rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  z-index: 10;
+}
+
+.btn_active {
+  background-color: #0096e7;
+}
+
+.btn.isX {
+  padding-bottom: 62rpx;
+}
+
+/* 二维码modal */
+
+.share-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.code_modal {
+  width: 628rpx;
+  background-color: #fff;
+}
+
+.code_title {
+  height: 147rpx;
+  background-color: #00a6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.code_title_logo {
+  width: 298rpx;
+  height: 52rpx;
+}
+
+.code {
+  width: 362rpx;
+  height: 362rpx;
+  /* background-color: #ebebeb; */
+  margin: 58rpx auto 37rpx;
+}
+
+.code_img {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.code_info {
+  color: #000;
+}
+
+.code_info_count {
+  font-size: 40rpx;
+}
+
+.code_info_title {
+  font-size: 28rpx;
+}
+
+.code_btn {
+  margin: 70rpx 47rpx 46rpx;
+  font-size: 28rpx;
+  background-color: #fff;
+  height: 85rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.code_btn_hover {
+  background-color: #f0f0f0;
+}
+
+/* 商品列表 */
+
+.goodsList {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #fff;
+  position: absolute;
+  top: 84rpx;
+  left: 0;
+  z-index: 11;
+}
+
+.goodsList .input {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+}
+
+.goodsList .van-stepper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+}
+
+.item_wrap {
+  margin-top: 92rpx;
+  height: calc(100% - 66rpx);
+  overflow-y: auto;
+}
+
+.goodsItemWrap {
+  height: auto;
+  padding: 15rpx 124rpx 15rpx 24rpx;
+  position: relative;
+}
+
+.taogou_icon {
+  width: 97rpx;
+  height: 41rpx;
+  position: absolute;
+  right: 24rpx;
+}
+
+/* 商品列表的mask */
+
+.goodsList_mask {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* 商品列表的搜索 */
+
+.goodsListSearch {
+  height: 66rpx;
+  background-color: #f5f5f5;
+  border-radius: 5rpx;
+  display: flex;
+  align-items: center;
+  margin: 15rpx 24rpx;
+  padding-left: 15rpx;
+  padding-right: 15rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.goodsListSearch_input {
+  flex: 1 0 0;
+  width: 0;
+  /* height: 100%; */
+  padding-left: 15rpx;
+}
+
+/* 获取验证码 */
+
+.getSmsBtn {
+  color: #00a6ff;
+}
+
+/* 添加商品 */
+
+.addbtn {
+  height: 58rpx;
+  margin: 24rpx;
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  outline: none;
+  border: 1rpx dashed #919191;
+  background-color: #f5f5f5;
+}
+
+.addbtn_active {
+  background-color: #ededed;
+}

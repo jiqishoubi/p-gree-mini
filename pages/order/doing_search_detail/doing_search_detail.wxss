@@ -61,7 +61,7 @@ Page {
 }
 
 .result_input_name {
-  max-width: calc(100% - 20px);
+  /* max-width: calc(100% - 20px); */
 }
 
 /* 删除按钮 */

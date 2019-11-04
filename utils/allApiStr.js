@@ -31,7 +31,7 @@ const allApiStr = {
   getPreOrderInfoApi: '/mp/preorder/getPreOrderInfo', //获取认筹订单详情
 
   //转销售
-  getRenchouListApi: '/mp/preorder/getPreOrderList', //搜索认筹单列表
+  getRenchouListApi: '/mp/preorder/searchPreOrder', //搜索认筹单列表
   getTradeListApi: '/mp/trade/getTradeList', //查询销售单列表
   getTradeOrderInfoApi: '/mp/trade/getTradeInfo', //获取销售单详情
   reserveTimeApi: '/mp/installorder/updateInstallOrderInfo', //预约安装时间 修改售后单信息

@@ -1,0 +1,216 @@
+<!-- 修改商品的页面 与认筹页面类似 -->
+<view class="changeGoods_page">
+
+  <!-- *********************block********************* -->
+  <block wx:for="{{list}}" 
+    wx:for-index="indexwrap" wx:for-item="itemwrap"
+    wx:key="indexwrap"
+  >
+    <view class="container">
+      <view class="item title flexBetween">
+        <view class="flexCenter">
+          <view class="rect"></view>商品
+        </view>
+        <view class="flexCenter">
+          <button wx:if="{{list.length>1}}"
+            class="deleteBtn"
+            bindtap="deleteItemWrap"
+            data-indexwrap="{{indexwrap}}"
+          >删除</button>
+        </view>
+      </view>
+
+      <!-- 商品列表的遮罩 -->
+      <view wx:if="{{itemwrap.showGoodsList}}" class="goodsList_mask"
+        bindtap="toggleGoodsList"
+        data-param='{{indexwrap}}'
+      ></view>
+      <view class='item positionRe' id="{{'goodsItem'+indexwrap}}" style="z-index:{{itemwrap.goodsItemZindex}}">
+        <view class="label">商品机型</view>
+        <view wx:if="{{itemwrap.selectedGoods}}"
+          class="input textOmit"
+          bindtap="toggleGoodsList"
+          data-param='{{indexwrap}}'
+        >
+          {{itemwrap.selectedGoods.goodsName}}
+        </view>
+        <view wx:else
+          class="input flexCenter flexJEnd"
+          bindtap="toggleGoodsList"
+          data-param='{{indexwrap}}'
+        >
+          请选择<van-icon name="arrow" custom-style="margin-top:6rpx;" />
+        </view>
+        <!-- 商品列表 -->
+        <view wx:if="{{itemwrap.showGoodsList}}"
+          class="goodsList"
+          style="height:{{itemwrap.goodsListHeight}}PX"
+        >
+          <view class="goodsListSearch">
+            <van-icon name="search" 
+              size="1.2em" 
+              color="#9B9B9B"
+            />
+            <input class="goodsListSearch_input"
+              placeholder="请输入名称或型号"
+              value="{{itemwrap.searchGoodsVal}}"
+              bindinput="inputSeachGoodsVal"
+              data-indexwrap="{{indexwrap}}"
+            ></input>
+          </view>
+          <view class="item_wrap">
+            <view wx:for="{{itemwrap.goodsList}}" wx:key="index"
+              class="item goodsItemWrap"
+              bindtap="selectGoods"
+              data-item="{{item}}"
+              data-indexwrap="{{indexwrap}}"
+            >
+              <view class="label goodsLabel limitLineTwo">{{item.goodsName}}</view>
+              <image wx:if="{{item.ifMix==1}}"
+                class="taogou_icon" 
+                src='https://cdn.s.bld365.com/getli_renchou_taogou_icon.png' alt=''
+              ></image>
+            </view>
+          </view>
+        </view>
+        <!-- 商品列表 end -->
+      </view>
+
+      <!-- 原来是非套购 1台 -->
+      <block wx:if="{{oldOrder&&oldOrder.goodsList.length==1}}">
+        <view class='item'>
+          <view class="label">收 货 人</view>
+          <input class="input"
+            placeholder="请输入收货人"
+            value="{{itemwrap.receiver}}"
+            bindinput="onInputChange_index"
+            data-key="receiver"
+            data-indexwrap="{{indexwrap}}"
+          ></input>
+          <button
+            class="addressBtn"
+            bindtap="useOldAddress_fei"
+            data-indexwrap="{{indexwrap}}"
+          >使用原地址</button>
+        </view>
+        <view class='item'>
+          <view class="label">收货电话</view>
+          <input class="input"
+            placeholder="请输入收货电话"
+            value="{{itemwrap.receiverPhone}}"
+            bindinput="onInputChange_index"
+            data-key="receiverPhone"
+            data-indexwrap="{{indexwrap}}"
+          ></input>
+        </view>
+        <view class='item'>
+          <view class="label">备用电话</view>
+          <input class="input"
+            placeholder="请输入备用电话（选填）"
+            value="{{itemwrap.receiverPhoneBak}}"
+            bindinput="onInputChange_index"
+            data-key="receiverPhoneBak"
+            data-indexwrap="{{indexwrap}}"
+          ></input>
+        </view>
+        <view class='item'>
+          <view class="label">所在地区</view>
+          <view wx:if="{{itemwrap.pickerCityVal[0]}}"
+            class="input flexCenter" 
+            bindtap="openCitypicker"
+            data-indexwrap="{{indexwrap}}"
+          >
+            <text wx:if="{{itemwrap.pickerCityVal[0]}}">{{itemwrap.pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text>
+            <text wx:if="{{itemwrap.pickerCityVal[1]}}">{{itemwrap.pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text> 
+            <text wx:if="{{itemwrap.pickerCityVal[2]}}">{{itemwrap.pickerCityVal[2].areaName}}</text>
+          </view>
+          <view  wx:else 
+            class="input flexCenter flexJEnd" 
+            bindtap="openCitypicker"
+            data-indexwrap="{{indexwrap}}"
+          >
+            请选择<van-icon name="arrow" custom-style="margin-top:6rpx;" />
+          </view>
+        </view>
+        <!-- 选择城市组件 -->
+        <citypicker show="{{itemwrap.showCitypicker}}" 
+          activeColor="#00A6FF"
+          bind:onClose="closeCitypicker"
+          data-indexwrap="{{indexwrap}}"
+        />
+        <view class='item'>
+          <view class="label">详细地址</view>
+          <input class="input"
+            placeholder="请输入详细地址"
+            value="{{itemwrap.address}}"
+            bindinput="onInputChange_index"
+            data-key="address"
+            data-indexwrap="{{indexwrap}}"
+          ></input>
+        </view>
+      </block>
+
+      <!-- 原来是套购 2台 -->
+      <block wx:if="{{oldOrder&&oldOrder.goodsList.length>1}}">
+        <view class='item'>
+          <view class="label">收 货 人</view>
+          <view class="input">{{itemwrap.receiver}}</view>
+          <button
+            class="addressBtn"
+            bindtap="openAddressSelect"
+            data-indexwrap="{{indexwrap}}"
+          >选择地址</button>
+        </view>
+        <view class='item'>
+          <view class="label">收货电话</view>
+          <view class="input">{{itemwrap.receiverPhone}}</view>
+        </view>
+        <view class='item'>
+          <view class="label">备用电话</view>
+          <view class="input">{{itemwrap.receiverPhoneBak}}</view>
+        </view>
+        <view class='item'>
+          <view class="label">地址</view>
+          <view class="input">
+            <text wx:if="{{itemwrap.pickerCityVal[0]}}">{{itemwrap.pickerCityVal[0].areaName}}</text>
+            <text wx:if="{{itemwrap.pickerCityVal[1]}}">{{itemwrap.pickerCityVal[1].areaName}}</text>
+            <text wx:if="{{itemwrap.pickerCityVal[2]}}">{{itemwrap.pickerCityVal[2].areaName}}</text>
+            <text>{{itemwrap.pickerCityVal[0].areaName}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+
+  <view wx:if="{{list.length>0&&list[0].selectedGoods&&list[0].selectedGoods.ifMix==1&&list.length<2}}"
+    class="addbtn"
+    hover-class="addbtn_active"
+     hover-stay-time="{{150}}"
+    bindtap="clickAddbtn"
+  >添加商品</view>
+  <!-- *********************block end********************* -->
+
+  <view style="height:360rpx;"></view>
+
+  <!-- 按钮 -->
+  <view class="btn{{isX?' isX':''}}" 
+    hover-class="btn_active"
+    hover-stay-time="{{150}}"
+    bindtap="submitRc"
+  >确定</view>
+
+  <!-- *******************模态框******************* -->
+  <!-- 选择地址 -->
+  <van-popup show="{{showAddressSelect}}" 
+    position="bottom"
+    bind:close="closeAddressSelect"
+  >
+    <van-picker columns="{{addressSelectList}}" 
+      show-toolbar
+      bind:change="addressSelectChange" 
+      bind:cancel="closeAddressSelect"
+      bind:confirm="confirmAddressSelect"
+      default-index="{{defaultIndex}}"
+    />
+  </van-popup>
+</view>

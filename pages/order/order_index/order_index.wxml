@@ -23,7 +23,7 @@
         bindtap="clickNav"
         data-index="{{index}}"
       >
-        {{item.text}}(<text wx:if="{{countArr[index]>=99}}">99</text><text wx:else>{{countArr[index]}}</text>)
+        {{item.text}}<text style="color:red;">(<text wx:if="{{countArr[index]>=99}}">99+</text><text wx:else>{{countArr[index]}}</text>)</text>
       </view>
     </view>
   </view>
@@ -52,6 +52,7 @@
           <view wx:if="{{item.tradeNo}}" class="datetime">{{item.tradeNo}}</view>
         </view>
 
+        <!-- 商品 -->
         <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"
           wx:key="idx"
           class="item_content flexCenter flexBetween"
@@ -60,47 +61,74 @@
             <image class="item_img" src="{{itm.logoImage}}" alt=''></image>
           </view>
           <view class="item_content_content">
-            <!-- 家用认筹 -->
-            <view wx:if="{{!item.custName}}"
-              class="item_content_content_top"
-            >
-              <view class="item_content_title textOmit">{{itm.goodsName}}</view>
-              <view class="item_content_desc nameAndPhone textOmit">
-                <text>{{itm.custName}}</text>
-                <text decode="{{true}}">&nbsp;&nbsp;&nbsp;</text>
-                <text wx:if="{{itm.phoneNumber}}">{{itm.phoneNumber}}</text>
-                <image wx:if="{{itm.phoneNumber}}"
-                  class="callphone_icon" 
-                  src='https://cdn.s.bld365.com/getli_order_index_callphone_icon.png' alt=''
-                  catchtap="callPhone" 
-                  data-phone="{{itm.phoneNumber}}"
-                ></image>
+            <!-- 认筹单 -->
+            <block wx:if="{{navIndex==0||navIndex==1}}">
+              <!-- 家用认筹 -->
+              <view wx:if="{{!item.custName}}"
+                class="item_content_content_top"
+              >
+                <view class="item_content_title textOmit">{{itm.goodsName}}</view>
+                <view class="item_content_desc nameAndPhone textOmit">
+                  <text>{{itm.custName}}</text>
+                  <text decode="{{true}}">&nbsp;&nbsp;&nbsp;</text>
+                  <text wx:if="{{itm.phoneNumber}}">{{itm.phoneNumber}}</text>
+                  <image wx:if="{{itm.phoneNumber}}"
+                    class="callphone_icon" 
+                    src='https://cdn.s.bld365.com/getli_order_index_callphone_icon.png' alt=''
+                    catchtap="callPhone" 
+                    data-phone="{{itm.phoneNumber}}"
+                  ></image>
+                </view>
+                <view class="item_content_desc textOmit">
+                  {{itm.provinceName}}{{itm.eparchyName}}{{itm.cityName}}{{itm.address}}
+                </view>
               </view>
-              <view class="item_content_desc textOmit">
-                {{itm.provinceName}}{{itm.eparchyName}}{{itm.cityName}}{{itm.address}}
+              <!-- 商用认筹 已登录 -->
+              <view wx:if="{{item.custName}}"
+                class="item_content_content_top"
+              >
+                <view class="item_content_title textOmit">{{itm.goodsName}}</view>
+                <view class="item_content_desc nameAndPhone textOmit">
+                  <text>{{item.custName}}</text>
+                  <text decode="{{true}}">&nbsp;&nbsp;&nbsp;</text>
+                  <text wx:if="{{item.phoneNumber}}">{{item.phoneNumber}}</text>
+                  <image wx:if="{{item.phoneNumber}}"
+                    class="callphone_icon" 
+                    src='https://cdn.s.bld365.com/getli_order_index_callphone_icon.png' alt=''
+                    catchtap="callPhone" 
+                    data-phone="{{item.phoneNumber}}"
+                  ></image>
+                </view>
+                <view class="item_content_desc textOmit">
+                  {{item.provinceName}}{{item.eparchyName}}{{item.cityName}}{{item.address}}
+                </view>
               </view>
-            </view>
-            <!-- 商用认筹 已登录 -->
-            <view wx:if="{{item.custName}}"
-              class="item_content_content_top"
-            >
-              <view class="item_content_title textOmit">{{itm.goodsName}}</view>
-              <view class="item_content_desc nameAndPhone textOmit">
-                <text>{{item.custName}}</text>
-                <text decode="{{true}}">&nbsp;&nbsp;&nbsp;</text>
-                <text wx:if="{{item.phoneNumber}}">{{item.phoneNumber}}</text>
-                <image wx:if="{{item.phoneNumber}}"
-                  class="callphone_icon" 
-                  src='https://cdn.s.bld365.com/getli_order_index_callphone_icon.png' alt=''
-                  catchtap="callPhone" 
-                  data-phone="{{item.phoneNumber}}"
-                ></image>
+            </block>
+            <!-- 销售单 -->
+            <block wx:if="{{navIndex==2||navIndex==3}}">
+              <view wx:if="{{!item.custName}}"
+                class="item_content_content_top"
+              >
+                <view class="item_content_title textOmit">{{itm.goodsName}}</view>
+                <view class="item_content_desc nameAndPhone textOmit">
+                  <text>{{itm.installOrderDTO.custName}}</text>
+                  <text decode="{{true}}">&nbsp;&nbsp;&nbsp;</text>
+                  <text wx:if="{{itm.installOrderDTO.phoneNumber}}">{{itm.installOrderDTO.phoneNumber}}</text>
+                  <image wx:if="{{itm.installOrderDTO.phoneNumber}}"
+                    class="callphone_icon" 
+                    src='https://cdn.s.bld365.com/getli_order_index_callphone_icon.png' alt=''
+                    catchtap="callPhone" 
+                    data-phone="{{itm.installOrderDTO.phoneNumber}}"
+                  ></image>
+                </view>
+                <view class="item_content_desc textOmit">
+                  {{itm.installOrderDTO.provinceName}}{{itm.installOrderDTO.eparchyName}}{{itm.installOrderDTO.cityName}}{{itm.installOrderDTO.address}}
+                </view>
               </view>
-              <view class="item_content_desc textOmit">
-                {{item.provinceName}}{{item.eparchyName}}{{item.cityName}}{{item.address}}
-              </view>
-            </view>
+            </block>
+           
             
+            <!-- 价格 -->
             <!-- 认筹单接口 -->
             <view wx:if="{{navIndex==0||navIndex==1}}"
               class="yuan_wrap flexCenter flexBetween"

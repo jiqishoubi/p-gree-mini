@@ -469,7 +469,7 @@ Page({
         if (
           obj.receiver == goods.custName &&
           obj.receiverPhone == goods.phoneNumber &&
-          obj.receiverPhoneBak == goods.phoneNumberBak &&
+          // obj.receiverPhoneBak == goods.phoneNumberBak &&
           obj.address == goods.address &&
           //地址
           obj.pickerCityVal[0] &&
@@ -479,7 +479,14 @@ Page({
           obj.pickerCityVal[1].areaCode == goods.eparchyCode &&
           obj.pickerCityVal[2].areaCode == goods.cityCode
         ) {
-          flag = true
+          //备用电话
+          if (goods.phoneNumberBak) {
+            if (obj.receiverPhoneBak == goods.phoneNumberBak) {
+              flag = true
+            }
+          } else {
+            flag = true
+          }
         }
       })
       if (!flag) {

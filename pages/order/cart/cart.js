@@ -17,6 +17,8 @@ const app = getApp()
  * type  //PRE_SALE认筹转销售  HOME_USE家用下单  BUSI_USE商用下单
  * activityCode
  * selectedGoodsList //带不带count都可以
+ * 
+ * oldOrderNo 可不传
  */
 
 Page({
@@ -29,6 +31,7 @@ Page({
 
     type: '',
     activityCode: '',
+    oldOrderNo: '',
     oldSelectedGoodsList: [],
 
     selectedList: [], //处理过的selectedList
@@ -92,6 +95,7 @@ Page({
     this.setData({
       type: options.type,
       activityCode: options.activityCode,
+      oldOrderNo: options.oldOrderNo,
 
       oldSelectedGoodsList,
       selectedList,
@@ -252,6 +256,7 @@ Page({
     const {
       type,
       activityCode,
+      oldOrderNo,
       oldSelectedGoodsList,
       selectedList,
     } = this.data
@@ -357,7 +362,9 @@ Page({
     })
     let postData = {
       tradeType: type,
-      preOrderNo: type == 'PRE_SALE' ? oldSelectedGoodsList[0].orderNo : null, //如果是认筹转销售，要传 认筹单号
+      preOrderNo:
+        oldOrderNo ?
+          oldOrderNo : (type == 'PRE_SALE' ? oldSelectedGoodsList[0].orderNo : null), //如果是认筹转销售，要传 认筹单号
       activityCode,
       // ifRepaire:1 0,
       goodsListJsonStr: JSON.stringify(goodsListJson)

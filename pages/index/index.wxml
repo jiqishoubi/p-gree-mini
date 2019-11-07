@@ -29,7 +29,7 @@
       data-item='/pages/renchou/renchou'
       style="margin-bottom:18rpx"
     >
-      <view class="nav_title">认筹下单</view>
+      <view class="nav_title">家用认筹</view>
     </view>
     <view class="nav_item flexCenter flexJCenter"
       bindtap="goPage"
@@ -48,7 +48,7 @@
       bindtap="goPage"
       data-item='/pages/order/site_order_new/site_order_new?type=busi'
     >
-      <view class="nav_title">商用下单</view>
+      <view class="nav_title">商用登录</view>
     </view>
   </view>
 

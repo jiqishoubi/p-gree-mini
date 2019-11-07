@@ -179,13 +179,15 @@ Page({
     const {
       order
     } = this.data
+    console.log(order)
 
     let type = 'PRE_SALE'
     let activityCode = order.activityCode
     let selectedGoodsList = order.goodsList
+    let oldOrderNo = order.orderNo
 
     wx.navigateTo({
-      url: `/pages/order/cart/cart?type=${type}&activityCode=${activityCode}&selectedGoodsList=${JSON.stringify(selectedGoodsList)}`,
+      url: `/pages/order/cart/cart?type=${type}&activityCode=${activityCode}&selectedGoodsList=${JSON.stringify(selectedGoodsList)}&oldOrderNo=${oldOrderNo}`,
     })
   },
   //拨打电话

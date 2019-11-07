@@ -114,6 +114,12 @@
             <view class="label">收货电话</view>
             <view class="input">{{item.phoneNumber}}</view>
           </view>
+          <view wx:if="{{item.phoneNumberBak}}"
+            class="item van-hairline--bottom"
+          >
+            <view class="label">备用电话</view>
+            <view class="input">{{item.phoneNumberBak}}</view>
+          </view>
           <view class="item van-hairline--bottom">
             <view class="label">详细地址</view>
             <view class="input">{{item.provinceName}}{{item.eparchyName}}{{item.cityName}}{{item.address}}</view>

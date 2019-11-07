@@ -13,10 +13,10 @@ Page({
     countArr: [0, 0, 0, 0],
 
     navList: [{
-        text: '已认筹',
+        text: '家用认筹',
       },
       {
-        text: '已登录',
+        text: '商用登录',
       },
       {
         text: '已下单',
@@ -207,6 +207,7 @@ Page({
       data: {
         page: getPage,
         rows: pageSize,
+        ifMine: '1', //只能看到自己的
         ...postData,
       },
     })

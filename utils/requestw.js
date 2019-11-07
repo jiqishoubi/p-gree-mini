@@ -8,7 +8,15 @@ const requestw = ({
   method = 'post',
   header,
 }) => {
-  //token
+  //data token
+  for (let key in data) {
+    if (
+      data[key] === undefined ||
+      data[key] === null
+    ) {
+      delete data[key]
+    }
+  }
   let dataTemp = data
   if (wx.getStorageSync('gree_userInfo')) {
     let userInfo = wx.getStorageSync('gree_userInfo')

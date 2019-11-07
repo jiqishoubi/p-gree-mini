@@ -1,6 +1,6 @@
 const QR = require('./weapp-qrcode-base64.js') //生成二维码
 
-const isTest = false
+const isTest = true
 
 const hostObj = {
   dev: {

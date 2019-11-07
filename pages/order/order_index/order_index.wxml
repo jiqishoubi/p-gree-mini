@@ -23,7 +23,7 @@
         bindtap="clickNav"
         data-index="{{index}}"
       >
-        {{item.text}}<text style="color:red;">(<text wx:if="{{countArr[index]>=99}}">99+</text><text wx:else>{{countArr[index]}}</text>)</text>
+        {{item.text}}(<text wx:if="{{countArr[index]>=99}}" style="color:{{index==0?'red':'inherit'}}">99+</text><text wx:else style="color:{{index==0?'red':'inherit'}}">{{countArr[index]}}</text>)
       </view>
     </view>
   </view>

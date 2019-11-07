@@ -136,7 +136,7 @@ Page({
         type
       } = this.data
       let res = await requestw({
-        url: allApiStr.getActivityListSaleApi,
+        url: type == 'home' ? allApiStr.getActivityListSaleApi : allApiStr.getActivityListApi,
         data: {
           activityType: type == 'home' ? 'HOME_USE' : 'BUSI_USE'
         },
@@ -144,7 +144,7 @@ Page({
       console.log(res)
       if (res.data.code !== '0' || !res.data.data) {
         wx.showToast({
-          title: '获取活动列表失败，' + res.data.message,
+          title: '当前无活动',
           icon: 'none',
           mask: true,
           duration: 1500,

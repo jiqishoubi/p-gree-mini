@@ -149,6 +149,7 @@ Page({
           mask: true,
           duration: 1500,
         })
+        return false
       }
       this.setData({
         activityList: res.data.data,

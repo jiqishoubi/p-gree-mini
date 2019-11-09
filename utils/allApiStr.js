@@ -7,6 +7,7 @@ const allApiStr = {
 
   //登录页
   loginApi: '/mp/doLogin', //登录
+  logoutApi:'/mp/doLogout', //退出登录
   getUserinfoApi: '/mp/getUserInfo', //获取个人信息 
   changePasswordApi: '/mp/updateUserPassword', //修改密码
 

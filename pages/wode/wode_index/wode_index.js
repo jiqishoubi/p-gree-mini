@@ -1,18 +1,21 @@
-// pages/wode/wode_index/wode_index.js
+import regeneratorRuntime from '../../../utils/runtime.js' //让小程序支持asyc await
+import requestw from '../../../utils/requestw.js'
+import allApiStr from '../../../utils/allApiStr.js'
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userInfo:{},
+    userInfo: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    let userInfo=wx.getStorageSync('gree_userInfo')
+  onLoad: function(options) {
+    let userInfo = wx.getStorageSync('gree_userInfo')
     console.log(userInfo)
     this.setData({
       userInfo
@@ -22,54 +25,54 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法v
   //切换tabbar
-  onChange_tabbar: function (e) {
+  onChange_tabbar: function(e) {
     let index = e.detail
     switch (index) {
       case 0:
@@ -95,10 +98,10 @@ Page({
     }
   },
   //导航
-  goPage: function (e) {
+  goPage: function(e) {
     let url = e.currentTarget.dataset.item
 
-    if(!url){
+    if (!url) {
       wx.showToast({
         title: '敬请期待',
         icon: 'none',
@@ -111,5 +114,40 @@ Page({
     wx.navigateTo({
       url,
     })
-  }
+  },
+  //退出登录
+  logout: function() {
+    const self = this
+    wx.showModal({
+      title: '提示',
+      content: '确定要退出登录？',
+      success: async function(res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '请稍候...',
+            mask: true,
+          })
+          //ajax登出
+          let userInfo = wx.getStorageSync('gree_userInfo')
+          requestw({
+            url: allApiStr.logoutApi,
+            data: {
+              token: userInfo.token,
+            },
+          })
+          //本地登出
+          wx.removeStorage({
+            key: 'gree_userInfo'
+          })
+          setTimeout(() => {
+            wx.hideLoading()
+            //跳转到登录页
+            wx.reLaunch({
+              url: `/pages/login/login`,
+            })
+          }, 300)
+        }
+      }
+    })
+  },
 })

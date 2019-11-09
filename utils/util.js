@@ -1,6 +1,6 @@
 const QR = require('./weapp-qrcode-base64.js') //生成二维码
 
-const isTest = true
+const isTest = false
 
 const hostObj = {
   dev: {
@@ -99,12 +99,12 @@ export const saveImgBaseLocal = (imgSrc) => {
     success: res => {
       wx.saveImageToPhotosAlbum({
         filePath: wx.env.USER_DATA_PATH + '/pic' + number + '.png',
-        success: function (res) {
+        success: function(res) {
           wx.showToast({
             title: '保存成功',
           })
         },
-        fail: function (err) {
+        fail: function(err) {
           console.log(err)
         }
       })

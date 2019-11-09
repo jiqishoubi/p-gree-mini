@@ -64,6 +64,16 @@
         <view class="nav_text">店铺二维码</view>
         <view class="nav_item_arrow"></view>
       </view>
+
+      <!-- 退出登录 -->
+      <view class="nav_item"
+        bindtap="logout"
+      >
+        <image class="nav_item_img" 
+          src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_07.png' alt=''
+        ></image>
+        <view class="nav_text">退出登录</view>
+      </view>
     </view>
   </view>
 

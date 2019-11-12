@@ -196,6 +196,8 @@ Page({
     })
     //处理安装时间 end
 
+    console.log(this.data.type,res.data.data)
+
     this.setData({
       info: res.data.data
     })

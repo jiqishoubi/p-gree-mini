@@ -4,6 +4,7 @@
   "navigationBarTextStyle":"white",
   "usingComponents": {
     "van-tabbar": "vant-weapp/tabbar",
-    "van-tabbar-item": "vant-weapp/tabbar-item"
+    "van-tabbar-item": "vant-weapp/tabbar-item",
+    "txv-video": "plugin://tencentvideo/video"
   }
 }

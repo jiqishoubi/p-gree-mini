@@ -207,7 +207,7 @@ Page({
       data: {
         page: getPage,
         rows: pageSize,
-        ifMine: '1', //只能看到自己的
+        // ifMine: '1', //只能看到自己的
         ...postData,
       },
     })
@@ -335,7 +335,6 @@ Page({
       data: postData,
     })
     wx.hideLoading()
-    console.log(res)
 
     if (res.data.code !== '0') {
       wx.showToast({
@@ -363,7 +362,6 @@ Page({
     let res = await requestw({
       url: allApiStr.getAllOrderCountApi,
     })
-    console.log(res)
     if (res.data.code !== '0' || !res.data.data) {
       return false
     }

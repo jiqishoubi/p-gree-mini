@@ -65,6 +65,15 @@
         <view class="nav_item_arrow"></view>
       </view>
 
+      <!-- <view class="nav_item"
+        bindtap="logout"
+      >
+        <image class="nav_item_img" 
+          src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_07.png' alt=''
+        ></image>
+        <view class="nav_text">播放视频</view>
+      </view> -->
+
       <!-- 退出登录 -->
       <view class="nav_item"
         bindtap="logout"
@@ -76,6 +85,12 @@
       </view>
     </view>
   </view>
+
+  <!-- 腾讯视频插件 -->
+  <!-- <txv-video vid="h3019kz4byh" 
+    playerid="h3019kz4byh"
+    autoplay="{{true}}"
+  ></txv-video> -->
 
 
   <!-- tabbar -->

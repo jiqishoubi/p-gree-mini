@@ -1,11 +1,11 @@
 {
   "pages": [
-
     "pages/login/login",
+    "pages/wode/operation/operation",
+    "pages/wode/wode_index/wode_index",
     "pages/order/order_index/order_index",
     "pages/renchou/renchou",
     "pages/wode/mycode/mycode",
-    "pages/wode/wode_index/wode_index",
     "pages/statistics/statistics_index/statistics_index",
     "pages/index/index",
     "pages/wode/changePsd/changePsd",

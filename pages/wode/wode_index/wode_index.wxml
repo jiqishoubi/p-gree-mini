@@ -65,14 +65,16 @@
         <view class="nav_item_arrow"></view>
       </view>
 
-      <!-- <view class="nav_item"
-        bindtap="logout"
+      <view class="nav_item"
+        bindtap="goPage"
+        data-item='/pages/wode/operation/operation'
       >
         <image class="nav_item_img" 
-          src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_07.png' alt=''
+          src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_08.png' alt=''
         ></image>
-        <view class="nav_text">播放视频</view>
-      </view> -->
+        <view class="nav_text">操作教程</view>
+        <view class="nav_item_arrow"></view>
+      </view>
 
       <!-- 退出登录 -->
       <view class="nav_item"
@@ -86,11 +88,6 @@
     </view>
   </view>
 
-  <!-- 腾讯视频插件 -->
-  <!-- <txv-video vid="h3019kz4byh" 
-    playerid="h3019kz4byh"
-    autoplay="{{true}}"
-  ></txv-video> -->
 
 
   <!-- tabbar -->

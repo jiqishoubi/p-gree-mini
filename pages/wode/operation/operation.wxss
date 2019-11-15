@@ -1,0 +1,9 @@
+.item {
+  margin: 24rpx;
+}
+
+.title {
+  font-size: 30rpx;
+  color: #000;
+  line-height: 90rpx;
+}

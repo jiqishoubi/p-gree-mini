@@ -1,0 +1,40 @@
+<!-- 操作教程 -->
+<view>
+  <view class="item">
+    <view class="title">1、导购端家用下单流程</view>
+    <view>
+      <txv-video vid="h3019kz4byh" 
+        playerid="h3019kz4byh"
+        autoplay="{{false}}"
+        controls="{{true}}"
+        showCenterPlayBtn="{{true}}"
+      ></txv-video>
+    </view>
+  </view>
+
+  <view class="item">
+    <view class="title">2、导购端非套购机型认筹下单流程</view>
+    <view>
+      <txv-video vid="m30211dny4k" 
+        playerid="m30211dny4k"
+        autoplay="{{false}}"
+        controls="{{true}}"
+        showCenterPlayBtn="{{true}}"
+      ></txv-video>
+    </view>
+  </view>
+
+  <view class="item">
+    <view class="title">3、导购端套购机型认筹下单流程</view>
+    <view>
+      <txv-video vid="d3021ot9jzf" 
+        playerid="d3021ot9jzf"
+        autoplay="{{false}}"
+        controls="{{true}}"
+        showCenterPlayBtn="{{true}}"
+      ></txv-video>
+    </view>
+  </view>
+
+  <view style="height:160rpx;"></view>
+</view>

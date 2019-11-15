@@ -47,7 +47,7 @@ Page({
     //时间picker
     showTimePicker: false,
     currentDate: new Date().getTime(),
-    minDate: new Date().getTime(),
+    minDate: '',
     lookingGoodsIndex: null,
     formatterPicker: (type, value) => {
       let str = ''
@@ -93,6 +93,7 @@ Page({
     }, () => {
       this.getInfo()
     })
+    this.setMinDate()
   },
 
   /**
@@ -144,6 +145,20 @@ Page({
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
+  //设定最小时间
+  setMinDate: function() {
+    let nowStr = formatDate(new Date(), 'yyyy-MM-dd hh')
+    let nowHour = Number(nowStr.substring(11, 13))
+    let minDate
+    if (nowHour < 15) { //下午3点之前
+      minDate = new Date(nowStr.substring(0, 10) + ' 00:00:00').getTime()
+    } else { //下午3点之后
+      minDate = new Date(nowStr.substring(0, 10) + ' 00:00:00').getTime() + 86400000
+    }
+    this.setData({
+      minDate: minDate
+    })
+  },
   //获取订单详情
   getInfo: async function() {
     const {
@@ -190,13 +205,13 @@ Page({
 
     //处理安装时间
     res.data.data.goodsList.forEach((obj) => {
-      if (obj.installOrderDTO&&obj.installOrderDTO.reserveDateStr) {
+      if (obj.installOrderDTO && obj.installOrderDTO.reserveDateStr) {
         obj.installOrderDTO.reserveDateStr = obj.installOrderDTO.reserveDateStr.substring(0, 10)
       }
     })
     //处理安装时间 end
 
-    console.log(this.data.type,res.data.data)
+    console.log(this.data.type, res.data.data)
 
     this.setData({
       info: res.data.data

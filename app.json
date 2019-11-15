@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/order/order_detail/order_detail",
     "pages/wode/operation/operation",
     "pages/wode/wode_index/wode_index",
     "pages/order/order_index/order_index",
@@ -11,7 +12,6 @@
     "pages/wode/changePsd/changePsd",
     "pages/order/changeAddress/changeAddress",
     "pages/wode/shopcode/shopcode",
-    "pages/order/order_detail/order_detail",
     "pages/order/cart_busi/cart_busi",
     "pages/order/order_detail_yidenglu/order_detail_yidenglu",
     "pages/order/doing_search/doing_search",

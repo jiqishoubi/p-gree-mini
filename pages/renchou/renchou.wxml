@@ -64,7 +64,7 @@
     <view wx:if="{{selectedActivityIndex!==null&&activityList[selectedActivityIndex]&&activityList[selectedActivityIndex].ifSmsCaptcha==1}}"
       class='item'
     >
-      <view class="label">验证码</view>
+      <view class="label">验 证 码</view>
       <input class="input"
         placeholder="请输入验证码"
         type="number"

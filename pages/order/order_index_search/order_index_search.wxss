@@ -5,92 +5,43 @@ Page {
   color: #000;
 }
 
-/* 自定义导航栏 */
-
-.nav_custom_wrap {
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #f5f5f5;
-  z-index: 100 !important;
-}
-
-.nav_custom {
-  box-sizing: border-box;
-  padding-left: 24rpx;
-  padding-right: 24rpx;
-}
-
-.nav_custom_scan_img {
-  width: 43rpx;
-  height: 43rpx;
-  margin-right: 24rpx;
-}
+/* 搜索 */
 
 .search_wrap {
-  flex: 1 0 0;
-  width: 0;
-  height: 100%;
+  box-sizing: border-box;
   background-color: #fff;
-  border-radius: 5rpx;
-  padding-left: 16rpx;
-  padding-right: 16rpx;
-}
-
-.search_input {
-  flex: 1 0 0;
-  width: 0;
-  height: 100%;
-  padding-left: 16rpx;
-  font-size: 24rpx;
-}
-
-.search_input_placeholder {
-  color: #9b9b9b;
-  font-size: 24rpx;
-}
-
-/* 固定 */
-
-.top {
+  padding: 10rpx 24rpx;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 3;
 }
 
-/* 状态导航 */
-
-.nav {
-  height: 84rpx;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  border-bottom: 1rpx solid #d7d6d6;
-  background-color: #fff;
+.input_wrap {
+  height: 75rpx;
+  flex: 1 0 0;
+  width: 0;
+  background-color: #f5f5f5;
+  padding: 0 24rpx;
 }
 
-.nav_item {
-  /* width: 86rpx; */
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+.input {
+  flex: 1 0 0;
+  width: 0;
+  padding-left: 19rpx;
   font-size: 26rpx;
 }
 
-.nav_item.active {
-  border-bottom: 2PX solid #00a6ff;
+.search_btn {
+  margin: 0 19rpx;
+  border-width: 20rpx 0;
+  border-style: solid;
+  border-color: transparent;
 }
 
 /* 列表 */
 
 .list {
-  /* margin-top: 203rpx; */
   margin-top: 112rpx;
   position: relative;
   z-index: 1;
@@ -208,6 +159,7 @@ Page {
 
 .noresult {
   text-align: center;
+  color: #ababab;
 }
 
 /* 退单按钮 */

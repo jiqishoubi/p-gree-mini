@@ -60,16 +60,24 @@
         data-key="couponPhoneNo"
       ></input>
     </view>
-    <!-- <view class='item'>
+    <!-- 短信验证码 -->
+    <view wx:if="{{selectedActivityIndex!==null&&activityList[selectedActivityIndex]&&activityList[selectedActivityIndex].ifSmsCaptcha==1}}"
+      class='item'
+    >
       <view class="label">验证码</view>
       <input class="input"
-        placeholder="请输入认筹手机号"
-        value="{{couponSms}}"
+        placeholder="请输入验证码"
+        type="number"
+        value="{{couponSms}}"false1
         bindinput="onInputChange"
         data-key="couponSms"
       ></input>
-      <view class="getSmsBtn" bindtap="getSms">获取验证码</view>
-    </view> -->
+      <view wx:if="{{!smsTimer}}"
+        class="getSmsBtn" 
+        bindtap="getSms"
+      >获取验证码</view>
+      <view wx:else>{{second}}s</view>
+    </view>
   </view>
 
   <!-- *********************block********************* -->

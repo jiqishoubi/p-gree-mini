@@ -8,6 +8,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    //自定义导航栏
+    paddingTop: 0,
+    height: 0,
+    width: 0,
+    //自定义导航栏 end
+
     navIndex: 0,
     //统计数据
     countArr: [0, 0, 0, 0],
@@ -40,6 +46,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    //初始化自定义导航栏
+    this.initCustomNav()
+
     this.getData(false)
   },
 
@@ -92,6 +101,16 @@ Page({
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法法方法方法方法
+  //初始化自定义导航栏
+  initCustomNav: function() {
+    let res = wx.getMenuButtonBoundingClientRect()
+    console.log(res)
+    this.setData({
+      paddingTop: res.top,
+      height: res.height,
+      width: res.left,
+    })
+  },
   //切换tabbar
   onChange_tabbar: function(e) {
     let index = e.detail
@@ -378,4 +397,11 @@ Page({
       countArr
     })
   },
+  //去搜索页
+  goSearch: function() {
+    wx.navigateTo({
+      url: `/pages/order/order_index_search/order_index_search`,
+    })
+  },
+  //method end
 })

@@ -1,0 +1,162 @@
+<!-- 订单搜索页面 -->
+<view class="order_search_page">
+  <!-- 搜索 -->
+  <view class="search_wrap flexCenter">
+    <view class="input_wrap flexCenter">
+      <van-icon name="search" color='#9B9B9B' class="flexCenter" />
+      <input class="input"
+        placeholder="请输入认筹单号、销售单号或联系电话"
+        value="{{searchVal}}"
+        bindinput="onInputChange"
+        data-key="searchVal"
+      ></input>
+    </view>
+    <view class="search_btn"
+      bindtap="search"
+    >搜索</view>
+  </view>
+
+  <!-- list -->
+  <view class="list">
+    <view wx:for="{{resultList}}" wx:key="index"
+      class="item"
+      bindtap="goDetail"
+      data-item="{{item}}"
+    > 
+      <!-- title -->
+      <view wx:if="{{item.orderDateStr}}"
+        class="item_title flexBetween van-hairline--bottom"
+      >
+        <view wx:if="{{item.orderDateStr}}">{{item.orderDateStr}}</view>
+        <view wx:if="{{item.orderNo}}" class="datetime">{{item.orderNo}}</view>
+      </view>
+      <view wx:if="{{item.tradeDateStr}}"
+        class="item_title flexBetween van-hairline--bottom"
+      >
+        <view wx:if="{{item.tradeDateStr}}">{{item.tradeDateStr}}</view>
+        <view wx:if="{{item.tradeNo}}" class="datetime">{{item.tradeNo}}</view>
+      </view>
+      <!-- title end -->
+
+      <!-- 商品 -->
+      <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"
+        wx:key="idx"
+        class="item_content flexCenter flexBetween"
+      >
+        <view class="item_img_box">
+          <image class="item_img" src="{{itm.logoImage}}" alt=''></image>
+        </view>
+        <view class="item_content_content">
+          <!-- 认筹单 -->
+          <block wx:if="{{item.orderDateStr}}">
+            <!-- 家用认筹 -->
+            <view wx:if="{{!item.custName}}"
+              class="item_content_content_top"
+            >
+              <view class="item_content_title textOmit">{{itm.goodsName}}</view>
+              <view class="item_content_desc nameAndPhone textOmit">
+                <text>{{itm.custName}}</text>
+                <text decode="{{true}}">&nbsp;&nbsp;&nbsp;</text>
+                <text wx:if="{{itm.phoneNumber}}">{{itm.phoneNumber}}</text>
+                <image wx:if="{{itm.phoneNumber}}"
+                  class="callphone_icon" 
+                  src='https://cdn.s.bld365.com/getli_order_index_callphone_icon.png' alt=''
+                  catchtap="callPhone" 
+                  data-phone="{{itm.phoneNumber}}"
+                ></image>
+              </view>
+              <view class="item_content_desc textOmit">
+                {{itm.provinceName}}{{itm.eparchyName}}{{itm.cityName}}{{itm.address}}
+              </view>
+            </view>
+            <!-- 商用认筹 已登录 -->
+            <view wx:if="{{item.custName}}"
+              class="item_content_content_top"
+            >
+              <view class="item_content_title textOmit">{{itm.goodsName}}</view>
+              <view class="item_content_desc nameAndPhone textOmit">
+                <text>{{item.custName}}</text>
+                <text decode="{{true}}">&nbsp;&nbsp;&nbsp;</text>
+                <text wx:if="{{item.phoneNumber}}">{{item.phoneNumber}}</text>
+                <image wx:if="{{item.phoneNumber}}"
+                  class="callphone_icon" 
+                  src='https://cdn.s.bld365.com/getli_order_index_callphone_icon.png' alt=''
+                  catchtap="callPhone" 
+                  data-phone="{{item.phoneNumber}}"
+                ></image>
+              </view>
+              <view class="item_content_desc textOmit">
+                {{item.provinceName}}{{item.eparchyName}}{{item.cityName}}{{item.address}}
+              </view>
+            </view>
+          </block>
+          <!-- 销售单 -->
+          <block wx:if="{{item.tradeDateStr}}">
+            <view wx:if="{{!item.custName}}"
+              class="item_content_content_top"
+            >
+              <view class="item_content_title textOmit">{{itm.goodsName}}</view>
+              <view class="item_content_desc nameAndPhone textOmit">
+                <text>{{itm.installOrderDTO.custName}}</text>
+                <text decode="{{true}}">&nbsp;&nbsp;&nbsp;</text>
+                <text wx:if="{{itm.installOrderDTO.phoneNumber}}">{{itm.installOrderDTO.phoneNumber}}</text>
+                <image wx:if="{{itm.installOrderDTO.phoneNumber}}"
+                  class="callphone_icon" 
+                  src='https://cdn.s.bld365.com/getli_order_index_callphone_icon.png' alt=''
+                  catchtap="callPhone" 
+                  data-phone="{{itm.installOrderDTO.phoneNumber}}"
+                ></image>
+              </view>
+              <view class="item_content_desc textOmit">
+                {{itm.installOrderDTO.provinceName}}{{itm.installOrderDTO.eparchyName}}{{itm.installOrderDTO.cityName}}{{itm.installOrderDTO.address}}
+              </view>
+            </view>
+          </block>
+          
+          
+          <!-- 价格 -->
+          <!-- 认筹单接口 -->
+          <view wx:if="{{item.orderDateStr}}"
+            class="yuan_wrap flexCenter flexBetween"
+          >
+            <view>
+              <text wx:if="{{itm.priceFeeActivityYuan}}">{{itm.priceFeeActivityYuan}}元</text>
+              <text wx:else>{{itm.priceFeeYuan}}元</text>
+              <text wx:if="{{navIndex==1&&item.orderStatus==50}}"><text decode="{{true}}">&nbsp;</text>x{{itm.goodsCount}}</text>
+            </view>
+
+            <view wx:if="{{itm.goodsCount}}"><text decode="{{true}}">x&nbsp;</text>{{itm.goodsCount}}</view>
+          </view>
+          <!-- 销售单接口 -->
+          <view wx:if="{{item.tradeDateStr}}"
+            class="yuan_wrap flexCenter flexBetween"
+          >
+            <view>{{itm.tradeFeeStr}}元</view>
+
+            <view wx:if="{{itm.goodsCount}}"><text decode="{{true}}">x&nbsp;</text>{{itm.goodsCount}}</view>
+          </view>
+        </view>
+      </view>
+      <!-- 商品 end -->
+
+      <view wx:if="{{item.tradeDateStr&&item.tradeStatus=='30'}}" class="btn_wrap">
+        <button class="btn"
+          hover-class="btn_active"
+          catchtap="openCancelModal"
+          data-item="{{item}}"
+        >退单</button>
+      </view>
+    </view>
+
+    <view wx:if="{{resultList.length==0}}" class="noresult">暂无数据</view>
+  </view>
+  <!-- list end -->
+  <view style="height:160rpx;"></view>
+
+  <!-- ****************************************模态框**************************************** -->
+  <cancelorder id="cancelordermodal"
+    show="{{showCancelModal}}"
+    bind:onCancel="closeCancelModal"
+    bind:onConfirm="confirmCancelModal"
+  ></cancelorder>
+</view>

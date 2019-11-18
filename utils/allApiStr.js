@@ -4,6 +4,9 @@ const allApiStr = {
   getProvinceListApi: '/mp/getProvinceList',
   getCityListApi: '/mp/getEparchyListByProvince',
   getAreaListApi: '/mp/getCityListByEparchy',
+  //短信验证码
+  sendSmsCaptchaApi:'/sms/sendSMSCaptcha', //发送
+  checkSmsCaptchaApi:'/sms/checkSmsCaptcha', //验证
 
   //登录页
   loginApi: '/mp/doLogin', //登录

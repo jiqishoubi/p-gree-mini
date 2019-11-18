@@ -9,6 +9,7 @@ import {
 } from '../../utils/util.js'
 
 const app = getApp()
+const limitSecond = 60
 
 Page({
 
@@ -30,7 +31,11 @@ Page({
     //上面的form
     couponNo: '', //认筹券号
     couponPhoneNo: '', //认筹手机号
-    couponSms: '', //验证码
+
+    //验证码
+    couponSms: '', //根据活动 是否显示
+    smsTimer: null,
+    second: limitSecond,
 
     list: [],
 
@@ -166,6 +171,11 @@ Page({
     })
     //获取活动、商品 
     let res1 = await this.getActivityList()
+
+
+    console.log(this.data.selectedActivityIndex)
+
+
     if (res1.data.data && res1.data.data[0]) {
       await this.getGoodsList(res1.data.data[0].activityCode)
       setTimeout(() => {
@@ -331,10 +341,6 @@ Page({
       return false
     }
 
-    //获取dom位置
-    let position = await this.getDomPosition('goodsItem' + indexwrap)
-    console.log(position)
-
     list[indexwrap].goodsListHeight = 500
     list[indexwrap].showGoodsList = !list[indexwrap].showGoodsList
     list[indexwrap].goodsItemZindex = list[indexwrap].goodsItemZindex == 11 ? 9 : 11
@@ -374,8 +380,9 @@ Page({
       this.setData({
         activityList: res.data.data,
         selectedActivityIndex: res.data.data.length == 1 ? 0 : null,
+      }, () => {
+        resolve(res)
       })
-      resolve(res)
     })
   },
   //获取全部商品
@@ -509,6 +516,7 @@ Page({
       salerList,
       couponNo,
       couponPhoneNo,
+      couponSms,
     } = this.data
 
     //验证
@@ -606,6 +614,34 @@ Page({
     //验证 end
 
     //发送参数
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    //一、验证短信验证码
+    //如果该活动需要发送短信验证码
+    if (activityList[selectedActivityIndex] && activityList[selectedActivityIndex].ifSmsCaptcha == 1) {
+      if (couponSms == '') {
+        wx.showToast({
+          title: '请输入短信验证码',
+          icon: 'none',
+          mask: true,
+          duration: 1500,
+        })
+        return false
+      }
+
+      if (!(await this.checkSmsCaptcha())) {
+        wx.showToast({
+          title: '短信验证码校验失败',
+          icon: 'none',
+          mask: true,
+          duration: 1500,
+        })
+        return false
+      }
+    }
+    //二、提交认筹单
     //arr
     let goodsListJson = list.filter((obj) => {
       return obj.selectedGoods
@@ -629,11 +665,6 @@ Page({
       phoneNumber: couponPhoneNo, //认筹手机号
       goodsListJsonStr: JSON.stringify(goodsListJson)
     }
-
-    wx.showLoading({
-      title: '请稍候...',
-      mask: true,
-    })
     let res = await requestw({
       url: allApiStr.submitPreOrderApi,
       data: postData,
@@ -664,21 +695,113 @@ Page({
       this.initCode(res.data.data.orderNo)
     })
   },
-  // //短信验证码
-  // getSms:async function(){
-  //   let res=await requestw({
-  //     url:allApiStr,
-  //     data:
-  //   })
-  //   this.bgTimer()
-  // },
-  // bgTimer:function(){
+  //短信验证码
+  getSms: async function() {
+    const {
+      couponPhoneNo
+    } = this.data
 
-  // },
-  // endTimer:function(){
+    //验证
+    if (couponPhoneNo == '') {
+      wx.showToast({
+        title: '请输入认筹手机号',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    let phoneReg = patternCreator.mobilePhone.pattern
+    if (!phoneReg.test(couponPhoneNo)) {
+      wx.showToast({
+        title: '认筹手机号格式不正确',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    //验证 end
 
-  // },
-  // //短信验证码 end
+    //发送
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    let postData = {
+      captchaType: 'MP_CAPTCHA_CHECK',
+      phoneNumber: couponPhoneNo,
+    }
+    let res = await requestw({
+      url: allApiStr.sendSmsCaptchaApi,
+      data: postData,
+    })
+    wx.hideLoading()
+    console.log(res)
+    if (res.data.code !== '0' || !res.data.data) {
+      wx.showToast({
+        title: '短信验证码发送失败，请稍候再试',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    wx.showToast({
+      title: '短信验证码发送成功',
+      icon: 'none',
+      // mask: true,
+      duration: 1000,
+    })
+    this.bgTimer()
+  },
+  bgTimer: function() {
+    let timer = setInterval(() => {
+      let nextSecond = this.data.second - 1
+      if (nextSecond < 0) {
+        this.endTimer()
+        return false
+      }
+      this.setData({
+        second: nextSecond
+      })
+    }, 1000)
+    this.setData({
+      smsTimer: timer
+    })
+  },
+  endTimer: function() {
+    clearInterval(this.data.smsTimer)
+    this.setData({
+      smsTimer: null,
+      second: limitSecond,
+    })
+  },
+  //验证短信验证码
+  checkSmsCaptcha: function() {
+    return new Promise(async(resolve) => {
+      const {
+        couponPhoneNo,
+        couponSms
+      } = this.data
+      let postData = {
+        captchaType: 'MP_CAPTCHA_CHECK',
+        phoneNumber: couponPhoneNo,
+        captchaCode: couponSms,
+      }
+      let res = await requestw({
+        url: allApiStr.checkSmsCaptchaApi,
+        data: postData,
+      })
+      console.log(res)
+      if (res.data.code !== '0' || !res.data.data) {
+        resolve(false)
+        return false
+      }
+      resolve(true)
+    })
+  },
+  //短信验证码 end
   //点击添加商品
   clickAddbtn: function() {
     this.addOneSelect()

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "订单搜索",
+  "usingComponents": {
+    "cancelorder": "../../../components/cancelorder/cancelorder",
+    "van-icon": "vant-weapp/icon/index"
+  }
+}

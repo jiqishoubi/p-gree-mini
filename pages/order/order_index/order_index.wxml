@@ -59,6 +59,18 @@
           <view wx:if="{{item.tradeNo}}" class="datetime">{{item.tradeNo}}</view>
         </view>
 
+        <!-- 认筹券号 导购员姓名 -->
+        <block wx:if="{{navIndex==0}}">
+          <view class="item_title flexBetween van-hairline--bottom" style="height:60rpx;">
+            <view class="datetime">认筹券号</view>
+            <view class="datetime">{{item.ticketCode}}</view>
+          </view>
+          <view class="item_title flexBetween van-hairline--bottom" style="height:60rpx;">
+            <view class="datetime">导购员</view>
+            <view class="datetime">{{item.salerUserLoginName}}</view>
+          </view>
+        </block>
+
         <!-- 商品 -->
         <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"
           wx:key="idx"

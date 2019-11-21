@@ -21,61 +21,61 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
   //绑定input
-  onInputChange: function(e) {
+  onInputChange: function (e) {
     let key = e.currentTarget.dataset.key
     let value = e.detail.value
     this.setData({
@@ -83,7 +83,7 @@ Page({
     })
   },
   //搜索
-  search: async function() {
+  search: async function () {
     const {
       searchVal
     } = this.data
@@ -124,11 +124,11 @@ Page({
     }
 
     //1、认筹单
-    let p1 = new Promise(async(resolve) => {
+    let p1 = new Promise(async (resolve) => {
       let res1 = await requestw({
         url: allApiStr.getPreOrderListApi,
         data: {
-          ifMine: 1,
+          // ifMine: 1,
           page: 1,
           rows: 999,
           ...postData1,
@@ -149,11 +149,11 @@ Page({
 
 
     //2、销售单
-    let p2 = new Promise(async(resolve) => {
+    let p2 = new Promise(async (resolve) => {
       let res2 = await requestw({
         url: allApiStr.getTradeListApi,
         data: {
-          ifMine: 1,
+          // ifMine: 1,
           page: 1,
           rows: 999,
           ...postData2,
@@ -188,7 +188,7 @@ Page({
 
   },
   //拨打电话
-  callPhone: function(e) {
+  callPhone: function (e) {
     let phone = e.currentTarget.dataset.phone
     if (!phone) {
       return false
@@ -196,7 +196,7 @@ Page({
     wx.showModal({
       title: '提示',
       content: `确认拨打电话${phone}？`,
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           wx.makePhoneCall({
             phoneNumber: phone
@@ -206,20 +206,20 @@ Page({
     })
   },
   //退单modal
-  openCancelModal: function(e) {
+  openCancelModal: function (e) {
     let item = e.currentTarget.dataset.item
     this.setData({
       showCancelModal: true,
       lookingOrder: item,
     })
   },
-  closeCancelModal: function() {
+  closeCancelModal: function () {
     this.setData({
       showCancelModal: false,
       lookingOrder: null,
     })
   },
-  confirmCancelModal: async function(e) {
+  confirmCancelModal: async function (e) {
     const {
       lookingOrder
     } = this.data
@@ -260,7 +260,7 @@ Page({
     this.getData(false)
   },
   //去订单详情
-  goDetail: function(e) {
+  goDetail: function (e) {
     let item = e.currentTarget.dataset.item
 
     console.log(item)

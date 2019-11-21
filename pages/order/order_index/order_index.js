@@ -19,17 +19,17 @@ Page({
     countArr: [0, 0, 0, 0],
 
     navList: [{
-        text: '家用认筹',
-      },
-      {
-        text: '商用登录',
-      },
-      {
-        text: '已下单',
-      },
-      {
-        text: '已退单',
-      }
+      text: '家用认筹',
+    },
+    {
+      text: '商用登录',
+    },
+    {
+      text: '已下单',
+    },
+    {
+      text: '已退单',
+    }
     ],
     showList: [],
 
@@ -45,7 +45,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     //初始化自定义导航栏
     this.initCustomNav()
 
@@ -55,54 +55,54 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     this.getData(false)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
     this.getData(true)
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法法方法方法方法
   //初始化自定义导航栏
-  initCustomNav: function() {
+  initCustomNav: function () {
     let res = wx.getMenuButtonBoundingClientRect()
     console.log(res)
     this.setData({
@@ -112,7 +112,7 @@ Page({
     })
   },
   //切换tabbar
-  onChange_tabbar: function(e) {
+  onChange_tabbar: function (e) {
     let index = e.detail
     switch (index) {
       case 0:
@@ -138,7 +138,7 @@ Page({
     }
   },
   //回到顶部
-  goTop: function(e) { // 一键回到顶部
+  goTop: function (e) { // 一键回到顶部
     if (wx.pageScrollTo) {
       wx.pageScrollTo({
         scrollTop: 0,
@@ -147,7 +147,7 @@ Page({
     }
   },
   //点击上面的状态
-  clickNav: function(e) {
+  clickNav: function (e) {
     let index = e.currentTarget.dataset.index
     const {
       navIndex
@@ -165,7 +165,7 @@ Page({
     this.goTop()
   },
   //获取列表
-  getData: async function(isScroll) {
+  getData: async function (isScroll) {
     this.getAllCount()
 
     const {
@@ -271,7 +271,7 @@ Page({
 
   },
   //去订单详情
-  goDetail: function(e) {
+  goDetail: function (e) {
     let item = e.currentTarget.dataset.item
     const {
       navIndex
@@ -306,7 +306,7 @@ Page({
     }
   },
   //拨打电话
-  callPhone: function(e) {
+  callPhone: function (e) {
     let phone = e.currentTarget.dataset.phone
     if (!phone) {
       return false
@@ -314,7 +314,7 @@ Page({
     wx.showModal({
       title: '提示',
       content: `确认拨打电话${phone}？`,
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           wx.makePhoneCall({
             phoneNumber: phone
@@ -324,20 +324,20 @@ Page({
     })
   },
   //退单modal
-  openCancelModal: function(e) {
+  openCancelModal: function (e) {
     let item = e.currentTarget.dataset.item
     this.setData({
       showCancelModal: true,
       lookingOrder: item,
     })
   },
-  closeCancelModal: function() {
+  closeCancelModal: function () {
     this.setData({
       showCancelModal: false,
       lookingOrder: null,
     })
   },
-  confirmCancelModal: async function(e) {
+  confirmCancelModal: async function (e) {
     const {
       lookingOrder
     } = this.data
@@ -378,7 +378,7 @@ Page({
     this.getData(false)
   },
   //获取数量
-  getAllCount: async function() {
+  getAllCount: async function () {
     let res = await requestw({
       url: allApiStr.getAllOrderCountApi,
       data: {
@@ -399,7 +399,7 @@ Page({
     })
   },
   //去搜索页
-  goSearch: function() {
+  goSearch: function () {
     wx.navigateTo({
       url: `/pages/order/order_index_search/order_index_search`,
     })

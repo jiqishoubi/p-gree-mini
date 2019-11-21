@@ -740,7 +740,7 @@ Page({
     console.log(res)
     if (res.data.code !== '0' || !res.data.data) {
       wx.showToast({
-        title: '短信验证码发送失败，请稍候再试',
+        title: res.data.message ? res.data.message : '短信验证码发送失败，请稍候再试',
         icon: 'none',
         mask: true,
         duration: 1500,

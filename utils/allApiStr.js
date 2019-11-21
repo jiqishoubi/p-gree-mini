@@ -5,14 +5,15 @@ const allApiStr = {
   getCityListApi: '/mp/getEparchyListByProvince',
   getAreaListApi: '/mp/getCityListByEparchy',
   //短信验证码
-  sendSmsCaptchaApi:'/sms/sendSMSCaptcha', //发送
-  checkSmsCaptchaApi:'/sms/checkSmsCaptcha', //验证
+  sendSmsCaptchaApi: '/sms/sendSMSCaptcha', //发送
+  checkSmsCaptchaApi: '/sms/checkSmsCaptcha', //验证
 
   //登录页
   loginApi: '/mp/doLogin', //登录
-  logoutApi:'/mp/doLogout', //退出登录
+  logoutApi: '/mp/doLogout', //退出登录
   getUserinfoApi: '/mp/getUserInfo', //获取个人信息 
   changePasswordApi: '/mp/updateUserPassword', //修改密码
+  changeUserNameApi: '/mp/updateUserName', //修改用户名
 
   //首页统计
   getStatisticsIndexApi: '/mp/homePage/getSaleCountInfo', //首页统计

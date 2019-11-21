@@ -46,6 +46,16 @@
       </view>
       <view class="nav_item"
         bindtap="goPage"
+        data-item='/pages/wode/changeusername/changeusername'
+      >
+        <image class="nav_item_img" 
+          src='https://cdn.s.bld365.com/getli_wode_index_nav_img_new_09.png' alt=''
+        ></image>
+        <view class="nav_text">修改用户名</view>
+        <view class="nav_item_arrow"></view>
+      </view>
+      <view class="nav_item"
+        bindtap="goPage"
         data-item='/pages/wode/mycode/mycode'
       >
         <image class="nav_item_img" 

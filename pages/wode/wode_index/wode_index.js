@@ -33,7 +33,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    let userInfo = wx.getStorageSync('gree_userInfo')
+    console.log(userInfo)
+    this.setData({
+      userInfo
+    })
   },
 
   /**

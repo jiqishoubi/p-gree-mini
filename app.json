@@ -24,7 +24,8 @@
     "pages/wode/mycode/mycode",
     "pages/wode/changePsd/changePsd",
     "pages/renchou/renchou",
-    "pages/statistics/statistics_index/statistics_index"
+    "pages/statistics/statistics_index/statistics_index",
+    "pages/wode/changeusername/changeusername"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -37,6 +37,8 @@ Page({
     this.setData({
       oldOrder: JSON.parse(options.order),
       order: JSON.parse(options.order),
+    },()=>{
+      console.log(this.data.order)
     })
   },
 

@@ -9,6 +9,13 @@
       >修改商品</button>
     </view>
 
+    <view wx:if="{{order&&order.orderType=='HOME_USE'}}"
+      class="result_item van-hairline--bottom"
+    >
+      <view class="result_label">认筹券号</view>
+      <view class="result_input textOmit" wx:if="{{order&&order.ticketCode}}">{{order.ticketCode}}</view>
+    </view>
+
     <block wx:for="{{order.goodsList}}" wx:key="index">
       <view class="result_item van-hairline--bottom">
         <view class="result_label">商品名称</view>

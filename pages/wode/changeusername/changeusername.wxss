@@ -1,0 +1,49 @@
+@import '../../../utils/utils.wxss';
+
+Page {
+  background-color: #f5f5f5;
+}
+
+.container{
+  margin: 24rpx 0;
+}
+.item{
+  display: flex;
+  align-items: center;
+  height: 85rpx;
+  padding: 0 24rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #CECECE;
+}
+.item:last-child{
+  border-bottom: none;
+}
+.input{
+  flex: 1 0 0;
+  padding-left: 36rpx;
+}
+
+/* 下面按钮 */
+
+.btn_submit {
+  box-sizing: content-box;
+  background: linear-gradient(to bottom, #00a7ff, #0289fe);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 89rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 32rpx;
+}
+
+.btn_submit_active {
+  background: linear-gradient(to bottom, #0ca4f4, #0e89f3);
+}
+
+.btn_submit.isX {
+  padding-bottom: 62rpx;
+}

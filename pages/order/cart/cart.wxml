@@ -57,6 +57,29 @@
               data-index="{{index}}"
             ></input>
           </view>
+          <!-- 验证码 -->
+          <view wx:if="{{activityInfo&&activityInfo.ifSmsCaptcha==1&&index==0}}"
+            class='item van-hairline--bottom'
+          >
+            <view class="label">验 证 码</view>
+            <input class="input"
+              placeholder="请输入验证码"
+              type="number"
+              value="{{couponSms}}"
+              bindinput="onInputChange"
+              data-key="couponSms"
+              style="width:calc(100% - 350rpx);text-align:left;padding-left:30rpx;"
+            ></input>
+            <view wx:if="{{!smsTimer}}"
+              class="getSmsBtn" 
+              bindtap="getSms"
+              style="flex:1 0 0;text-align:right;color:#00a6ff;"
+            >获取验证码</view>
+            <view wx:else
+              style="flex:1 0 0;text-align:right;"
+            >{{second}}s</view>
+          </view>
+          <!-- 验证码 end -->
           <view class="item van-hairline--bottom">
             <view class="label">备用电话</view>
             <input class="input"

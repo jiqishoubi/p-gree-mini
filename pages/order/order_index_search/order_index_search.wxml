@@ -120,8 +120,11 @@
             class="yuan_wrap flexCenter flexBetween"
           >
             <view>
-              <text wx:if="{{itm.priceFeeActivityYuan}}">{{itm.priceFeeActivityYuan}}元</text>
-              <text wx:else>{{itm.priceFeeYuan}}元</text>
+              <block wx:if="{{item.orderType!=='HOME_USE'}}">
+                <text wx:if="{{itm.priceFeeActivityYuan}}">{{itm.priceFeeActivityYuan}}元</text>
+                <text wx:else>{{itm.priceFeeYuan}}元</text>
+              </block>
+             
               <text wx:if="{{navIndex==1&&item.orderStatus==50}}"><text decode="{{true}}">&nbsp;</text>x{{itm.goodsCount}}</text>
             </view>
 

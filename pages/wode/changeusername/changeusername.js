@@ -12,17 +12,19 @@ Page({
   data: {
     isX: app.globalData.isX,
 
-    //form
-    oldPassword: '',
-    password1: '',
-    password2: '',
+    username: '',
+    userInfo: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    let userInfo = wx.getStorageSync('gree_userInfo')
+    this.setData({
+      username: userInfo.userName,
+      userInfo,
+    })
   },
 
   /**
@@ -86,37 +88,23 @@ Page({
   submit: async function() {
     const self = this
     const {
-      oldPassword,
-      password1,
-      password2,
+      username,
+      userInfo,
     } = this.data
 
     //验证
-    if (
-      oldPassword == '' ||
-      password1 == '' ||
-      password2 == ''
-    ) {
+    if (username == '') {
       wx.showToast({
-        title: '账户信息请填写完整',
+        title: '请输入用户名',
         icon: 'none',
         mask: true,
         duration: 1500,
       })
       return false
     }
-    if (password1 !== password2) {
+    if (username == userInfo.userName) {
       wx.showToast({
-        title: '两次输入密码不一致',
-        icon: 'none',
-        mask: true,
-        duration: 1500,
-      })
-      return false
-    }
-    if (oldPassword == password1) {
-      wx.showToast({
-        title: '新密码与旧密码相同',
+        title: '与原用户名相同',
         icon: 'none',
         mask: true,
         duration: 1500,
@@ -127,22 +115,20 @@ Page({
 
     wx.showModal({
       title: '提示',
-      content: '是否确认修改密码？',
+      content: '是否确认修改用户名？',
       success: async function(res) {
         if (res.confirm) {
           // on confirm
           //发送参数
           let postData = {
-            oldPassword: oldPassword, //     原密码(非空)
-            newPassword: password1, //    新密码(非空)
-            newPasswordRetry: password2, //  新密码确认(非空)
+            userName: username
           }
           wx.showLoading({
             title: '请稍候...',
             mask: true,
           })
           let res = await requestw({
-            url: allApiStr.changePasswordApi,
+            url: allApiStr.changeUserNameApi,
             data: postData,
           })
           wx.hideLoading()
@@ -150,7 +136,7 @@ Page({
 
           if (res.data.code !== 0) {
             wx.showToast({
-              title: '修改密码失败',
+              title: '修改用户名失败',
               icon: 'none',
               mask: true,
               duration: 1500,
@@ -159,21 +145,20 @@ Page({
           }
 
           wx.showToast({
-            title: '修改密码成功',
+            title: '修改用户名成功',
             icon: 'none',
             mask: true,
             duration: 1500,
           })
-          wx.removeStorage({
-            key: 'gree_userInfo'
-          })
+
+          userInfo.userName = username
+          wx.setStorageSync('gree_userInfo', userInfo)
           setTimeout(() => {
-            wx.reLaunch({
-              url: '/pages/login/login'
-            })
-          }, 1400)
+            wx.navigateBack()
+          }, 1300)
         }
       },
     })
   },
+  //method end
 })

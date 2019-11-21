@@ -214,10 +214,11 @@ Page({
     //跳转
     let typeCart = (type == 'home' ? 'HOME_USE' : 'BUSI_USE')
     let activityCode = activityList[selectedActivityIndex].activityCode
+    let activityInfo = activityList[selectedActivityIndex]
 
     if (typeCart == 'HOME_USE') { //家用下单购物车
       wx.navigateTo({
-        url: `/pages/order/cart/cart?type=${typeCart}&activityCode=${activityCode}&selectedGoodsList=${JSON.stringify(selectedList)}`,
+        url: `/pages/order/cart/cart?type=${typeCart}&activityCode=${activityCode}&activityInfo=${JSON.stringify(activityInfo)}&&selectedGoodsList=${JSON.stringify(selectedList)}`,
       })
     } else { //商用下单购物车
       wx.navigateTo({

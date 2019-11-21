@@ -1,14 +1,3 @@
-import regeneratorRuntime from '../../../utils/runtime.js' //让小程序支持asyc await
-import requestw from '../../../utils/requestw.js'
-import allApiStr from '../../../utils/allApiStr.js'
-import {
-  toMoney,
-  moneyToNum
-} from '../../../utils/util.js'
-import patternCreator from '../../../utils/patternCreator.js'
-
-const app = getApp()
-
 /**
  * 目前用于 认筹转销售和家用下单，商用下单不用这个
  */
@@ -20,6 +9,17 @@ const app = getApp()
  * 
  * oldOrderNo 可不传
  */
+import regeneratorRuntime from '../../../utils/runtime.js' //让小程序支持asyc await
+import requestw from '../../../utils/requestw.js'
+import allApiStr from '../../../utils/allApiStr.js'
+import {
+  toMoney,
+  moneyToNum
+} from '../../../utils/util.js'
+import patternCreator from '../../../utils/patternCreator.js'
+
+const app = getApp()
+const limitSecond = 60
 
 Page({
 
@@ -31,12 +31,18 @@ Page({
 
     type: '',
     activityCode: '',
+    activityInfo: null,
     oldOrderNo: '',
     oldSelectedGoodsList: [],
 
     selectedList: [], //处理过的selectedList
 
     sumPrice: '', //合计钱数
+
+    //验证码
+    couponSms: '',
+    smsTimer: null,
+    second: limitSecond,
 
     //modal
     //修改价格modal
@@ -95,6 +101,7 @@ Page({
     this.setData({
       type: options.type,
       activityCode: options.activityCode,
+      activityInfo: options.activityInfo ? JSON.parse(options.activityInfo) : null,
       oldOrderNo: options.oldOrderNo,
 
       oldSelectedGoodsList,
@@ -256,9 +263,11 @@ Page({
     const {
       type,
       activityCode,
+      activityInfo,
       oldOrderNo,
       oldSelectedGoodsList,
       selectedList,
+      couponSms,
     } = this.data
 
     //验证
@@ -317,6 +326,34 @@ Page({
     //验证 end
 
     //家用销售单 下单
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    //一、验证短信验证码
+    //如果该活动需要发送短信验证码
+    if (activityInfo && activityInfo.ifSmsCaptcha == 1) {
+      if (couponSms == '') {
+        wx.showToast({
+          title: '请输入短信验证码',
+          icon: 'none',
+          mask: true,
+          duration: 1500,
+        })
+        return false
+      }
+
+      if (!(await this.checkSmsCaptcha())) {
+        wx.showToast({
+          title: '短信验证码校验失败',
+          icon: 'none',
+          mask: true,
+          duration: 1500,
+        })
+        return false
+      }
+    }
+    //二、提交订单
     //发送参数
     let goodsListJson = []
     selectedList.forEach((obj) => {
@@ -362,17 +399,12 @@ Page({
     })
     let postData = {
       tradeType: type,
-      preOrderNo:
-        oldOrderNo ?
-          oldOrderNo : (type == 'PRE_SALE' ? oldSelectedGoodsList[0].orderNo : null), //如果是认筹转销售，要传 认筹单号
+      preOrderNo: oldOrderNo ?
+        oldOrderNo : (type == 'PRE_SALE' ? oldSelectedGoodsList[0].orderNo : null), //如果是认筹转销售，要传 认筹单号
       activityCode,
       // ifRepaire:1 0,
       goodsListJsonStr: JSON.stringify(goodsListJson)
     }
-    wx.showLoading({
-      title: '请稍候...',
-      mask: true,
-    })
     let res = await requestw({
       url: allApiStr.sumbitSaleOrderApi,
       data: postData,
@@ -508,4 +540,113 @@ Page({
       selectedList
     })
   },
+  //短信验证码
+  getSms: async function () {
+    const {
+      selectedList
+    } = this.data
+    let couponPhoneNo = selectedList[0].receivePhone
+
+    //验证
+    if (couponPhoneNo == '') {
+      wx.showToast({
+        title: '请输入收货电话',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    let phoneReg = patternCreator.mobilePhone.pattern
+    if (!phoneReg.test(couponPhoneNo)) {
+      wx.showToast({
+        title: '收货电话格式不正确',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    //验证 end
+
+    //发送
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    let postData = {
+      captchaType: 'MP_CAPTCHA_CHECK',
+      phoneNumber: couponPhoneNo,
+    }
+    let res = await requestw({
+      url: allApiStr.sendSmsCaptchaApi,
+      data: postData,
+    })
+    wx.hideLoading()
+    console.log(res)
+    if (res.data.code !== '0' || !res.data.data) {
+      wx.showToast({
+        title: res.data.message ? res.data.message : '短信验证码发送失败，请稍候再试',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    wx.showToast({
+      title: '短信验证码发送成功',
+      icon: 'none',
+      // mask: true,
+      duration: 1000,
+    })
+    this.bgTimer()
+  },
+  bgTimer: function () {
+    let timer = setInterval(() => {
+      let nextSecond = this.data.second - 1
+      if (nextSecond < 0) {
+        this.endTimer()
+        return false
+      }
+      this.setData({
+        second: nextSecond
+      })
+    }, 1000)
+    this.setData({
+      smsTimer: timer
+    })
+  },
+  endTimer: function () {
+    clearInterval(this.data.smsTimer)
+    this.setData({
+      smsTimer: null,
+      second: limitSecond,
+    })
+  },
+  //验证短信验证码
+  checkSmsCaptcha: function () {
+    return new Promise(async (resolve) => {
+      const {
+        selectedList,
+        couponSms,
+      } = this.data
+      let postData = {
+        captchaType: 'MP_CAPTCHA_CHECK',
+        phoneNumber: selectedList[0].receivePhone,
+        captchaCode: couponSms,
+      }
+      let res = await requestw({
+        url: allApiStr.checkSmsCaptchaApi,
+        data: postData,
+      })
+      console.log(res)
+      if (res.data.code !== '0' || !res.data.data) {
+        resolve(false)
+        return false
+      }
+      resolve(true)
+    })
+  },
+  //短信验证码 end
+  //method end
 })

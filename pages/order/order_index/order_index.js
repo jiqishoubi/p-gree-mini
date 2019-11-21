@@ -226,10 +226,11 @@ Page({
       data: {
         page: getPage,
         rows: pageSize,
-        ifMine: '1', //只能看到自己的
+        // ifMine: '1', //只能看到自己的
         ...postData,
       },
     })
+    console.log(res)
     wx.hideLoading()
     wx.stopPullDownRefresh()
     //没查到
@@ -381,7 +382,7 @@ Page({
     let res = await requestw({
       url: allApiStr.getAllOrderCountApi,
       data: {
-        ifMine: '1', //只能看到自己的
+        // ifMine: '1', //只能看到自己的
       },
     })
     if (res.data.code !== '0' || !res.data.data) {

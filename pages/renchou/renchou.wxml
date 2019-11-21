@@ -68,7 +68,7 @@
       <input class="input"
         placeholder="请输入验证码"
         type="number"
-        value="{{couponSms}}"false1
+        value="{{couponSms}}"
         bindinput="onInputChange"
         data-key="couponSms"
       ></input>

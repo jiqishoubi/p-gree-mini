@@ -65,11 +65,13 @@
             <view class="datetime">认筹券号</view>
             <view class="datetime">{{item.ticketCode}}</view>
           </view>
-          <view class="item_title flexBetween van-hairline--bottom" style="height:60rpx;">
-            <view class="datetime">导购员</view>
-            <view class="datetime">{{item.salerUserLoginName}}</view>
-          </view>
         </block>
+        <view wx:if="{{item.salerUserLoginName}}"
+          class="item_title flexBetween van-hairline--bottom" style="height:60rpx;"
+        >
+          <view class="datetime">导购员</view>
+          <view class="datetime">{{item.salerUserLoginName}}</view>
+        </view>
 
         <!-- 商品 -->
         <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm"

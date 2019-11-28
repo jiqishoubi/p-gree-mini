@@ -66,11 +66,11 @@
             <view class="datetime">{{item.ticketCode}}</view>
           </view>
         </block>
-        <view wx:if="{{item.salerUserLoginName&&(navIndex==0||navIndex==1)}}"
+        <view wx:if="{{item.salerUserName&&(navIndex==0||navIndex==1)}}"
           class="item_title flexBetween van-hairline--bottom" style="height:60rpx;"
         >
           <view class="datetime">导购员</view>
-          <view class="datetime">{{item.salerUserLoginName}}</view>
+          <view class="datetime">{{item.salerUserName}}</view>
         </view>
         <view wx:if="{{item.salerUserName&&(navIndex==2||navIndex==3)}}"
           class="item_title flexBetween van-hairline--bottom" style="height:60rpx;"

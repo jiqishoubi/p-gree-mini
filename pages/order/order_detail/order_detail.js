@@ -151,9 +151,9 @@ Page({
     let nowHour = Number(nowStr.substring(11, 13))
     let minDate
     if (nowHour < 15) { //下午3点之前
-      minDate = new Date(nowStr.substring(0, 10) + ' 00:00:00').getTime()
-    } else { //下午3点之后
       minDate = new Date(nowStr.substring(0, 10) + ' 00:00:00').getTime() + 86400000
+    } else { //下午3点之后
+      minDate = new Date(nowStr.substring(0, 10) + ' 00:00:00').getTime() + 86400000 * 2
     }
     this.setData({
       minDate: minDate

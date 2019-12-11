@@ -53,6 +53,7 @@ const allApiStr = {
 
   getAllOrderCountApi: '/mp/homePage/getOrderCountInfo', //订单页 获取数量
 
+  getActivityInfoApi: '/mp/activity/queryActivityDetaiByCode', //小程序获取活动详情
 }
 
 export default allApiStr

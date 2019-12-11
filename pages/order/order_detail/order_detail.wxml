@@ -100,7 +100,7 @@
               <text wx:if="{{!item.installOrderDTO.reserveDateStr}}">预约安装</text>
               <text wx:if="{{item.installOrderDTO.reserveDateStr}}">修改安装时间</text>
             </button>
-            <button wx:if="{{info&&info.tradeType=='PRE_SALE'}}"
+            <button wx:if="{{info&&info.tradeType=='PRE_SALE'&&ifModifyAddress==1}}"
               class="btn"
               hover-class="btn_active"
               bindtap="onOpenAddressModal"

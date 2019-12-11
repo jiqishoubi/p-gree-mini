@@ -36,5 +36,17 @@
     </view>
   </view>
 
+  <view class="item">
+    <view class="title">4、导购端转销售流程</view>
+    <view>
+      <txv-video vid="y3032s5zeq1" 
+        playerid="y3032s5zeq1"
+        autoplay="{{false}}"
+        controls="{{true}}"
+        showCenterPlayBtn="{{true}}"
+      ></txv-video>
+    </view>
+  </view>
+
   <view style="height:160rpx;"></view>
 </view>

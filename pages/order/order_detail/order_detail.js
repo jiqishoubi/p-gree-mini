@@ -27,6 +27,7 @@ Page({
     code: '',
 
     info: {},
+    ifModifyAddress: 0, //0 不能修改 1 可以修改
 
     // 安装进度
     steps: [{
@@ -77,7 +78,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
     if (!options.type) {
       wx.showToast({
         title: '参数缺失，请重新访问',
@@ -187,8 +187,7 @@ Page({
       url: url,
       data: postData,
     })
-    wx.hideLoading()
-    console.log(res)
+    // wx.hideLoading()
 
     if (
       res.data.code !== '0' ||
@@ -211,10 +210,33 @@ Page({
     })
     //处理安装时间 end
 
-    console.log(this.data.type, res.data.data)
-
     this.setData({
       info: res.data.data
+    })
+
+    //二、获取活动详情
+    let res2 = await requestw({
+      url: allApiStr.getActivityInfoApi,
+      data: {
+        activityCode: res.data.data.activityCode
+      },
+    })
+    if (
+      res2.data.code !== '0' ||
+      !res2.data.data
+    ) {
+      wx.showToast({
+        title: '获取活动信息失败',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+
+    wx.hideLoading()
+    this.setData({
+      ifModifyAddress: res2.data.data.ifModifyAddress
     })
   },
   //二维码modal
@@ -308,9 +330,6 @@ Page({
             lookingGoodsIndex,
           } = self.data
 
-          console.log(info)
-          console.log(lookingGoodsIndex)
-
           //发送参数
           let installOrderNo = info.goodsList[lookingGoodsIndex].installOrderNo
           let postData = {
@@ -327,7 +346,6 @@ Page({
           })
           wx.hideLoading()
 
-          console.log(res)
           if (
             res.data.code !== '0'
           ) {
@@ -355,7 +373,6 @@ Page({
   //给安装师傅打电话
   callInstaller: function(e) {
     let item = e.currentTarget.dataset.item
-    console.log(item)
     wx.makePhoneCall({
       phoneNumber: item.installOrderDTO.installUserLoginName
     })
@@ -367,7 +384,6 @@ Page({
       info
     } = this.data
 
-    console.log(info)
     let installOrderDTO = info.goodsList[index].installOrderDTO
 
     //跳转

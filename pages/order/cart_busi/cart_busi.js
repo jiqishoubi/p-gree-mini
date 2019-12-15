@@ -63,10 +63,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
     // wx.setStorageSync('test_cart', options) //测试用
     // options = wx.getStorageSync('test_cart') //测试用
-    console.log(options)
     if (!options.type) {
       wx.showToast({
         title: '订单参数缺失，请重新访问',
@@ -310,7 +308,6 @@ Page({
       data: postData,
     })
     wx.hideLoading()
-    console.log(res)
 
     if (res.data.code !== '0') {
       wx.showToast({
@@ -419,7 +416,6 @@ Page({
   },
   //修改价格modal
   openEditPriceModal: function(e) {
-    console.log(e)
     let index = e.currentTarget.dataset.index
     this.setData({
       showEditPriceModal: true,
@@ -511,7 +507,7 @@ Page({
           return objall.goodsCode == obj.goodsCode && objall.ifUpdatePrice == 1
         })
         if (filterArr.length > 0) {
-          obj.ifUpdatePrice = res.data.data[0].ifUpdatePrice
+          obj.ifUpdatePrice = filterArr[0].ifUpdatePrice
         }
       }
     })

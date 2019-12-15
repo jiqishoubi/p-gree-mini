@@ -26,7 +26,7 @@
               {{item.priceFeeYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text>
             </view>
 
-            <view wx:if="{{type!=='BUSI_USE'&&item.ifUpdatePrice==1}}"
+            <view wx:if="{{item.ifUpdatePrice==1}}"
               bindtap="openEditPriceModal"
               data-index="{{index}}"
             >修改价格</view>

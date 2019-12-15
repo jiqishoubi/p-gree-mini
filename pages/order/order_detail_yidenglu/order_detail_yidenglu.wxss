@@ -34,9 +34,9 @@ Page {
 
 .item {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
-  height: 50rpx;
+  /* height: 50rpx; */
 }
 
 .label1 {
@@ -47,6 +47,11 @@ Page {
 }
 
 .label3 {
+}
+
+.input{
+  flex: 1 0 0;
+  padding-left:20rpx;
 }
 
 /* 修改商品btn */

@@ -20,7 +20,7 @@
             <view wx:elif="{{item.priceFeeActivityYuan}}">{{item.priceFeeActivityYuan}}元</view>
             <view wx:else>{{item.priceFeeYuan}}元</view>
 
-            <view wx:if="{{type!=='BUSI_USE'&&item.ifUpdatePrice==1}}"
+            <view wx:if="{{item.ifUpdatePrice==1}}"
               bindtap="openEditPriceModal"
               data-index="{{index}}"
             >修改价格</view>

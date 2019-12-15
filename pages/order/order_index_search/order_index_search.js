@@ -109,6 +109,7 @@ Page({
     let phoneReg = patternCreator.mobilePhone.pattern
     if (phoneReg.test(searchVal)) { //是手机号
       postData1 = {
+        notOrderStatus:'90',
         phoneNumber: searchVal,
       }
       postData2 = {
@@ -116,6 +117,7 @@ Page({
       }
     } else { //不是手机号 //单号
       postData1 = {
+        notOrderStatus:'90',
         orderNo: searchVal,
       }
       postData2 = {

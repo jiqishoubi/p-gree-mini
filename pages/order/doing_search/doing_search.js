@@ -24,21 +24,21 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     // //重置
     // this.setData({
     //   searchVal: '',
@@ -49,40 +49,40 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
   //绑定input
-  inputChange: function(e) {
+  inputChange: function (e) {
     let key = e.currentTarget.dataset.key
     let value = e.detail.value
     this.setData({
@@ -90,18 +90,18 @@ Page({
     })
   },
   //开启扫码
-  openCode: function() {
+  openCode: function () {
     const self = this
     wx.scanCode({
       onlyFromCamera: true,
-      success: function(res) {
+      success: function (res) {
         console.log(res)
         if (res.errMsg.indexOf(':ok') > -1) {
           let orderNo = res.result
           self.getRenchouList(orderNo)
         }
       },
-      fail: function() {
+      fail: function () {
         wx.showToast({
           title: '扫描失败',
           icon: 'none',
@@ -112,11 +112,11 @@ Page({
     })
   },
   //点击搜索
-  clickSearch: function() {
+  clickSearch: function () {
     this.getRenchouList(this.data.searchVal)
   },
   //获取认筹单列表
-  getRenchouList: async function(searchVal) {
+  getRenchouList: async function (searchVal) {
     //验证
     if (searchVal == '') {
       wx.showToast({
@@ -137,7 +137,7 @@ Page({
     //发送参数
     let postData = {
       page: 1,
-      rows: 999,
+      rows: 80,
       // orderStatus: '0',
       orderStatus: '50',
       orderNoOrPhoneNumber: searchVal,
@@ -170,7 +170,7 @@ Page({
     })
   },
   //去订单详情
-  goOrderDetail: function(e) {
+  goOrderDetail: function (e) {
     let item = e.currentTarget.dataset.item
     wx.navigateTo({
       url: `/pages/order/doing_search_detail/doing_search_detail?order=${JSON.stringify(item)}`,

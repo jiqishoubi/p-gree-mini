@@ -31,14 +31,14 @@ Page({
 
     // 安装进度
     steps: [{
-        text: '已预约',
-      },
-      {
-        text: '正在安装',
-      },
-      {
-        text: '已完成',
-      }
+      text: '已预约',
+    },
+    {
+      text: '正在安装',
+    },
+    {
+      text: '已完成',
+    }
     ],
 
     //modal
@@ -47,7 +47,8 @@ Page({
     qrcodeURL: '',
     //时间picker
     showTimePicker: false,
-    currentDate: new Date().getTime(),
+    // currentDate: new Date().getTime(),
+    currentDate: new Date().getTime() + 86400000 * 2,
     minDate: '',
     lookingGoodsIndex: null,
     formatterPicker: (type, value) => {
@@ -77,7 +78,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (!options.type) {
       wx.showToast({
         title: '参数缺失，请重新访问',
@@ -99,54 +100,54 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     this.getInfo()
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
   //设定最小时间
-  setMinDate: function() {
+  setMinDate: function () {
     let nowStr = formatDate(new Date(), 'yyyy-MM-dd hh')
     let nowHour = Number(nowStr.substring(11, 13))
     let minDate
@@ -160,7 +161,7 @@ Page({
     })
   },
   //获取订单详情
-  getInfo: async function() {
+  getInfo: async function () {
     const {
       type,
       code
@@ -241,21 +242,21 @@ Page({
   },
   //二维码modal
   //打开认筹单号二维码
-  openCodeModal: function() {
+  openCodeModal: function () {
     this.setData({
       showCodeModal: true,
     }, () => {
       this.initCode()
     })
   },
-  closeCodeModal: function() {
+  closeCodeModal: function () {
     this.setData({
       showCodeModal: false,
     })
   },
   //生成二维码
-  initCode: function() {
-    setTimeout(async() => {
+  initCode: function () {
+    setTimeout(async () => {
       const {
         type,
         info
@@ -271,12 +272,12 @@ Page({
     }, 20)
   },
   //保存在本地
-  saveToLocal: function() {
+  saveToLocal: function () {
     var imgSrc = this.data.qrcodeURL
     saveImgBaseLocal(imgSrc)
   },
   //时间picker
-  onOpenTimePicker: function(e) {
+  onOpenTimePicker: function (e) {
     let index = e.currentTarget.dataset.index
     const {
       info,
@@ -294,18 +295,18 @@ Page({
       })
     }
   },
-  onCloseTimePicker: function() {
+  onCloseTimePicker: function () {
     this.setData({
       showTimePicker: false,
       // lookingGoodsIndex:null,
     })
   },
-  onInputTimePicker: function(e) {
+  onInputTimePicker: function (e) {
     this.setData({
       currentDate: e.detail,
     })
   },
-  onConfirmTimePicker: function(e) {
+  onConfirmTimePicker: function (e) {
     this.setData({
       currentDate: e.detail,
     }, () => {
@@ -314,13 +315,13 @@ Page({
   },
   //时间picker end
   //预约安装时间
-  reserveTime: function() {
+  reserveTime: function () {
     const self = this
 
     wx.showModal({
       title: '提示',
       content: '是否确认预约安装时间？',
-      success: async function(res) {
+      success: async function (res) {
         if (res.confirm) {
           // on confirm
           self.onCloseTimePicker()
@@ -371,14 +372,14 @@ Page({
     })
   },
   //给安装师傅打电话
-  callInstaller: function(e) {
+  callInstaller: function (e) {
     let item = e.currentTarget.dataset.item
     wx.makePhoneCall({
       phoneNumber: item.installOrderDTO.installUserLoginName
     })
   },
   //修改安装地址modal
-  onOpenAddressModal: function(e) {
+  onOpenAddressModal: function (e) {
     let index = e.currentTarget.dataset.index
     let {
       info

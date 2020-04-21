@@ -8,35 +8,20 @@
   </view>
   <!-- logo -->
   <view class="logo"></view>
-
   <!-- form -->
   <view class="form">
     <view class="item flexCenter">
       <image class='item_icon' src='https://cdn.s.bld365.com/getli_login_form_icon_01.png' alt=''></image>
-      <input class="item_input"
-        placeholder="请输入账号"
-        placeholder-style="item_input_place"
-        value="{{loginName}}"
-        bindinput="onInputChange"
-        data-key='loginName'
-      ></input>
+      <input class="item_input" placeholder="请输入账号" placeholder-style="item_input_place" value="{{loginName}}" bindinput="onInputChange" data-key='loginName'></input>
     </view>
     <view class="item flexCenter">
       <image class='item_icon' src='https://cdn.s.bld365.com/getli_login_form_icon_02.png' alt=''></image>
-      <input class="item_input"
-        password="{{true}}"
-        placeholder="请输入密码"
-        placeholder-style="item_input_place"
-        value="{{loginPassword}}"
-        bindinput="onInputChange"
-        data-key='loginPassword'
-      ></input>
+      <input class="item_input" password="{{true}}" placeholder="请输入密码" placeholder-style="item_input_place" value="{{loginPassword}}" bindinput="onInputChange" data-key='loginPassword'></input>
     </view>
-
     <!-- 按钮 -->
-    <button class='btn'
-      hover-class="btn_hover"
-      bindtap="submit"
-    >登录</button>
+    <button class='btn' hover-class="btn_hover" bindtap="submit">登录</button>
+    <view style="text-align:center;color:#979797;font-size:22rpx;margin-top:50rpx;">
+      本app不开放注册 请使用内部员工账号登录
+    </view>
   </view>
 </view>

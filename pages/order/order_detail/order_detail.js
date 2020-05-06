@@ -49,7 +49,7 @@ Page({
     showTimePicker: false,
     // currentDate: new Date().getTime(),
     currentDate: new Date().getTime() + 86400000 * 2,
-    minDate: '',
+    minDate: new Date().getTime() + 86400000 * 2,
     lookingGoodsIndex: null,
     formatterPicker: (type, value) => {
       let str = ''

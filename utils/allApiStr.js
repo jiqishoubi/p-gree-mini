@@ -54,6 +54,9 @@ const allApiStr = {
   getAllOrderCountApi: '/mp/homePage/getOrderCountInfo', //订单页 获取数量
 
   getActivityInfoApi: '/mp/activity/queryActivityDetaiByCode', //小程序获取活动详情
+
+  //** */
+  getEarlyestScheduleDateApi: '/mp/installorder/getEarlyestScheduleDate', //获取最早可预约时间
 }
 
 export default allApiStr

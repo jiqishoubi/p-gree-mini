@@ -1,6 +1,7 @@
 import regeneratorRuntime from '../../utils/runtime.js' //让小程序支持asyc await
 import requestw from '../../utils/requestw.js'
 import allApiStr from '../../utils/allApiStr.js'
+import { getEarlyestScheduleDateAjax } from '../../services/common'
 
 Page({
   /**
@@ -126,6 +127,8 @@ Page({
       ...res.data.data.userInfo,
     }
     wx.setStorageSync('gree_userInfo', userInfo)
+
+    getEarlyestScheduleDateAjax()
 
     wx.redirectTo({
       url: '/pages/index/index',

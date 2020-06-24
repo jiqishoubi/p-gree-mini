@@ -8,6 +8,9 @@ import {
   saveImgBaseLocal
 } from '../../../utils/util.js'
 
+const earlyestScheduleDate = getApp().globalData.earlyestScheduleDate
+const earlyestScheduleDateStamp = new Date(earlyestScheduleDate + ' 00:00:00').getTime()
+
 /**
  * 消费者 订单 详情  //销售单
  * options:
@@ -17,7 +20,6 @@ import {
  * 注：tradeStatus==93 已退单
  */
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -47,9 +49,10 @@ Page({
     qrcodeURL: '',
     //时间picker
     showTimePicker: false,
-    // currentDate: new Date().getTime(),
-    currentDate: new Date().getTime() + 86400000 * 2,
-    minDate: new Date().getTime() + 86400000 * 2,
+    // currentDate: new Date().getTime() + 86400000 * 2,
+    // minDate: new Date().getTime() + 86400000 * 2,
+    currentDate: earlyestScheduleDateStamp,
+    minDate: earlyestScheduleDateStamp,
     lookingGoodsIndex: null,
     formatterPicker: (type, value) => {
       let str = ''
@@ -148,16 +151,18 @@ Page({
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
   //设定最小时间
   setMinDate: function () {
-    let nowStr = formatDate(new Date(), 'yyyy-MM-dd hh')
-    let nowHour = Number(nowStr.substring(11, 13))
-    let minDate
-    if (nowHour < 15) { //下午3点之前
-      minDate = new Date().getTime() + 86400000
-    } else { //下午3点之后
-      minDate = new Date().getTime() + 86400000 * 2
-    }
+    // let nowStr = formatDate(new Date(), 'yyyy-MM-dd hh')
+    // let nowHour = Number(nowStr.substring(11, 13))
+    // let minDate
+    // if (nowHour < 15) { //下午3点之前
+    //   minDate = new Date().getTime() + 86400000
+    // } else { //下午3点之后
+    //   minDate = new Date().getTime() + 86400000 * 2
+    // }
+    const earlyestScheduleDate = getApp().globalData.earlyestScheduleDate
+    const earlyestScheduleDateStamp = new Date(earlyestScheduleDate + ' 00:00:00').getTime()
     this.setData({
-      minDate: minDate
+      minDate: earlyestScheduleDateStamp
     })
   },
   //获取订单详情

@@ -9,7 +9,7 @@ import {
 } from '../../../utils/util.js'
 
 const earlyestScheduleDate = getApp().globalData.earlyestScheduleDate
-const earlyestScheduleDateStamp = new Date(earlyestScheduleDate + ' 00:00:00').getTime()
+const earlyestScheduleDateStamp = new Date(earlyestScheduleDate.replace(/\-/g, '/') + ' 00:00:00').getTime()
 
 /**
  * 消费者 订单 详情  //销售单
@@ -160,7 +160,7 @@ Page({
     //   minDate = new Date().getTime() + 86400000 * 2
     // }
     const earlyestScheduleDate = getApp().globalData.earlyestScheduleDate
-    const earlyestScheduleDateStamp = new Date(earlyestScheduleDate + ' 00:00:00').getTime()
+    const earlyestScheduleDateStamp = new Date(earlyestScheduleDate.replace(/\-/g, '/') + ' 00:00:00').getTime()
     this.setData({
       minDate: earlyestScheduleDateStamp
     })

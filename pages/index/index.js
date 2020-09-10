@@ -8,7 +8,8 @@ Page({
   data: {
     //banner
     imgList: [
-      'https://cdn.s.bld365.com/getli_index_banner_02.png'
+      // 'https://cdn.s.bld365.com/getli_index_banner_02.png'
+      'https://cdn.s.bld365.com/getli_index_banner_02_new.png'
     ],
 
     userInfo: {},

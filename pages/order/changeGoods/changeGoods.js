@@ -503,7 +503,7 @@ Page({
     if (list[0].selectedGoods.ifMix && list[0].selectedGoods.ifMix == 1) {
       if (list.length < 2) {
         wx.showToast({
-          title: '套购机型必须选择2个',
+          title: '套购机型必须选择2个以上',
           icon: 'none',
           mask: true,
           duration: 1500,
@@ -515,8 +515,6 @@ Page({
 
 
     //修改成功返回
-    console.log(list)
-    console.log(oldOrder)
     let oldOrder_new = JSON.parse(JSON.stringify(oldOrder))
     oldOrder_new.goodsList = list.map((obj) => {
       let a = {

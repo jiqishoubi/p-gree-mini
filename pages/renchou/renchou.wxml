@@ -231,7 +231,7 @@
     </view>
   </block>
 
-  <view wx:if="{{list.length>0&&list[0].selectedGoods&&list[0].selectedGoods.ifMix==1&&list.length<2}}"
+  <view wx:if="{{list.length>0&&list[0].selectedGoods&&list[0].selectedGoods.ifMix==1}}"
     class="addbtn"
     hover-class="addbtn_active"
      hover-stay-time="{{150}}"

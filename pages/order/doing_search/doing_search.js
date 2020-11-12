@@ -63,7 +63,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    
+
   },
 
   /**
@@ -157,7 +157,6 @@ Page({
       data: postData,
     })
     wx.hideLoading()
-    console.log(res)
     if (
       res.data.code !== '0' ||
       !res.data.data ||

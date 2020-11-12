@@ -1,18 +1,8 @@
 <!-- 转销售 搜索页 -->
-<wxs src="../../../common/utils.wxs" module="utilsTool" />
 <view class="doing_search_page">
-  <!-- 搜索 -->
-  <view class="search_wrap van-hairline--surround flexCenter flexBetween">
-    <input class="search_input" placeholder="请输入券号/手机号" value="{{searchVal}}" bindinput="inputChange" data-key="searchVal"></input>
-    <image class='search_code' src='https://cdn.s.bld365.com/getli_order_doing_list_serach_code.png' alt='' bindtap="openCode"></image>
-  </view>
-  <!-- 按钮 -->
-  <view>
-    <button class="btn" hover-class="btn_active" bindtap="clickSearch">搜索</button>
-  </view>
   <!-- 搜索结果 -->
-  <block wx:if="{{resultList&&resultList.length>0}}">
-    <view wx:for="{{resultList}}" wx:key="index" class="result">
+  <block wx:if="{{toTransferArr&&toTransferArr.length>0}}">
+    <view wx:for="{{toTransferArr}}" wx:key="index" class="result">
       <view class="result_title flexCenter flexBetween">
         <view>{{item.orderNo}}</view>
         <view wx:if="{{item.orderDateStr}}" class="datetime">{{item.orderDateStr}}</view>
@@ -22,9 +12,14 @@
           <view class="result_label">认筹券号</view>
           <view class="result_input flexCenter flexBetween">
             <view>{{item.ticketCode}}</view>
-            <!-- <button class="zhuanBtn" bindtap="goOrderDetail" data-item="{{item}}">转销售</button> -->
-            <view wx:if="{{utilsTool.arrIndexOfByKey(toTransferArr,'orderNo',item.orderNo)}}">已添加</view>
-            <button wx:else class="zhuanBtn" bindtap="addOrder" data-item="{{item}}">添加</button>
+            <view class="flexCenter" style="margin-right:-6rpx;">
+              <button wx:if="{{!item.my_postData}}" class="zhuanBtn zhuanBtn1" hover-class="zhuanBtn1_active" bindtap="goOrderDetail" data-item="{{item}}">
+                转销售
+              </button>
+              <button class="zhuanBtn" bindtap="deleteOrder" data-item="{{item}}" style="margin-left:7rpx;">
+                删除
+              </button>
+            </view>
           </view>
         </view>
       </view>
@@ -50,5 +45,27 @@
       </view>
     </view>
   </block>
+  <view class="add_btn" hover-class="add_btn_active" hover-stay-time="110" bindtap="goDoSearch">
+    <van-icon name="plus" size='23' />
+  </view>
+  <!-- 按钮 -->
+  <view>
+    <button class="btn" hover-class="btn_active" bindtap="submit">提交</button>
+  </view>
   <view style="height:360rpx;"></view>
+
+  <!-- 下单成功modal -->
+  <van-dialog use-slot show="{{showResultModal}}" show-cancel-button="{{false}}" show-confirm-button="{{false}}">
+    <view class="flexColumn result_modal">
+      <view class="flexColumn">
+        <view style="font-size:37rpx;margin-bottom:15rpx;">下单成功</view>
+        <view style="font-size:28rpx;margin-bottom:60rpx;">请通知顾客到货后预约安装</view>
+      </view>
+      <view>
+        <button class="btn_result" hover-class="btn_result_active" bindtap="clickModalBtn">
+          知道了
+        </button>
+      </view>
+    </view>
+  </van-dialog>
 </view>

@@ -4,6 +4,7 @@
 import regeneratorRuntime from '../../../utils/runtime.js' //让小程序支持asyc await
 import requestw from '../../../utils/requestw.js'
 import allApiStr from '../../../utils/allApiStr.js'
+import { getGlobalData, setGlobalData } from '../../../utils/util.js'
 
 const app = getApp()
 
@@ -19,6 +20,8 @@ Page({
 
     //结果列表
     resultList: [],
+
+    toTransferArr: [],
   },
 
   /**
@@ -44,6 +47,9 @@ Page({
     //   searchVal: '',
     //   result: null,
     // })
+    this.setData({
+      toTransferArr: getGlobalData('toTransferArr')
+    })
   },
 
   /**
@@ -57,7 +63,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    
   },
 
   /**
@@ -137,7 +143,7 @@ Page({
     //发送参数
     let postData = {
       page: 1,
-      rows: 80,
+      rows: 600,
       // orderStatus: '0',
       orderStatus: '50',
       orderNoOrPhoneNumber: searchVal,
@@ -176,4 +182,16 @@ Page({
       url: `/pages/order/doing_search_detail/doing_search_detail?order=${JSON.stringify(item)}`,
     })
   },
+  //添加
+  addOrder: function (e) {
+    let item = e.currentTarget.dataset.item
+    console.log(item)
+    let toTransferArr = getGlobalData('toTransferArr')
+    toTransferArr.push(item)
+    setGlobalData('toTransferArr', toTransferArr)
+    this.setData({
+      toTransferArr: getGlobalData('toTransferArr')
+    })
+  }
+  //methods end
 })

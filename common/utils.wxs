@@ -1,0 +1,15 @@
+//判断数组里是否包含 keyStr ==value 的项
+function arrIndexOfByKey(arr, keyStr, value) {
+  var filterArr = arr.filter(function (obj) {
+    return obj[keyStr] == value
+  })
+  if (filterArr[0]) {
+    return true
+  } else {
+    return false
+  }
+}
+
+module.exports = {
+  arrIndexOfByKey: arrIndexOfByKey
+}

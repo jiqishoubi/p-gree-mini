@@ -33,7 +33,7 @@
     </view>
     <view class="nav_item flexCenter flexJCenter"
       bindtap="goPage"
-      data-item='/pages/order/doing_search/doing_search'
+      data-item='/pages/order/doing_search_pre/doing_search_pre'
       style="margin-bottom:18rpx"
     >
       <view class="nav_title">转销售</view>

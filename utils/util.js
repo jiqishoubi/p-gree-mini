@@ -1,6 +1,6 @@
 const QR = require('./weapp-qrcode-base64.js') //生成二维码
 
-const isTest = false
+const isTest = true
 
 const hostObj = {
   dev: {
@@ -114,4 +114,17 @@ export const saveImgBaseLocal = (imgSrc) => {
       console.log(err)
     }
   })
+}
+
+//globalData
+export const getGlobalData = (keyStr) => {
+  if (keyStr) {
+    return getApp().globalData[keyStr]
+  } else {
+    return getApp().globalData
+  }
+}
+
+export const setGlobalData = (keyStr, value) => {
+  getApp().globalData[keyStr] = value
 }

@@ -9,6 +9,8 @@ App({
   globalData: {
     isX: false,
     earlyestScheduleDate: formatDate(new Date(), 'yyyy-MM-dd'), //最早可预约时间
+    //2020.11.12
+    toTransferArr: [], //待转销售池 //每个都带着一个 my_postData 属性
   },
   onLaunch: function () {
     //isX

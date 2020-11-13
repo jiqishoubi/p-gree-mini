@@ -50,7 +50,7 @@
   </view>
   <!-- 按钮 -->
   <view>
-    <button class="btn" hover-class="btn_active" bindtap="submit">提交</button>
+    <button class="btn" hover-class="btn_active" bindtap="submit">提交转销售</button>
   </view>
   <view style="height:360rpx;"></view>
 

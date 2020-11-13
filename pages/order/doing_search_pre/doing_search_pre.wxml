@@ -14,7 +14,7 @@
             <view>{{item.ticketCode}}</view>
             <view class="flexCenter" style="margin-right:-6rpx;">
               <button wx:if="{{!item.my_postData}}" class="zhuanBtn zhuanBtn1" hover-class="zhuanBtn1_active" bindtap="goOrderDetail" data-item="{{item}}">
-                转销售
+                去确认
               </button>
               <button class="zhuanBtn" bindtap="deleteOrder" data-item="{{item}}" style="margin-left:7rpx;">
                 删除

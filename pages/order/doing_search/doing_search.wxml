@@ -23,8 +23,15 @@
           <view class="result_input flexCenter flexBetween">
             <view>{{item.ticketCode}}</view>
             <!-- <button class="zhuanBtn" bindtap="goOrderDetail" data-item="{{item}}">转销售</button> -->
-            <view wx:if="{{utilsTool.arrIndexOfByKey(toTransferArr,'orderNo',item.orderNo)}}">已添加</view>
-            <button wx:else class="zhuanBtn" bindtap="addOrder" data-item="{{item}}">添加</button>
+            <!-- <view wx:if="{{utilsTool.arrIndexOfByKey(toTransferArr,'orderNo',item.orderNo)}}" bindtap="deleteOrder" data-item="{{item}}">
+              已添加
+            </view> -->
+            <button wx:if="{{utilsTool.arrIndexOfByKey(toTransferArr,'orderNo',item.orderNo)}}" class="zhuanBtn" bindtap="deleteOrder" data-item="{{item}}">
+              已添加
+            </button>
+            <button wx:else class="zhuanBtn zhuanBtn1" bindtap="addOrder" data-item="{{item}}">
+              添加
+            </button>
           </view>
         </view>
       </view>
@@ -51,4 +58,7 @@
     </view>
   </block>
   <view style="height:360rpx;"></view>
+  <view wx:if="{{toTransferArr.length}}" class="btn2_wrap" style="{{'padding-bottom:'+(isX?'38':'0')+'rpx;'}}">
+    <button class="btn btn2" hover-class="btn_active" bindtap="submit">确定</button>
+  </view>
 </view>

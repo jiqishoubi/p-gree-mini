@@ -104,6 +104,15 @@
   justify-content: center;
 }
 
+.zhuanBtn1 {
+  background: linear-gradient(to bottom, #00a7ff, #0289fe);
+  color: #fff;
+}
+
+.zhuanBtn1_active {
+  background: linear-gradient(to bottom, #0ca4f4, #0e89f3);
+}
+
 /* 下面按钮 */
 
 .btn_submit {
@@ -127,4 +136,20 @@
 
 .btn_submit.isX {
   padding-bottom: 62rpx;
+}
+
+/* 提交 */
+.btn2_wrap {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 119rpx;
+  z-index: 3;
+  background-color: #fff;
+}
+
+.btn2 {
+  margin-top: 0;
+  margin-bottom: 0;
 }

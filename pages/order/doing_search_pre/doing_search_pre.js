@@ -130,7 +130,7 @@ Page({
     }
     if (!flag) {
       wx.showToast({
-        title: '转销售信息请填写完整',
+        title: '请确认以上订单信息已经全部确认完毕,才能提交',
         icon: 'none',
         duration: 1500,
       })

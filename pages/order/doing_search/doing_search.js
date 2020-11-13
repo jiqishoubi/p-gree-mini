@@ -184,13 +184,38 @@ Page({
   //添加
   addOrder: function (e) {
     let item = e.currentTarget.dataset.item
-    console.log(item)
-    let toTransferArr = getGlobalData('toTransferArr')
+    let toTransferArr = this.data.toTransferArr
     toTransferArr.push(item)
-    setGlobalData('toTransferArr', toTransferArr)
     this.setData({
-      toTransferArr: getGlobalData('toTransferArr')
+      toTransferArr: toTransferArr
     })
-  }
+  },
+  //删除
+  deleteOrder: function (e) {
+    let item = e.currentTarget.dataset.item
+    let toTransferArr = this.data.toTransferArr
+    for (let i = 0; i < toTransferArr.length; i++) {
+      if (toTransferArr[i].orderNo == item.orderNo) {
+        toTransferArr.splice(i, 1)
+        break
+      }
+    }
+    this.setData({
+      toTransferArr: toTransferArr
+    })
+  },
+  submit: function () {
+    let toTransferArr = this.data.toTransferArr
+    if (!toTransferArr.length) {
+      wx.showToast({
+        title: '请选择订单',
+        icon: 'none',
+        duration: 1500,
+      })
+      return
+    }
+    setGlobalData('toTransferArr', toTransferArr)
+    wx.navigateBack()
+  },
   //methods end
 })

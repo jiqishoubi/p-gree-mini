@@ -16,15 +16,9 @@
           </view>
           
           <view class="yuan_wrap flexCenter flexBetween">
-            <view wx:if="{{item.tradeFeeYuan}}">
-              {{item.tradeFeeYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text>
-            </view>
-            <view wx:elif="{{item.priceFeeActivityYuan}}">
-              {{item.priceFeeActivityYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text>
-            </view>
-            <view wx:else>
-              {{item.priceFeeYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text>
-            </view>
+            <view wx:if="{{item.tradeFeeYuan}}">{{item.tradeFeeYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text></view>
+            <view wx:elif="{{item.priceFeeActivityYuan}}">{{item.priceFeeActivityYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text></view>
+            <view wx:else>{{item.priceFeeYuan}}元<text decode="{{true}}">&nbsp;&nbsp;</text>x<text decode="{{true}}">&nbsp;</text><text>{{item.count}}</text></view>
 
             <view wx:if="{{item.ifUpdatePrice==1}}"
               bindtap="openEditPriceModal"
@@ -73,11 +67,7 @@
         <view wx:if="{{pickerCityVal[0]}}"
           class="input" 
           bindtap="openCitypicker"
-        >
-          <text wx:if="{{pickerCityVal[0]}}">{{pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text>
-          <text wx:if="{{pickerCityVal[1]}}">{{pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text> 
-          <text wx:if="{{pickerCityVal[2]}}">{{pickerCityVal[2].areaName}}</text>
-        </view>
+        ><text wx:if="{{pickerCityVal[0]}}">{{pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text><text wx:if="{{pickerCityVal[1]}}">{{pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text><text wx:if="{{pickerCityVal[2]}}">{{pickerCityVal[2].areaName}}</text></view>
         <view  wx:else 
           class="input flexJEnd" 
           bindtap="openCitypicker"
@@ -168,11 +158,7 @@
     <view class="flexColumn editprice_modal">
       <view class="price_item">
         <view class="price_item_label">当前价格(元)：</view>
-        <view wx:if="{{lookingIndex!==null}}" class="price_item_input">
-          <text wx:if="{{oldSelectedGoodsList[lookingIndex].tradeFeeYuan}}">{{oldSelectedGoodsList[lookingIndex].tradeFeeYuan}}</text>
-          <text wx:elif="{{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}">{{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}</text>
-          <text wx:else>{{oldSelectedGoodsList[lookingIndex].priceFeeYuan}}</text>
-        </view>
+        <view wx:if="{{lookingIndex!==null}}" class="price_item_input"><text wx:if="{{oldSelectedGoodsList[lookingIndex].tradeFeeYuan}}">{{oldSelectedGoodsList[lookingIndex].tradeFeeYuan}}</text><text wx:elif="{{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}">{{oldSelectedGoodsList[lookingIndex].priceFeeActivityYuan}}</text><text wx:else>{{oldSelectedGoodsList[lookingIndex].priceFeeYuan}}</text></view>
       </view>
       <view class="price_item">
         <view class="price_item_label">修改价格(元)：</view>

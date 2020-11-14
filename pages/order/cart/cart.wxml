@@ -53,17 +53,7 @@
           </view>
           <view class='item van-hairline--bottom'>
             <view class="label">所在地区</view>
-            <view wx:if="{{item.pickerCityVal[0]}}" class="input" bindtap="openCitypicker" data-index="{{index}}">
-              <text wx:if="{{item.pickerCityVal[0]}}">
-                {{item.pickerCityVal[0].areaName}}
-                <text decode="{{true}}">&nbsp;</text>
-              </text>
-              <text wx:if="{{item.pickerCityVal[1]}}">
-                {{item.pickerCityVal[1].areaName}}
-                <text decode="{{true}}">&nbsp;</text>
-              </text>
-              <text wx:if="{{item.pickerCityVal[2]}}">{{item.pickerCityVal[2].areaName}}</text>
-            </view>
+            <view wx:if="{{item.pickerCityVal[0]}}" class="input" bindtap="openCitypicker" data-index="{{index}}"><text wx:if="{{item.pickerCityVal[0]}}">{{item.pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text><text wx:if="{{item.pickerCityVal[1]}}">{{item.pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text><text wx:if="{{item.pickerCityVal[2]}}">{{item.pickerCityVal[2].areaName}}</text></view>
             <view wx:else class="input flexJEnd" bindtap="openCitypicker" data-index="{{index}}">
               请选择
               <van-icon name="arrow" custom-style="margin-top:6rpx;" />
@@ -104,11 +94,7 @@
           <input class="input" placeholder="请输入" value="{{item.billNumber}}" bindinput="onInputChange_index" data-key="billNumber" data-index="{{index}}"></input>
         </view>
         <view class="item van-hairline--bottom">
-          <view class="label">
-            备
-            <text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-            注
-          </view>
+          <view class="label">备<text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>注</view>
           <input class="input" placeholder="请输入" value="{{item.remarkinput}}" bindinput="onInputChange_index" data-key="remarkinput" data-index="{{index}}"></input>
         </view>
       </view>
@@ -130,15 +116,7 @@
     <view class="flexColumn editprice_modal">
       <view class="price_item">
         <view class="price_item_label">当前价格(元)：</view>
-        <view wx:if="{{lookingIndex!==null}}" class="price_item_input">
-          <text wx:if="{{selectedList[lookingIndex].tradeFeeYuan}}">
-            {{selectedList[lookingIndex].tradeFeeYuan}}
-          </text>
-          <text wx:elif="{{selectedList[lookingIndex].priceFeeActivityYuan}}">
-            {{selectedList[lookingIndex].priceFeeActivityYuan}}
-          </text>
-          <text wx:else>{{selectedList[lookingIndex].priceFeeYuan}}</text>
-        </view>
+        <view wx:if="{{lookingIndex!==null}}" class="price_item_input"><text wx:if="{{selectedList[lookingIndex].tradeFeeYuan}}">{{selectedList[lookingIndex].tradeFeeYuan}}</text><text wx:elif="{{selectedList[lookingIndex].priceFeeActivityYuan}}">{{selectedList[lookingIndex].priceFeeActivityYuan}}</text><text wx:else>{{selectedList[lookingIndex].priceFeeYuan}}</text></view>
       </view>
       <view class="price_item">
         <view class="price_item_label">修改价格(元)：</view>

@@ -42,9 +42,7 @@
         <view class="input">{{order.orderDateStr}}</view>
       </view>
       <view class="item">
-        <view class="label">
-          备<text style="color:transparent;">位置</text>注
-        </view>
+        <view class="label">备<text style="color:transparent;">位置</text>注</view>
         <view class="input">{{order.remark}}</view>
       </view>
     </view>

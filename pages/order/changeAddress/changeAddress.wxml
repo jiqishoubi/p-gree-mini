@@ -6,11 +6,7 @@
       <view wx:if="{{pickerCityVal[0]}}"
         class="input flexCenter" 
         bindtap="openCitypicker"
-      >
-        <text wx:if="{{pickerCityVal[0]}}">{{pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text>
-        <text wx:if="{{pickerCityVal[1]}}">{{pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text> 
-        <text wx:if="{{pickerCityVal[2]}}">{{pickerCityVal[2].areaName}}</text>
-      </view>
+      ><text wx:if="{{pickerCityVal[0]}}">{{pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text><text wx:if="{{pickerCityVal[1]}}">{{pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text><text wx:if="{{pickerCityVal[2]}}">{{pickerCityVal[2].areaName}}</text></view>
       <view wx:else
         class="input flexCenter flexBetween" 
         bindtap="openCitypicker"

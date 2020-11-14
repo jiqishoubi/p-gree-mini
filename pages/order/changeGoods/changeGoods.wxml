@@ -119,11 +119,7 @@
             class="input flexCenter" 
             bindtap="openCitypicker"
             data-indexwrap="{{indexwrap}}"
-          >
-            <text wx:if="{{itemwrap.pickerCityVal[0]}}">{{itemwrap.pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text>
-            <text wx:if="{{itemwrap.pickerCityVal[1]}}">{{itemwrap.pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text> 
-            <text wx:if="{{itemwrap.pickerCityVal[2]}}">{{itemwrap.pickerCityVal[2].areaName}}</text>
-          </view>
+          ><text wx:if="{{itemwrap.pickerCityVal[0]}}">{{itemwrap.pickerCityVal[0].areaName}}<text decode="{{true}}">&nbsp;</text></text><text wx:if="{{itemwrap.pickerCityVal[1]}}">{{itemwrap.pickerCityVal[1].areaName}}<text decode="{{true}}">&nbsp;</text></text> <text wx:if="{{itemwrap.pickerCityVal[2]}}">{{itemwrap.pickerCityVal[2].areaName}}</text></view>
           <view  wx:else 
             class="input flexCenter flexJEnd" 
             bindtap="openCitypicker"
@@ -171,12 +167,7 @@
         </view>
         <view class='item'>
           <view class="label">地址</view>
-          <view class="input">
-            <text wx:if="{{itemwrap.pickerCityVal[0]}}">{{itemwrap.pickerCityVal[0].areaName}}</text>
-            <text wx:if="{{itemwrap.pickerCityVal[1]}}">{{itemwrap.pickerCityVal[1].areaName}}</text>
-            <text wx:if="{{itemwrap.pickerCityVal[2]}}">{{itemwrap.pickerCityVal[2].areaName}}</text>
-            <text>{{itemwrap.pickerCityVal[0].areaName}}</text>
-          </view>
+          <view class="input"><text wx:if="{{itemwrap.pickerCityVal[0]}}">{{itemwrap.pickerCityVal[0].areaName}}</text><text wx:if="{{itemwrap.pickerCityVal[1]}}">{{itemwrap.pickerCityVal[1].areaName}}</text><text wx:if="{{itemwrap.pickerCityVal[2]}}">{{itemwrap.pickerCityVal[2].areaName}}</text><text>{{itemwrap.pickerCityVal[0].areaName}}</text></view>
         </view>
       </block>
     </view>

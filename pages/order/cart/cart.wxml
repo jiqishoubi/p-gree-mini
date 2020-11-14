@@ -119,8 +119,10 @@
   <!-- 按钮 -->
   <view class="ctrl van-hairline--top{{isX?' isX':''}}">
     <view>合计：{{sumPrice}}元</view>
-    <!-- <button class="submit" hover-class="submit_hover" bindtap="submit">提交订单</button> -->
-    <button class="submit" hover-class="submit_hover" bindtap="submit">确定</button>
+    <button wx:if="{{type == 'HOME_USE'}}" class="submit" hover-class="submit_hover" bindtap="submit1">
+      提交订单
+    </button>
+    <button wx:else class="submit" hover-class="submit_hover" bindtap="submit2">确定</button>
   </view>
   <!-- ************************************模态框************************************ -->
   <!-- 修改价格 -->

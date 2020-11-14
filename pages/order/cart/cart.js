@@ -259,172 +259,172 @@ Page({
       sumPrice: toMoney(sum)
     })
   },
-  // //点击提交订单
-  // submit: async function () {
-  //   const {
-  //     type,
-  //     activityCode,
-  //     activityInfo,
-  //     oldOrderNo,
-  //     oldSelectedGoodsList,
-  //     selectedList,
-  //     couponSms,
-  //   } = this.data
+  //点击提交订单
+  submit1: async function () {
+    const {
+      type,
+      activityCode,
+      activityInfo,
+      oldOrderNo,
+      oldSelectedGoodsList,
+      selectedList,
+      couponSms,
+    } = this.data
 
-  //   //验证
-  //   if (type == '' || activityCode == '') {
-  //     wx.showToast({
-  //       title: '参数缺失，请重新访问',
-  //       icon: 'none',
-  //       mask: true,
-  //       duration: 1500,
-  //     })
-  //     return false
-  //   }
-  //   if (type == 'HOME_USE') { //不是转销售的，那就是家用下单的，就得校验地址信息
-  //     let reg_phone = patternCreator.mobilePhone.pattern
-  //     let flag = true
-  //     let flag_phone = true
-  //     for (let i = 0; i < selectedList.length; i++) {
-  //       if (
-  //         selectedList[i].receiver == '' ||
-  //         selectedList[i].receivePhone == '' ||
-  //         selectedList[i].addressTemp == '' ||
-  //         !selectedList[i].pickerCityVal[0]
-  //       ) {
-  //         flag = false
-  //       }
+    //验证
+    if (type == '' || activityCode == '') {
+      wx.showToast({
+        title: '参数缺失，请重新访问',
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
+    if (type == 'HOME_USE') { //不是转销售的，那就是家用下单的，就得校验地址信息
+      let reg_phone = patternCreator.mobilePhone.pattern
+      let flag = true
+      let flag_phone = true
+      for (let i = 0; i < selectedList.length; i++) {
+        if (
+          selectedList[i].receiver == '' ||
+          selectedList[i].receivePhone == '' ||
+          selectedList[i].addressTemp == '' ||
+          !selectedList[i].pickerCityVal[0]
+        ) {
+          flag = false
+        }
 
-  //       if (!reg_phone.test(selectedList[i].receivePhone)) {
-  //         flag_phone = false
-  //       }
-  //       if (
-  //         selectedList[i].receivePhoneBak !== '' &&
-  //         !reg_phone.test(selectedList[i].receivePhoneBak)
-  //       ) {
-  //         flag_phone = false
-  //       }
-  //     }
-  //     if (!flag) {
-  //       wx.showToast({
-  //         title: '信息请输入完整',
-  //         icon: 'none',
-  //         mask: true,
-  //         duration: 1500,
-  //       })
-  //       return false
-  //     }
-  //     if (!flag_phone) {
-  //       wx.showToast({
-  //         title: '请输入正确格式的手机号',
-  //         icon: 'none',
-  //         mask: true,
-  //         duration: 1500,
-  //       })
-  //       return false
-  //     }
-  //   }
-  //   //验证 end
+        if (!reg_phone.test(selectedList[i].receivePhone)) {
+          flag_phone = false
+        }
+        if (
+          selectedList[i].receivePhoneBak !== '' &&
+          !reg_phone.test(selectedList[i].receivePhoneBak)
+        ) {
+          flag_phone = false
+        }
+      }
+      if (!flag) {
+        wx.showToast({
+          title: '信息请输入完整',
+          icon: 'none',
+          mask: true,
+          duration: 1500,
+        })
+        return false
+      }
+      if (!flag_phone) {
+        wx.showToast({
+          title: '请输入正确格式的手机号',
+          icon: 'none',
+          mask: true,
+          duration: 1500,
+        })
+        return false
+      }
+    }
+    //验证 end
 
-  //   //家用销售单 下单
-  //   wx.showLoading({
-  //     title: '请稍候...',
-  //     mask: true,
-  //   })
-  //   //一、验证短信验证码
-  //   //如果该活动需要发送短信验证码
-  //   if (activityInfo && activityInfo.ifSmsCaptcha == 1) {
-  //     if (couponSms == '') {
-  //       wx.showToast({
-  //         title: '请输入短信验证码',
-  //         icon: 'none',
-  //         mask: true,
-  //         duration: 1500,
-  //       })
-  //       return false
-  //     }
+    //家用销售单 下单
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    //一、验证短信验证码
+    //如果该活动需要发送短信验证码
+    if (activityInfo && activityInfo.ifSmsCaptcha == 1) {
+      if (couponSms == '') {
+        wx.showToast({
+          title: '请输入短信验证码',
+          icon: 'none',
+          mask: true,
+          duration: 1500,
+        })
+        return false
+      }
 
-  //     if (!(await this.checkSmsCaptcha())) {
-  //       wx.showToast({
-  //         title: '短信验证码校验失败',
-  //         icon: 'none',
-  //         mask: true,
-  //         duration: 1500,
-  //       })
-  //       return false
-  //     }
-  //   }
-  //   //二、提交订单
-  //   //发送参数
-  //   let goodsListJson = []
-  //   selectedList.forEach((obj) => {
-  //     let addressInfo
-  //     if (type == 'HOME_USE') { //家用
-  //       addressInfo = {
-  //         custName: obj.receiver,
-  //         phoneNumber: obj.receivePhone,
-  //         phoneNumberBak: obj.receivePhoneBak,
-  //         provinceCode: obj.pickerCityVal[0].areaCode,
-  //         eparchyCode: obj.pickerCityVal[1].areaCode,
-  //         cityCode: obj.pickerCityVal[2].areaCode,
-  //         address: obj.addressTemp,
-  //       }
-  //     } else { //转销售
-  //       addressInfo = {
-  //         custName: obj.custName,
-  //         phoneNumber: obj.phoneNumber,
-  //         phoneNumberBak: obj.phoneNumberBak,
-  //         provinceCode: obj.provinceCode,
-  //         eparchyCode: obj.eparchyCode,
-  //         cityCode: obj.cityCode,
-  //         address: obj.address,
-  //       }
-  //     }
-  //     //价格
-  //     let yuan = '0'
-  //     if (obj.tradeFeeYuan) {
-  //       yuan = obj.tradeFeeYuan
-  //     } else if (obj.priceFeeActivityYuan) {
-  //       yuan = obj.priceFeeActivityYuan
-  //     } else {
-  //       yuan = obj.priceFeeYuan
-  //     }
-  //     let objTemp = {
-  //       goodsCode: obj.goodsCode,
-  //       shoppingCode: obj.billNumber,
-  //       remark: obj.remarkinput,
-  //       tradeFee: yuan * 100,
-  //       ...addressInfo
-  //     }
-  //     goodsListJson.push(objTemp)
-  //   })
-  //   let postData = {
-  //     tradeType: type,
-  //     preOrderNo: oldOrderNo ?
-  //       oldOrderNo : (type == 'PRE_SALE' ? oldSelectedGoodsList[0].orderNo : null), //如果是认筹转销售，要传 认筹单号
-  //     activityCode,
-  //     // ifRepaire:1 0,
-  //     goodsListJsonStr: JSON.stringify(goodsListJson)
-  //   }
-  //   let res = await requestw({
-  //     url: allApiStr.sumbitSaleOrderApi,
-  //     data: postData,
-  //   })
-  //   wx.hideLoading()
-  //   console.log(res)
+      if (!(await this.checkSmsCaptcha())) {
+        wx.showToast({
+          title: '短信验证码校验失败',
+          icon: 'none',
+          mask: true,
+          duration: 1500,
+        })
+        return false
+      }
+    }
+    //二、提交订单
+    //发送参数
+    let goodsListJson = []
+    selectedList.forEach((obj) => {
+      let addressInfo
+      if (type == 'HOME_USE') { //家用
+        addressInfo = {
+          custName: obj.receiver,
+          phoneNumber: obj.receivePhone,
+          phoneNumberBak: obj.receivePhoneBak,
+          provinceCode: obj.pickerCityVal[0].areaCode,
+          eparchyCode: obj.pickerCityVal[1].areaCode,
+          cityCode: obj.pickerCityVal[2].areaCode,
+          address: obj.addressTemp,
+        }
+      } else { //转销售
+        addressInfo = {
+          custName: obj.custName,
+          phoneNumber: obj.phoneNumber,
+          phoneNumberBak: obj.phoneNumberBak,
+          provinceCode: obj.provinceCode,
+          eparchyCode: obj.eparchyCode,
+          cityCode: obj.cityCode,
+          address: obj.address,
+        }
+      }
+      //价格
+      let yuan = '0'
+      if (obj.tradeFeeYuan) {
+        yuan = obj.tradeFeeYuan
+      } else if (obj.priceFeeActivityYuan) {
+        yuan = obj.priceFeeActivityYuan
+      } else {
+        yuan = obj.priceFeeYuan
+      }
+      let objTemp = {
+        goodsCode: obj.goodsCode,
+        shoppingCode: obj.billNumber,
+        remark: obj.remarkinput,
+        tradeFee: yuan * 100,
+        ...addressInfo
+      }
+      goodsListJson.push(objTemp)
+    })
+    let postData = {
+      tradeType: type,
+      preOrderNo: oldOrderNo ?
+        oldOrderNo : (type == 'PRE_SALE' ? oldSelectedGoodsList[0].orderNo : null), //如果是认筹转销售，要传 认筹单号
+      activityCode,
+      // ifRepaire:1 0,
+      goodsListJsonStr: JSON.stringify(goodsListJson)
+    }
+    let res = await requestw({
+      url: allApiStr.sumbitSaleOrderApi,
+      data: postData,
+    })
+    wx.hideLoading()
+    console.log(res)
 
-  //   if (res.data.code !== '0') {
-  //     wx.showToast({
-  //       title: res.data.message,
-  //       icon: 'none',
-  //       mask: true,
-  //       duration: 1500,
-  //     })
-  //     return false
-  //   }
+    if (res.data.code !== '0') {
+      wx.showToast({
+        title: res.data.message,
+        icon: 'none',
+        mask: true,
+        duration: 1500,
+      })
+      return false
+    }
 
-  //   this.openResultModal()
-  // },
+    this.openResultModal()
+  },
   //成功modal组件
   openResultModal: function () {
     this.setData({
@@ -651,7 +651,7 @@ Page({
   //短信验证码 end
 
   //点击提交订单
-  submit: async function () {
+  submit2: async function () {
     const {
       type,
       activityCode,

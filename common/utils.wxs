@@ -10,6 +10,25 @@ function arrIndexOfByKey(arr, keyStr, value) {
   }
 }
 
+//返回toTransferArr里的goodsList
+function getItemGoodsList(item) {
+  var arr = []
+  if (!item) {
+    return arr
+  }
+  if (
+    item.my_postData &&
+    item.my_postData.goodsListJsonStr &&
+    JSON.parse(item.my_postData.goodsListJsonStr)
+  ) {
+    arr = JSON.parse(item.my_postData.goodsListJsonStr)
+  } else {
+    arr = item.goodsList
+  }
+  return arr
+}
+
 module.exports = {
-  arrIndexOfByKey: arrIndexOfByKey
+  arrIndexOfByKey: arrIndexOfByKey,
+  getItemGoodsList: getItemGoodsList
 }

@@ -782,6 +782,7 @@ Page({
       }
       let objTemp = {
         goodsCode: obj.goodsCode,
+        goodsName:obj.goodsName, //my_postData
         shoppingCode: obj.billNumber,
         remark: obj.remarkinput,
         tradeFee: yuan * 100,

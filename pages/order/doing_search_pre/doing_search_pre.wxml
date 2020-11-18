@@ -1,4 +1,5 @@
 <!-- 转销售 搜索页 -->
+<wxs src="../../../common/utils.wxs" module="utilsTool" />
 <view class="doing_search_page">
   <!-- 搜索结果 -->
   <block wx:if="{{toTransferArr&&toTransferArr.length>0}}">
@@ -23,7 +24,7 @@
           </view>
         </view>
       </view>
-      <view wx:for="{{item.goodsList}}" wx:for-index="idx" wx:for-item="itm" wx:key="idx" class="result_content">
+      <view wx:for="{{utilsTool.getItemGoodsList(item)}}" wx:for-index="idx" wx:for-item="itm" wx:key="idx" class="result_content">
         <view class="result_item">
           <view class="result_label">客户姓名</view>
           <view class="result_input">{{itm.custName}}</view>

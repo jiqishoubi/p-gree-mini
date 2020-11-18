@@ -105,11 +105,10 @@
   <!-- 按钮 -->
   <view class="ctrl van-hairline--top{{isX?' isX':''}}">
     <view>合计：{{sumPrice}}元</view>
-    <button wx:if="{{type == 'HOME_USE'}}" class="submit" hover-class="submit_hover" bindtap="submit1">
-      提交订单
-    </button>
-    <button wx:else class="submit" hover-class="submit_hover" bindtap="submit2">确定</button>
+    <button wx:if="{{isForConfirm}}" class="submit" hover-class="submit_hover" bindtap="submit2">确定</button>
+    <button wx:else class="submit" hover-class="submit_hover" bindtap="submit1">提交订单</button>
   </view>
+
   <!-- ************************************模态框************************************ -->
   <!-- 修改价格 -->
   <van-dialog use-slot show="{{showEditPriceModal}}" title="修改价格" show-cancel-button="{{true}}" show-confirm-button="{{true}}" bind:cancel="onEditPriceCancel" bind:confirm="onEditPriceConfirm">

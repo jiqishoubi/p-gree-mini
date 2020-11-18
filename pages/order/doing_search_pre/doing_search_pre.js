@@ -39,7 +39,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let toTransferArr=getGlobalData('toTransferArr')
+    let toTransferArr = getGlobalData('toTransferArr')
     console.log(toTransferArr)
     this.setData({
       toTransferArr,
@@ -85,7 +85,7 @@ Page({
   goOrderDetail: function (e) {
     let item = e.currentTarget.dataset.item
     wx.navigateTo({
-      url: `/pages/order/doing_search_detail/doing_search_detail?order=${JSON.stringify(item)}`,
+      url: `/pages/order/doing_search_detail/doing_search_detail?order=${JSON.stringify(item)}&isForConfirm=1`,
     })
   },
   goDoSearch() {

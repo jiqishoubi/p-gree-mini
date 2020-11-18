@@ -16,6 +16,7 @@ Page({
   data: {
     isX: app.globalData.isX,
 
+    isForConfirm: '',
     oldOrder: null, //传过来的order数据
     order: null,
   },
@@ -23,7 +24,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function(options) {
+  onLoad: async function (options) {
+    console.log(options)
     if (!options.order) {
       wx.showToast({
         title: '参数缺失，请重新进入',
@@ -35,9 +37,10 @@ Page({
     }
 
     this.setData({
+      isForConfirm: options.isForConfirm || '',
       oldOrder: JSON.parse(options.order),
       order: JSON.parse(options.order),
-    },()=>{
+    }, () => {
       console.log(this.data.order)
     })
   },
@@ -45,14 +48,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     //从选择商品页（单选）回来
     if (wx.getStorageSync('from_choose2_single_selectedGoods')) {
       let selectedGoods = wx.getStorageSync('from_choose2_single_selectedGoods')
@@ -99,40 +102,40 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   //方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法
   //删除商品
-  deleteGoods: function(e) {
+  deleteGoods: function (e) {
     // const self = this
     // wx.showModal({
     //   title: '提示',
@@ -163,7 +166,7 @@ Page({
     })
   },
   //点击商品名称 去选择商品
-  goChooseGoods: function(e) {
+  goChooseGoods: function (e) {
     const {
       order
     } = this.data
@@ -177,7 +180,7 @@ Page({
     })
   },
   //点击下单
-  clickOrder: function() {
+  clickOrder: function () {
     const {
       order
     } = this.data
@@ -189,11 +192,11 @@ Page({
     let oldOrderNo = order.orderNo
 
     wx.navigateTo({
-      url: `/pages/order/cart/cart?type=${type}&activityCode=${activityCode}&selectedGoodsList=${JSON.stringify(selectedGoodsList)}&oldOrderNo=${oldOrderNo}`,
+      url: `/pages/order/cart/cart?type=${type}&isForConfirm=${this.data.isForConfirm}&activityCode=${activityCode}&selectedGoodsList=${JSON.stringify(selectedGoodsList)}&oldOrderNo=${oldOrderNo}`,
     })
   },
   //拨打电话
-  callPhone: function(e) {
+  callPhone: function (e) {
     let phone = e.currentTarget.dataset.phone
     if (!phone) {
       return false
@@ -201,7 +204,7 @@ Page({
     wx.showModal({
       title: '提示',
       content: `确认拨打电话${phone}？`,
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           wx.makePhoneCall({
             phoneNumber: phone

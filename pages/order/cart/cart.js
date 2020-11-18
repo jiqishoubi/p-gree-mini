@@ -31,6 +31,7 @@ Page({
     isX: app.globalData.isX,
 
     type: '',
+    isForConfirm: '', //只显示确定按钮
     activityCode: '',
     activityInfo: null,
     oldOrderNo: '',
@@ -63,6 +64,7 @@ Page({
     console.log(options)
     // wx.setStorageSync('test_cart', options) //测试用
     // options = wx.getStorageSync('test_cart') //测试用
+
     if (!options.type) {
       wx.showToast({
         title: '订单参数缺失，请重新访问',
@@ -101,6 +103,7 @@ Page({
 
     this.setData({
       type: options.type,
+      isForConfirm: options.isForConfirm || '',
       activityCode: options.activityCode,
       activityInfo: options.activityInfo ? JSON.parse(options.activityInfo) : null,
       oldOrderNo: options.oldOrderNo,
@@ -782,7 +785,7 @@ Page({
       }
       let objTemp = {
         goodsCode: obj.goodsCode,
-        goodsName:obj.goodsName, //my_postData
+        goodsName: obj.goodsName, //my_postData
         shoppingCode: obj.billNumber,
         remark: obj.remarkinput,
         tradeFee: yuan * 100,

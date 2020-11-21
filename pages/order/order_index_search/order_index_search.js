@@ -2,6 +2,7 @@ import regeneratorRuntime from '../../../utils/runtime.js' //让小程序支持a
 import requestw from '../../../utils/requestw.js'
 import allApiStr from '../../../utils/allApiStr.js'
 import patternCreator from '../../../utils/patternCreator.js'
+import { applyCancelOrderAjax } from '../../../services/order'
 
 Page({
 
@@ -109,7 +110,7 @@ Page({
     let phoneReg = patternCreator.mobilePhone.pattern
     if (phoneReg.test(searchVal)) { //是手机号
       postData1 = {
-        notOrderStatus:'90',
+        notOrderStatus: '90',
         phoneNumber: searchVal,
       }
       postData2 = {
@@ -117,7 +118,7 @@ Page({
       }
     } else { //不是手机号 //单号
       postData1 = {
-        notOrderStatus:'90',
+        notOrderStatus: '90',
         orderNo: searchVal,
       }
       postData2 = {
@@ -221,6 +222,46 @@ Page({
       lookingOrder: null,
     })
   },
+  // confirmCancelModal: async function (e) {
+  //   const {
+  //     lookingOrder
+  //   } = this.data
+  //   let value = e.detail
+  //   let postData = {
+  //     tradeNo: lookingOrder.tradeNo,
+  //     resultNote: value,
+  //   }
+  //   wx.showLoading({
+  //     title: '请稍候...',
+  //     mask: true,
+  //   })
+  //   let res = await requestw({
+  //     url: allApiStr.cancelTradeOrderApi,
+  //     data: postData,
+  //   })
+  //   wx.hideLoading()
+
+  //   if (res.data.code !== '0') {
+  //     wx.showToast({
+  //       title: res.data.message,
+  //       icon: 'none',
+  //       mask: true,
+  //       duration: 1500,
+  //     })
+  //     return false
+  //   }
+
+  //   wx.showToast({
+  //     title: '操作成功',
+  //     icon: 'none',
+  //     // mask: true,
+  //     duration: 1500,
+  //   })
+
+  //   this.selectComponent('#cancelordermodal').resetVal()
+  //   this.closeCancelModal()
+  //   this.getData(false)
+  // },
   confirmCancelModal: async function (e) {
     const {
       lookingOrder
@@ -228,38 +269,27 @@ Page({
     let value = e.detail
     let postData = {
       tradeNo: lookingOrder.tradeNo,
-      resultNote: value,
+      applyContent: value,
     }
     wx.showLoading({
       title: '请稍候...',
       mask: true,
     })
-    let res = await requestw({
-      url: allApiStr.cancelTradeOrderApi,
-      data: postData,
-    })
+    const res = await applyCancelOrderAjax(postData)
+    if (!res) return
+    //成功
     wx.hideLoading()
-
-    if (res.data.code !== '0') {
-      wx.showToast({
-        title: res.data.message,
-        icon: 'none',
-        mask: true,
-        duration: 1500,
-      })
-      return false
-    }
-
     wx.showToast({
       title: '操作成功',
       icon: 'none',
       // mask: true,
       duration: 1500,
     })
-
     this.selectComponent('#cancelordermodal').resetVal()
     this.closeCancelModal()
-    this.getData(false)
+    setTimeout(() => {
+      this.getData(false)
+    }, 1200)
   },
   //去订单详情
   goDetail: function (e) {

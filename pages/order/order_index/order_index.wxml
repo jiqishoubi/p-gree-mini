@@ -182,7 +182,7 @@
           </view>
         </view>
 
-        <view wx:if="{{navIndex==2}}" class="btn_wrap">
+        <view wx:if="{{item.tradeDateStr&&item.tradeStatus=='30'}}" class="btn_wrap">
           <button class="btn"
             hover-class="btn_active"
             catchtap="openCancelModal"
